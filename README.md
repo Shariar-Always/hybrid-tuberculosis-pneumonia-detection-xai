@@ -37,6 +37,17 @@ This repository contains the official implementation of the **Hybrid Explainable
 
 The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **CBAM Attention Blocks**) to classify tuberculosis from chest scans and provides real-time model interpretability using four advanced XAI methods to increase clinical trust.
 
+### ⚙️ App Deployment Specifications
+
+| Parameter | Configuration |
+| :--- | :--- |
+| **App Title** | Hybrid Tuberculosis Detection XAI |
+| **App Emoji** | 🫁 |
+| **Theme Colors** | Blue → Indigo |
+| **Deployment SDK** | Streamlit |
+| **SDK Version** | v1.35.0 |
+| **Entry Point File** | [app.py](file:///e:/Git%20All%20Repo/hybrid-tb-detection-xai/app/app.py) |
+
 ---
 
 ## 📊 Features
