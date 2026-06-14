@@ -1,4 +1,3 @@
-
 <h1 align="center">🫁 Hybrid Explainable AI (XAI) Framework for Automatic Tuberculosis Detection</h1>
 
 <p align="center">
@@ -39,45 +38,45 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
 
 ### ⚙️ App Deployment Specifications
 
-| Parameter | Configuration |
-| :--- | :--- |
-| **App Title** | Hybrid Tuberculosis Detection XAI |
-| **App Emoji** | 🫁 |
-| **Theme Colors** | Blue → Indigo |
-| **Deployment SDK** | Streamlit |
-| **SDK Version** | v1.35.0 |
+| Parameter            | Configuration                                                                           |
+| :------------------- | :-------------------------------------------------------------------------------------- |
+| **App Title**        | Hybrid Tuberculosis Detection XAI                                                       |
+| **App Emoji**        | 🫁                                                                                      |
+| **Theme Colors**     | Blue → Indigo                                                                           |
+| **Deployment SDK**   | Streamlit                                                                               |
+| **SDK Version**      | v1.35.0                                                                                 |
 | **Entry Point File** | [app.py](https://github.com/Shariar-Ahamed/hybrid-tb-detection-xai/blob/main/app/app.py) |
 
 ---
 
 ## 📊 Features
 
-* **Hybrid CNN-Attention Architecture**: Combines features from DenseNet121 with Channel and Spatial Attention Blocks (CBAM) to focus on relevant pathological regions.
-* **Comparative XAI Engine**: Real-time visualization using four distinct methods:
-  * **Grad-CAM**: Visualizes activation heatmaps highlighting general disease regions.
-  * **Grad-CAM++**: Focuses on more localized multiple instances of features.
-  * **Guided Backpropagation**: Highlights fine-grained, high-frequency textural borders and details.
-  * **Saliency Maps**: Blends standard pixel gradients using `COLORMAP_HOT` overlays.
-* **Streamlit Dashboard**: Dark-themed, modern glassmorphic dashboard for diagnostic execution.
-* **Clinical PDF Report**: Generates print-ready PDFs directly in-memory featuring metadata, confidence metrics, and selected XAI maps.
-* **Outstanding Performance**: Achieved **100% test accuracy and sensitivity** on the test subset (630 images) of the hybrid dataset (4,200 chest X-ray scans).
+- **Hybrid CNN-Attention Architecture**: Combines features from DenseNet121 with Channel and Spatial Attention Blocks (CBAM) to focus on relevant pathological regions.
+- **Comparative XAI Engine**: Real-time visualization using four distinct methods:
+  - **Grad-CAM**: Visualizes activation heatmaps highlighting general disease regions.
+  - **Grad-CAM++**: Focuses on more localized multiple instances of features.
+  - **Guided Backpropagation**: Highlights fine-grained, high-frequency textural borders and details.
+  - **Saliency Maps**: Blends standard pixel gradients using `COLORMAP_HOT` overlays.
+- **Streamlit Dashboard**: Dark-themed, modern glassmorphic dashboard for diagnostic execution.
+- **Clinical PDF Report**: Generates print-ready PDFs directly in-memory featuring metadata, confidence metrics, and selected XAI maps.
+- **Outstanding Performance**: Achieved **100% test accuracy and sensitivity** on the test subset (630 images) of the hybrid dataset (4,200 chest X-ray scans).
 
 ---
 
 ## 🔗 Live Demo & Links
 
-* **Streamlit Community Cloud App**: [Live View](https://hybrid-tuberculosis-detection-xai.streamlit.app/)
+- **Streamlit Community Cloud App**: [Live View](https://hybrid-tuberculosis-detection-xai.streamlit.app/)
 
 ---
 
 ## 👥 Project Team & Supervision
 
-* **Supervised by**: 
-  * **Dr. Md. Ali Hossain** (Associate Professor, Department of CSE, DIU)
-  * **Mr. Md. Mizanur Rahman** (Co-Supervisor)
-* **Developed by**:
-  * **Shariar Ahamed Ripon** (ID: 0242310005101019)
-  * **Md. Moniruzzaman Rifat** (ID: 0242310005101020)
+- **Supervised by**:
+  - **Dr. Md. Ali Hossain** (Associate Professor, Department of CSE, DIU)
+  - **Mr. Md. Mizanur Rahman** (Co-Supervisor)
+- **Developed by**:
+  - **Shariar Ahamed Ripon** (ID: 0242310005101019)
+  - **Md. Moniruzzaman Rifat** (ID: 0242310005101020)
 
 ---
 
