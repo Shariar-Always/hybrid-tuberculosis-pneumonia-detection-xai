@@ -46,7 +46,7 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
 | **Theme Colors** | Blue → Indigo |
 | **Deployment SDK** | Streamlit |
 | **SDK Version** | v1.35.0 |
-| **Entry Point File** | [app.py](file:///e:/Git%20All%20Repo/hybrid-tb-detection-xai/app/app.py) |
+| **Entry Point File** | [app.py](https://github.com/Shariar-Ahamed/hybrid-tb-detection-xai/blob/main/app/app.py) |
 
 ---
 
