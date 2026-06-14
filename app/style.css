@@ -398,30 +398,58 @@ section[data-testid="stSidebar"] {
     text-align: center;
 }
 
-.spinner-ring {
-    width: 70px;
-    height: 70px;
-    border: 4px solid rgba(56, 189, 248, 0.08);
-    border-top: 4px solid #38bdf8;
-    border-right: 4px solid #a855f7;
-    border-radius: 50%;
-    animation: spin-loader 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.45));
-    margin-bottom: 1.5rem;
+/* Futuristic Scanner Loader */
+.scanner-container {
     position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
 }
 
-.spinner-ring::after {
-    content: '';
+.scanner-outer {
     position: absolute;
-    top: 6px;
-    left: 6px;
-    right: 6px;
-    bottom: 6px;
-    border: 3px solid rgba(168, 85, 247, 0.04);
-    border-top: 3px solid #ec4899;
+    width: 90px;
+    height: 90px;
+    border: 2px dashed rgba(56, 189, 248, 0.25);
     border-radius: 50%;
-    animation: spin-loader-reverse 1.8s linear infinite;
+    animation: spin-loader 6s linear infinite;
+}
+
+.scanner-inner {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 3px solid transparent;
+    border-top: 3px solid #38bdf8;
+    border-bottom: 3px solid #60a5fa;
+    border-radius: 50%;
+    animation: spin-loader-reverse 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+}
+
+.scanner-core {
+    position: absolute;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse-scanner 1.2s ease-in-out infinite alternate;
+    z-index: 2;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+}
+
+@keyframes pulse-scanner {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
 }
 
 @keyframes spin-loader {
@@ -446,7 +474,7 @@ section[data-testid="stSidebar"] {
 }
 
 .loader-text {
-    background: linear-gradient(90deg, #38bdf8, #a855f7);
+    background: linear-gradient(90deg, #38bdf8, #60a5fa);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -497,6 +525,22 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] small {
 }
 [data-testid="stFileUploader"] button * {
     color: inherit !important; /* Let children inherit the light color from the parent button */
+}
+/* Style the delete button specifically to turn red on hover/active (optimized & concise) */
+[data-testid="stFileUploader"] button[aria-label*="remove" i]:hover,
+[data-testid="stFileUploader"] button[aria-label*="delete" i]:hover,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDeleteBtn"]:hover {
+    background: rgba(239, 68, 68, 0.16) !important;
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.25) !important;
+}
+[data-testid="stFileUploader"] button[aria-label*="remove" i]:active,
+[data-testid="stFileUploader"] button[aria-label*="delete" i]:active,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDeleteBtn"]:active {
+    background: rgba(239, 68, 68, 0.28) !important;
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
 }
 
 /* Custom Premium Footer Styling */

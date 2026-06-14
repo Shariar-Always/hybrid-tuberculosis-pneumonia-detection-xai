@@ -50,39 +50,52 @@ if "first_load_done" not in st.session_state:
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+            @keyframes spin-splash-reverse {
+                0% { transform: rotate(360deg); }
+                100% { transform: rotate(0deg); }
+            }
+            @keyframes pulse-splash-core {
+                0% { transform: scale(0.85); opacity: 0.7; }
+                100% { transform: scale(1.1); opacity: 1; }
+            }
             @keyframes pulse-splash-text {
                 0%, 100% { opacity: 0.6; }
                 50% { opacity: 1; }
             }
-            @keyframes pulse-splash-glow {
-                0%, 100% { opacity: 0.5; transform: scale(0.92); }
-                50% { opacity: 0.85; transform: scale(1.08); }
-            }
         </style>
-        <div style="position: relative; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; width: 140px; height: 140px;">
+        <div style="position: relative; margin-bottom: 1.8rem; display: flex; align-items: center; justify-content: center; width: 120px; height: 120px;">
+            <!-- Outer dashed ring -->
             <div style="
                 position: absolute;
-                width: 120px;
-                height: 120px;
-                background: radial-gradient(circle, rgba(56, 189, 248, 0.45) 0%, rgba(168, 85, 247, 0.25) 50%, transparent 70%);
-                filter: blur(14px);
+                width: 110px;
+                height: 110px;
+                border: 2px dashed rgba(56, 189, 248, 0.3);
                 border-radius: 50%;
-                animation: pulse-splash-glow 2.5s infinite ease-in-out;
-                pointer-events: none;
-                z-index: 1;
+                animation: spin-splash 6s linear infinite;
             "></div>
+            <!-- Inner glowing ring -->
             <div style="
-                width: 65px;
-                height: 65px;
-                border: 4px solid rgba(56, 189, 248, 0.08);
-                border-top: 4px solid #38bdf8;
-                border-right: 4px solid #a855f7;
+                position: absolute;
+                width: 85px;
+                height: 85px;
+                border: 3px solid transparent;
+                border-top: 3px solid #38bdf8;
+                border-bottom: 3px solid #60a5fa;
                 border-radius: 50%;
-                animation: spin-splash 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-                filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.45));
-                position: relative;
-                z-index: 2;
+                animation: spin-splash-reverse 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.5));
             "></div>
+            <!-- Central pulsing core (Lungs) -->
+            <div style="
+                position: absolute;
+                font-size: 2.2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: pulse-splash-core 1.2s ease-in-out infinite alternate;
+                z-index: 10;
+                filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
+            ">🫁</div>
         </div>
         <div style="
             font-size: 1.7rem;
@@ -93,7 +106,7 @@ if "first_load_done" not in st.session_state:
             margin-bottom: 0.5rem;
             letter-spacing: -0.8px;
             font-family: 'Poppins', sans-serif;
-        ">🫁 TB-XAI Platform</div>
+        ">⚕️ TB-XAI Platform</div>
         <div style="
             color: #94a3b8;
             font-size: 0.78rem;
@@ -428,9 +441,12 @@ with display_col:
                 
             loader_placeholder.markdown(f"""
             <div class="premium-loader-box">
-                <div class="spinner-ring"></div>
+                <div class="scanner-container">
+                    <div class="scanner-outer"></div>
+                    <div class="scanner-inner"></div>
+                    <div class="scanner-core">{icon}</div>
+                </div>
                 <div class="loader-title">
-                    <span class="loader-emoji">{icon}</span>
                     <span class="loader-text">Processing Diagnostic Analysis</span>
                 </div>
                 <div class="loader-desc">{status} ({i}%)</div>
@@ -440,9 +456,12 @@ with display_col:
         # Show a transition state during the actual deep learning computation to prevent blank UI state
         loader_placeholder.markdown("""
         <div class="premium-loader-box">
-            <div class="spinner-ring"></div>
+            <div class="scanner-container">
+                <div class="scanner-outer"></div>
+                <div class="scanner-inner"></div>
+                <div class="scanner-core">🧠</div>
+            </div>
             <div class="loader-title">
-                <span class="loader-emoji">🧠</span>
                 <span class="loader-text">Executing Model Inference</span>
             </div>
             <div class="loader-desc">Running deep learning classification and generating XAI explanations...</div>
