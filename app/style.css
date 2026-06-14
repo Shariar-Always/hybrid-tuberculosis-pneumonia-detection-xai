@@ -362,7 +362,7 @@ section[data-testid="stSidebar"] {
     background: rgba(255, 255, 255, 0.02) !important;
     border: 2px dashed rgba(168, 85, 247, 0.2) !important;
     border-radius: 12px !important;
-    padding: 1.5rem !important;
+    padding: 1.25rem 1rem !important;
     transition: border-color 0.3s ease !important;
 }
 [data-testid="stFileUploader"]:hover {
@@ -372,19 +372,14 @@ section[data-testid="stSidebar"] {
     background: transparent !important;
     padding: 0 !important;
 }
-/* Responsive vertical stacked layout in uploader to prevent overlap in narrow columns/iframes */
-@media (max-width: 1024px) {
-    [data-testid="stFileUploader"] {
-        padding: 1rem !important;
-    }
-    [data-testid="stFileUploader"] section > div {
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
-        gap: 0.6rem !important;
-        padding: 0.5rem 0 !important;
-    }
+/* Always use a clean vertical stacked layout in the uploader to prevent overlap in 1/3 columns on all viewports */
+[data-testid="stFileUploader"] section > div {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 0.65rem !important;
+    padding: 0.25rem 0 !important;
 }
 
 /* Custom Premium Loader CSS */

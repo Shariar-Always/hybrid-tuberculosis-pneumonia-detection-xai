@@ -1,13 +1,3 @@
----
-title: Hybrid Tuberculosis Detection XAI
-emoji: 🫁
-colorFrom: blue
-colorTo: indigo
-sdk: streamlit
-sdk_version: 1.35.0
-app_file: app/app.py
-pinned: false
----
 
 <h1 align="center">🫁 Hybrid Explainable AI (XAI) Framework for Automatic Tuberculosis Detection</h1>
 
@@ -63,10 +53,8 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
 
 ---
 
-## 🔗 Live Demos & Links
+## 🔗 Live Demo & Links
 
-* **Hugging Face Space (Project Home)**: [View Space](https://huggingface.co/spaces/shariar-ahamed/hybrid-tuberculosis-detection-xai)
-* **Live Web App**: [Live View](https://shariar-ahamed-hybrid-tuberculosis-detection-xai.hf.space/)
 * **Streamlit Community Cloud App**: [Live View](https://hybrid-tuberculosis-detection-xai.streamlit.app/)
 
 ---
