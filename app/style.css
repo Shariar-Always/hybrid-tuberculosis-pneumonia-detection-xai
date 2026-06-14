@@ -372,6 +372,20 @@ section[data-testid="stSidebar"] {
     background: transparent !important;
     padding: 0 !important;
 }
+/* Responsive vertical stacked layout in uploader to prevent overlap in narrow columns/iframes */
+@media (max-width: 1024px) {
+    [data-testid="stFileUploader"] {
+        padding: 1rem !important;
+    }
+    [data-testid="stFileUploader"] section > div {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 0.6rem !important;
+        padding: 0.5rem 0 !important;
+    }
+}
 
 /* Custom Premium Loader CSS */
 .premium-loader-box {
@@ -530,6 +544,26 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] small {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+/* Responsive query for medium screens and Hugging Face space iframes */
+@media (max-width: 1024px) {
+    .dashboard-footer {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 0.85rem !important;
+    }
+    .footer-left {
+        justify-content: center !important;
+    }
+    .footer-center {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+    .footer-right {
+        justify-content: center !important;
+    }
 }
 
 .footer-link,
