@@ -124,36 +124,103 @@ def st_image_compatible(image, caption=None):
     except TypeError:
         st.image(image, caption=caption, use_column_width=True)
 
+# Load average CXR template globally for validation checks
+template_path = Path(__file__).resolve().parent / "cxr_template.png"
+if template_path.exists():
+    CXR_TEMPLATE = cv2.imread(str(template_path), cv2.IMREAD_GRAYSCALE)
+    if CXR_TEMPLATE is not None:
+        # Precompute template edge map
+        sobelx = cv2.Sobel(CXR_TEMPLATE, cv2.CV_64F, 1, 0, ksize=3)
+        sobely = cv2.Sobel(CXR_TEMPLATE, cv2.CV_64F, 0, 1, ksize=3)
+        edge = np.sqrt(sobelx**2 + sobely**2)
+        CXR_TEMPLATE_EDGES = cv2.normalize(edge, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+        
+        # Precompute template spatial profiles for OOD detection
+        def norm_profile(p):
+            return (p - np.min(p)) / (np.max(p) - np.min(p) + 1e-6)
+        CXR_TEMPLATE_COL = norm_profile(np.mean(CXR_TEMPLATE, axis=0))
+        CXR_TEMPLATE_ROW = norm_profile(np.mean(CXR_TEMPLATE, axis=1))
+    else:
+        CXR_TEMPLATE = None
+        CXR_TEMPLATE_EDGES = None
+        CXR_TEMPLATE_COL = None
+        CXR_TEMPLATE_ROW = None
+else:
+    CXR_TEMPLATE = None
+    CXR_TEMPLATE_EDGES = None
+    CXR_TEMPLATE_COL = None
+    CXR_TEMPLATE_ROW = None
+
 # Image validation check to prevent non-CXR images (OOD) from being analyzed
 def validate_chest_xray(image):
     img_np = np.array(image)
     
-    # 1. Color check using channel correlation (allows monochrome/tinted images but rejects multi-colored photos)
-    if len(img_np.shape) == 3 and img_np.shape[2] == 3:
-        r = img_np[:,:,0].flatten().astype(np.float32)
-        g = img_np[:,:,1].flatten().astype(np.float32)
-        b = img_np[:,:,2].flatten().astype(np.float32)
-        
-        # Avoid division by zero for completely flat images
-        if np.std(r) > 1 and np.std(g) > 1 and np.std(b) > 1:
-            corr_rg = np.corrcoef(r, g)[0, 1]
-            corr_gb = np.corrcoef(g, b)[0, 1]
-            
-            # If the correlation between channels is low, it is a multi-color image
-            if corr_rg < 0.90 or corr_gb < 0.90:
-                return False, "The uploaded image appears to be a color photograph. Valid Chest X-Rays must be grayscale or monochrome."
-            
-    # 2. Get grayscale version for detail/contrast check
+    # 1. Get grayscale version for detail/contrast check
     if len(img_np.shape) == 3 and img_np.shape[2] == 3:
         gray_img = cv2.cvtColor(img_np, cv2.COLOR_RGB2GRAY)
     else:
         gray_img = img_np
         
-    # 3. Standard deviation check (filters out flat icons, plain backgrounds, screenshots)
+    # 2. Standard deviation check (filters out flat icons, plain backgrounds, screenshots)
     img_std = np.std(gray_img)
     if img_std < 15:  # Lowered to 15 to be extremely safe for low-contrast scans
         return False, "The uploaded image lacks typical X-Ray structural details (flat graphics or low contrast detected)."
         
+    # 4. Edge-based Structural Similarity (Edge SSIM) check to reject OOD non-CXR images
+    if CXR_TEMPLATE_EDGES is not None:
+        # Resize input to match template size (128x128)
+        gray_resized = cv2.resize(gray_img, (128, 128))
+        
+        # Calculate Sobel edge map for the input image
+        sobelx = cv2.Sobel(gray_resized, cv2.CV_64F, 1, 0, ksize=3)
+        sobely = cv2.Sobel(gray_resized, cv2.CV_64F, 0, 1, ksize=3)
+        edge = np.sqrt(sobelx**2 + sobely**2)
+        input_edges = cv2.normalize(edge, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+        
+        # Calculate SSIM of the edge maps
+        def compute_ssim(img1, img2):
+            C1 = (0.01 * 255)**2
+            C2 = (0.03 * 255)**2
+            
+            img1 = img1.astype(np.float64)
+            img2 = img2.astype(np.float64)
+            
+            kernel = np.ones((3, 3), np.float64) / 9.0
+            mu1 = cv2.filter2D(img1, -1, kernel)
+            mu2 = cv2.filter2D(img2, -1, kernel)
+            
+            mu1_sq = mu1**2
+            mu2_sq = mu2**2
+            mu1_mu2 = mu1 * mu2
+            
+            sigma1_sq = cv2.filter2D(img1**2, -1, kernel) - mu1_sq
+            sigma2_sq = cv2.filter2D(img2**2, -1, kernel) - mu2_sq
+            sigma12 = cv2.filter2D(img1 * img2, -1, kernel) - mu1_mu2
+            
+            ssim_map = ((2 * mu1_mu2 + C1) * (2 * sigma12 + C2)) / ((mu1_sq + mu2_sq + C1) * (sigma1_sq + sigma2_sq + C2))
+            return ssim_map.mean()
+            
+        edge_ssim = compute_ssim(CXR_TEMPLATE_EDGES, input_edges)
+        
+        # Reject image if edge structural similarity is below threshold
+        if edge_ssim < 0.14:
+            return False, "The uploaded image does not match the typical structural and anatomical patterns of a Chest X-Ray scan."
+            
+        # 5. Anatomical Profile Correlation Check to filter out OOD structures (like aeroplanes)
+        if CXR_TEMPLATE_COL is not None and CXR_TEMPLATE_ROW is not None:
+            def norm_profile(p):
+                return (p - np.min(p)) / (np.max(p) - np.min(p) + 1e-6)
+                
+            input_col = norm_profile(np.mean(gray_resized, axis=0))
+            input_row = norm_profile(np.mean(gray_resized, axis=1))
+            
+            corr_col = np.corrcoef(CXR_TEMPLATE_COL, input_col)[0, 1]
+            corr_row = np.corrcoef(CXR_TEMPLATE_ROW, input_row)[0, 1]
+            
+            # Loose threshold to prevent false rejections of real CXR scans, while blocking OOD shapes
+            if corr_col < -0.15 or corr_row < -0.15:
+                return False, "The uploaded image does not match the typical structural and anatomical patterns of a Chest X-Ray scan."
+            
     return True, ""
 
 
@@ -182,7 +249,7 @@ with st.sidebar:
     if logo_path.exists():
         st.image(str(logo_path), width=170)
     else:
-        st.image("https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Daffodil_International_University_monogram.svg/120px-Daffodil_International_University_monogram.svg.png", width=170)
+        st.image("https://i.postimg.cc/HnfyLQYZ/DIU-Logo.png", width=170)
         
     # Placeholder for model status directly below the logo to prevent initial load freeze
     model_status_placeholder = st.empty()
