@@ -7,15 +7,28 @@ def generate_metadata():
     base_dir = Path(__file__).resolve().parent.parent
     data_dir = base_dir / "data"
     
-    # Path to the downloaded dataset splits CSV
-    downloaded_csv = Path(r"E:\Download\TB Data\data\dataset_splits_with_metadata.csv")
+    # Path to the downloaded dataset splits CSV (tries local Windows paths and Colab paths)
+    paths_to_try = [
+        Path(r"E:\Download\TB Data\data\dataset_splits_with_metadata.csv"),
+        Path(r"/content/colab_data/data/dataset_splits_with_metadata.csv"),
+        Path(r"/content/colab_data/dataset_splits_with_metadata.csv"),
+        base_dir / "data" / "dataset_splits_with_metadata.csv"
+    ]
     
+    downloaded_csv = None
+    for p in paths_to_try:
+        if p.exists():
+            downloaded_csv = p
+            break
+            
     print("=" * 60)
     print("      Tuberculosis & Pneumonia CXR Metadata Generator")
     print("=" * 60)
     
-    if not downloaded_csv.exists():
-        print(f"[-] Error: Could not find dataset splits CSV at: {downloaded_csv}")
+    if downloaded_csv is None:
+        print(f"[-] Error: Could not find dataset splits CSV in any of the expected paths:")
+        for p in paths_to_try:
+            print(f"    - {p}")
         return False
         
     print(f"[+] Reading downloaded metadata from: {downloaded_csv}")
