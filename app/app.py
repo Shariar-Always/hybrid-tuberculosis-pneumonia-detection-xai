@@ -538,55 +538,54 @@ with display_col:
             card_class = "result-card-negative"
             
         st.markdown(f"""
-        <div class="report-card {card_class}">
-            <h3 style="margin-top:0; color:#e2e8f0; font-family:'Poppins',sans-serif; font-size:1.4rem;">🔬 Diagnostic & Interpretability Report</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.2rem;">
-                <div>
-                    <h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">Prediction Status</h5>
-                    {badge_html}
-                    <p style="margin-top:1.2rem; font-size:1.1rem; color:#e2e8f0; margin-bottom:0;">Confidence Score: <strong>{confidence:.2f}%</strong></p>
-                </div>
-                <div>
-                    <h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">{xai_method} Insights</h5>
-                    <div style="font-size:0.95rem; line-height:1.6; color:#cbd5e1;">{insights_html}</div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.15); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03);">
-                <h5 style="margin-top:0; margin-bottom:1rem; color:#94a3b8; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">Probability Distribution</h5>
-                <!-- Normal -->
-                <div style="margin-bottom: 0.8rem;">
-                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                        <span style="color: #cbd5e1; font-weight: 500;">Normal (Healthy)</span>
-                        <span style="color: #4ade80; font-weight: 700;">{p_normal:.2f}%</span>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
-                        <div style="background: linear-gradient(90deg, #22c55e, #4ade80); width: {p_normal}%; height: 100%; border-radius: 4px;"></div>
-                    </div>
-                </div>
-                <!-- TB -->
-                <div style="margin-bottom: 0.8rem;">
-                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                        <span style="color: #cbd5e1; font-weight: 500;">Tuberculosis</span>
-                        <span style="color: #f87171; font-weight: 700;">{p_tb:.2f}%</span>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
-                        <div style="background: linear-gradient(90deg, #ef4444, #f87171); width: {p_tb}%; height: 100%; border-radius: 4px;"></div>
-                    </div>
-                </div>
-                <!-- Pneumonia -->
-                <div style="margin-bottom: 0.2rem;">
-                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                        <span style="color: #cbd5e1; font-weight: 500;">Pneumonia</span>
-                        <span style="color: #fb923c; font-weight: 700;">{p_pneumonia:.2f}%</span>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
-                        <div style="background: linear-gradient(90deg, #f97316, #fb923c); width: {p_pneumonia}%; height: 100%; border-radius: 4px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+<div class="report-card {card_class}">
+<h3 style="margin-top:0; color:#e2e8f0; font-family:'Poppins',sans-serif; font-size:1.4rem;">🔬 Diagnostic & Interpretability Report</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.2rem;">
+<div>
+<h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">Prediction Status</h5>
+{badge_html}
+<p style="margin-top:1.2rem; font-size:1.1rem; color:#e2e8f0; margin-bottom:0;">Confidence Score: <strong>{confidence:.2f}%</strong></p>
+</div>
+<div>
+<h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">{xai_method} Insights</h5>
+<div style="font-size:0.95rem; line-height:1.6; color:#cbd5e1;">{insights_html}</div>
+</div>
+</div>
+<div style="margin-top: 1.5rem; background: rgba(0,0,0,0.15); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03);">
+<h5 style="margin-top:0; margin-bottom:1rem; color:#94a3b8; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">Probability Distribution</h5>
+<!-- Normal -->
+<div style="margin-bottom: 0.8rem;">
+<div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+<span style="color: #cbd5e1; font-weight: 500;">Normal (Healthy)</span>
+<span style="color: #4ade80; font-weight: 700;">{p_normal:.2f}%</span>
+</div>
+<div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+<div style="background: linear-gradient(90deg, #22c55e, #4ade80); width: {p_normal}%; height: 100%; border-radius: 4px;"></div>
+</div>
+</div>
+<!-- TB -->
+<div style="margin-bottom: 0.8rem;">
+<div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+<span style="color: #cbd5e1; font-weight: 500;">Tuberculosis</span>
+<span style="color: #f87171; font-weight: 700;">{p_tb:.2f}%</span>
+</div>
+<div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+<div style="background: linear-gradient(90deg, #ef4444, #f87171); width: {p_tb}%; height: 100%; border-radius: 4px;"></div>
+</div>
+</div>
+<!-- Pneumonia -->
+<div style="margin-bottom: 0.2rem;">
+<div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+<span style="color: #cbd5e1; font-weight: 500;">Pneumonia</span>
+<span style="color: #fb923c; font-weight: 700;">{p_pneumonia:.2f}%</span>
+</div>
+<div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+<div style="background: linear-gradient(90deg, #f97316, #fb923c); width: {p_pneumonia}%; height: 100%; border-radius: 4px;"></div>
+</div>
+</div>
+</div>
+</div>
+""", unsafe_allow_html=True)
         
         # Generate the clinical PDF report bytes
         pdf_data = generate_pdf_report(
