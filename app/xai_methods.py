@@ -40,14 +40,17 @@ class GuidedBackpropagation:
                 self.handlers.append(module.register_forward_hook(forward_hook))
                 self.handlers.append(module.register_full_backward_hook(backward_hook))
 
-    def generate_gradients(self, input_tensor):
+    def generate_gradients(self, input_tensor, target_class=None):
         self.forward_relu_outputs = []
         input_tensor = input_tensor.clone().detach().requires_grad_(True)
         self.model.zero_grad()
         output = self.model(input_tensor)
         
-        # Binary classification target score (Tuberculosis channel logit)
-        output_score = output[0][0]
+        # Target the predicted class score dynamically for multiclass
+        if target_class is None:
+            target_class = torch.argmax(output[0]).item()
+            
+        output_score = output[0][target_class]
         output_score.backward()
         
         gradients = input_tensor.grad[0].cpu().data.numpy()
@@ -58,14 +61,19 @@ class GuidedBackpropagation:
             handler.remove()
         self.handlers = []
 
-def generate_saliency_map(model, input_tensor):
+def generate_saliency_map(model, input_tensor, target_class=None):
     """
     Generates standard Vanilla Saliency map (gradients of input).
     """
     input_tensor = input_tensor.clone().detach().requires_grad_(True)
     model.zero_grad()
     output = model(input_tensor)
-    output_score = output[0][0]
+    
+    # Target the predicted class score dynamically for multiclass
+    if target_class is None:
+        target_class = torch.argmax(output[0]).item()
+        
+    output_score = output[0][target_class]
     output_score.backward()
     
     saliency, _ = torch.max(torch.abs(input_tensor.grad[0]), dim=0)

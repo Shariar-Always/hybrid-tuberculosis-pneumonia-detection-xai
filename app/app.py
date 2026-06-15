@@ -21,7 +21,7 @@ from xai_methods import generate_xai_visualization
 
 # Set page configuration with a premium icon and title
 st.set_page_config(
-    page_title="TB-XAI | Tuberculosis Explainable AI Dashboard",
+    page_title="TB & Pneumonia XAI | Tuberculosis & Pneumonia Explainable AI Dashboard",
     page_icon="🫁",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -106,7 +106,7 @@ if "first_load_done" not in st.session_state:
             margin-bottom: 0.5rem;
             letter-spacing: -0.8px;
             font-family: 'Poppins', sans-serif;
-        ">⚕️ TB-XAI Platform</div>
+        ">⚕️ TB & Pneumonia XAI Platform</div>
         <div style="
             color: #94a3b8;
             font-size: 0.78rem;
@@ -273,7 +273,7 @@ with st.sidebar:
     st.markdown("#### **Project Title**")
     st.markdown(
         "<div class='sidebar-card' style='font-size: 0.9rem; font-weight: 500;'>"
-        "A Hybrid Explainable AI Framework for Automatic Tuberculosis Detection from Chest X-Ray Images Using CNNs"
+        "A Hybrid Explainable AI Framework for Automatic Tuberculosis and Pneumonia Detection from Chest X-Ray Images Using Convolutional Neural Networks"
         "</div>", 
         unsafe_allow_html=True
     )
@@ -306,7 +306,7 @@ st.markdown("""
         <div class="header-text-container">
             <span class="header-badge">AI Clinical Assistant</span>
             <div class="header-title">Hybrid Explainable AI Framework</div>
-            <div class="header-subtitle">Automatic Tuberculosis Detection & Heatmap Visualizations from Chest X-Ray Images</div>
+            <div class="header-subtitle">Automatic Tuberculosis & Pneumonia Detection with Heatmap Visualizations from Chest X-Ray Images</div>
         </div>
     </div>
 </div>
@@ -346,7 +346,7 @@ with upload_col:
         st.session_state["uploader_key"] = 0
         
     uploaded_file = st.file_uploader(
-        "Upload a Chest X-ray image (PNG or JPG format) to detect Tuberculosis signs.", 
+        "Upload a Chest X-ray image (PNG or JPG format) to detect Tuberculosis and Pneumonia signs.", 
         type=["png", "jpg", "jpeg"],
         key=f"file_uploader_{st.session_state.uploader_key}"
     )
@@ -475,8 +475,11 @@ with display_col:
         # 2. Forward pass through model
         with torch.no_grad():
             outputs = model(input_tensor)
-            probability = torch.sigmoid(outputs).item()
-            prediction = probability >= 0.5
+            probabilities = torch.softmax(outputs, dim=1).squeeze().tolist()
+            class_idx = int(torch.argmax(outputs, dim=1).item())
+            class_names = ["Normal", "Tuberculosis", "Pneumonia"]
+            prediction_name = class_names[class_idx]
+            confidence = probabilities[class_idx] * 100
             
         # 3. Generate XAI interpretability map
         try:
@@ -508,21 +511,30 @@ with display_col:
                 st.warning("Visualization display not available")
             
         # Diagnostic Details Card
-        if prediction:
+        p_normal = probabilities[0] * 100
+        p_tb = probabilities[1] * 100
+        p_pneumonia = probabilities[2] * 100
+
+        if prediction_name == "Tuberculosis":
             badge_html = "<span class='badge-positive'>Tuberculosis Detected</span>"
             insights_html = (
                 "• The attention block shows high activation (highlighted in red) over <b>lesion and infiltrate areas</b>.<br>"
                 "• High correlation detected with consolidations in upper lung fields."
             )
-            confidence = probability * 100
             card_class = "result-card-positive"
+        elif prediction_name == "Pneumonia":
+            badge_html = "<span class='badge-warning'>Pneumonia Detected</span>"
+            insights_html = (
+                "• The attention block highlights <b>diffuse opacity or consolidations</b> typical of pneumonia.<br>"
+                "• High concentration of localized gradients in lower or mid lung fields."
+            )
+            card_class = "result-card-warning"
         else:
-            badge_html = "<span class='badge-negative'>Normal (No TB Detected)</span>"
+            badge_html = "<span class='badge-negative'>Normal (No Pathology Detected)</span>"
             insights_html = (
                 "• Clear lung fields with standard dark background.<br>"
-                "• Attention maps show no suspicious activation clusters."
+                "• Attention maps show no suspicious activation clusters or consolidations."
             )
-            confidence = (1 - probability) * 100
             card_class = "result-card-negative"
             
         st.markdown(f"""
@@ -539,6 +551,40 @@ with display_col:
                     <div style="font-size:0.95rem; line-height:1.6; color:#cbd5e1;">{insights_html}</div>
                 </div>
             </div>
+            
+            <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.15); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03);">
+                <h5 style="margin-top:0; margin-bottom:1rem; color:#94a3b8; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">Probability Distribution</h5>
+                <!-- Normal -->
+                <div style="margin-bottom: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                        <span style="color: #cbd5e1; font-weight: 500;">Normal (Healthy)</span>
+                        <span style="color: #4ade80; font-weight: 700;">{p_normal:.2f}%</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div style="background: linear-gradient(90deg, #22c55e, #4ade80); width: {p_normal}%; height: 100%; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                <!-- TB -->
+                <div style="margin-bottom: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                        <span style="color: #cbd5e1; font-weight: 500;">Tuberculosis</span>
+                        <span style="color: #f87171; font-weight: 700;">{p_tb:.2f}%</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div style="background: linear-gradient(90deg, #ef4444, #f87171); width: {p_tb}%; height: 100%; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                <!-- Pneumonia -->
+                <div style="margin-bottom: 0.2rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                        <span style="color: #cbd5e1; font-weight: 500;">Pneumonia</span>
+                        <span style="color: #fb923c; font-weight: 700;">{p_pneumonia:.2f}%</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div style="background: linear-gradient(90deg, #f97316, #fb923c); width: {p_pneumonia}%; height: 100%; border-radius: 4px;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -549,7 +595,7 @@ with display_col:
             patient_age=patient_age,
             patient_gender=patient_gender,
             symptoms=patient_symptoms,
-            prediction=prediction,
+            prediction=prediction_name,
             confidence=confidence,
             insights=insights_html,
             original_image=image,

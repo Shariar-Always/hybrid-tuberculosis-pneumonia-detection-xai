@@ -139,13 +139,13 @@ def generate_pdf_report(patient_name, patient_id, patient_age, patient_gender, s
         header_logo = RLImage(logo_path, width=130, height=35)
         header_logo.hAlign = 'RIGHT'
         header_data = [[
-            Paragraph("TB-XAI CLINICAL DIAGNOSTIC REPORT<br/><font color='#64748b' size='8'>Hybrid Explainable Artificial Intelligence Framework</font>", title_style),
+            Paragraph("TB & PNEUMONIA XAI CLINICAL DIAGNOSTIC REPORT<br/><font color='#64748b' size='8'>Hybrid Explainable Artificial Intelligence Framework</font>", title_style),
             header_logo
         ]]
         header_table = Table(header_data, colWidths=[380, 160])
     else:
         header_data = [[
-            Paragraph("TB-XAI CLINICAL DIAGNOSTIC REPORT<br/><font color='#64748b' size='8'>Hybrid Explainable Artificial Intelligence Framework</font>", title_style)
+            Paragraph("TB & PNEUMONIA XAI CLINICAL DIAGNOSTIC REPORT<br/><font color='#64748b' size='8'>Hybrid Explainable Artificial Intelligence Framework</font>", title_style)
         ]]
         header_table = Table(header_data, colWidths=[540])
         
@@ -207,11 +207,24 @@ def generate_pdf_report(patient_name, patient_id, patient_age, patient_gender, s
     # --- DIAGNOSTIC OUTCOME CARD ---
     story.append(Paragraph("Diagnostic Summary", section_heading))
     
-    status_text = "Tuberculosis Signs DETECTED" if prediction else "NORMAL (No Signs of Tuberculosis)"
+    prediction_str = str(prediction).strip().upper()
+    if prediction_str == "TUBERCULOSIS":
+        status_text = "Tuberculosis Signs DETECTED"
+        bg_color = '#fee2e2'
+        border_color = '#ef4444'
+        text_color = '#b91c1c'
+    elif prediction_str == "PNEUMONIA":
+        status_text = "Pneumonia Signs DETECTED"
+        bg_color = '#fef3c7'
+        border_color = '#f97316'
+        text_color = '#9a3412'
+    else:
+        status_text = "NORMAL (No Signs of TB or Pneumonia)"
+        bg_color = '#dcfce7'
+        border_color = '#22c55e'
+        text_color = '#15803d'
+        
     confidence_text = f"Confidence Score: {confidence:.2f}%"
-    bg_color = '#fee2e2' if prediction else '#dcfce7'
-    border_color = '#ef4444' if prediction else '#22c55e'
-    text_color = '#b91c1c' if prediction else '#15803d'
     
     result_style_bold = ParagraphStyle(
         'ResultBold',

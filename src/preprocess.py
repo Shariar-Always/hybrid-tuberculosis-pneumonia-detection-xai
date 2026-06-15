@@ -6,58 +6,48 @@ def generate_metadata():
     # Define paths
     base_dir = Path(__file__).resolve().parent.parent
     data_dir = base_dir / "data"
-    raw_dir = data_dir / "raw"
-    normal_dir = raw_dir / "Normal"
-    tb_dir = raw_dir / "Tuberculosis"
+    
+    # Path to the downloaded dataset splits CSV
+    downloaded_csv = Path(r"E:\Download\TB Data\data\dataset_splits_with_metadata.csv")
     
     print("=" * 60)
-    print("           Tuberculosis CXR Metadata Generator")
+    print("      Tuberculosis & Pneumonia CXR Metadata Generator")
     print("=" * 60)
     
-    # Check directory existence
-    if not normal_dir.exists() or not tb_dir.exists():
-        print(f"[-] Error: Could not find Normal or Tuberculosis directories.")
-        print(f"    Expected: {normal_dir}")
-        print(f"    Expected: {tb_dir}")
+    if not downloaded_csv.exists():
+        print(f"[-] Error: Could not find dataset splits CSV at: {downloaded_csv}")
         return False
         
-    records = []
+    print(f"[+] Reading downloaded metadata from: {downloaded_csv}")
+    df = pd.read_csv(downloaded_csv)
     
-    # Scan Normal scans (labeled 0)
-    print("[+] Scanning Normal CXR scans...")
-    normal_count = 0
-    for img_path in normal_dir.glob("*.png"):
-        records.append({
-            "image_path": f"raw/Normal/{img_path.name}",
-            "label": 0,
-            "class_name": "Normal"
-        })
-        normal_count += 1
-        
-    # Scan TB scans (labeled 1)
-    print("[+] Scanning Tuberculosis CXR scans...")
-    tb_count = 0
-    for img_path in tb_dir.glob("*.png"):
-        records.append({
-            "image_path": f"raw/Tuberculosis/{img_path.name}",
-            "label": 1,
-            "class_name": "Tuberculosis"
-        })
-        tb_count += 1
-        
-    # Build dataframe
-    df = pd.DataFrame(records)
+    # Filter out UNKNOWN labels
+    df = df[df['label'] != 'UNKNOWN'].copy()
     
-    # Shuffle the dataset to ensure random distribution
-    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+    # Construct image_path relative to dataset root
+    df['image_path'] = df['split'] + '/' + df['label'] + '/' + df['name']
     
-    # Save CSV
+    # Map text labels to numeric labels
+    label_map = {
+        'NORMAL': 0,
+        'TUBERCULOSIS': 1,
+        'PNEUMONIA': 2
+    }
+    df['class_name'] = df['label']
+    df['label'] = df['label'].map(label_map)
+    
+    # Reorder columns to match previous metadata structure
+    df = df[['image_path', 'label', 'class_name', 'split', 'source']]
+    
+    # Save to data/metadata.csv inside workspace
     metadata_csv = data_dir / "metadata.csv"
+    os.makedirs(data_dir, exist_ok=True)
     df.to_csv(metadata_csv, index=False)
     
     print("-" * 60)
-    print(f"[+] Total Normal scans found: {normal_count}")
-    print(f"[+] Total Tuberculosis scans found: {tb_count}")
+    counts = df['class_name'].value_counts()
+    for cls, cnt in counts.items():
+        print(f"[+] Total {cls} scans found: {cnt}")
     print(f"[+] Metadata CSV successfully generated at: {metadata_csv}")
     print(f"[+] Total entries in dataset: {len(df)}")
     print("=" * 60)

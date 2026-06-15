@@ -78,7 +78,7 @@ class HybridTBPredictor(nn.Module):
             nn.BatchNorm1d(256),
             nn.ReLU(inplace=True),
             nn.Dropout(0.4),
-            nn.Linear(256, 1) # Single output for Binary Classification (TB vs Normal)
+            nn.Linear(256, 3) # Output size 3 for Multiclass Classification (Normal, TB, Pneumonia)
         )
 
     def forward(self, x):
