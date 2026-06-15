@@ -629,6 +629,19 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] small {
     }
 }
 
+@media (max-width: 768px) {
+    .dashboard-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    .footer-center {
+        max-width: 100%;
+    }
+}
+
+
+
 .footer-link,
 .dashboard-footer a.footer-link,
 [data-testid="stMarkdownContainer"] .dashboard-footer a.footer-link {
@@ -678,16 +691,6 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] small {
     transform: rotate(8deg) scale(1.05);
 }
 
-@media (max-width: 768px) {
-    .dashboard-footer {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.8rem;
-    }
-    .footer-center {
-        max-width: 100%;
-    }
-}
 
 /* Custom Sidebar Collapse & Expand Button Styling (PC & Mobile) */
 button[data-testid="stSidebarCollapseButton"],

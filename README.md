@@ -1,4 +1,4 @@
-<h1 align="center">🫁 Hybrid Explainable AI (XAI) Framework for Automatic Tuberculosis Detection</h1>
+<h1 align="center">🫁 Hybrid Explainable AI (XAI) Framework for Automatic Tuberculosis and Pneumonia Detection</h1>
 
 <p align="center">
   <img src="https://i.postimg.cc/tTTFpzdM/demo.png" alt="Hybrid TB Detection XAI Cover Page">
@@ -14,14 +14,14 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/Shariar-Ahamed/hybrid-tb-detection-xai">
-  <img src="https://img.shields.io/github/repo-size/Shariar-Ahamed/hybrid-tb-detection-xai">
-  <img src="https://img.shields.io/github/last-commit/Shariar-Ahamed/hybrid-tb-detection-xai">
+  <img src="https://img.shields.io/github/license/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
+  <img src="https://img.shields.io/github/repo-size/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
+  <img src="https://img.shields.io/github/last-commit/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/Shariar-Ahamed/hybrid-tb-detection-xai?style=social">
-  <img src="https://img.shields.io/github/forks/Shariar-Ahamed/hybrid-tb-detection-xai?style=social">
+  <img src="https://img.shields.io/github/stars/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai?style=social">
+  <img src="https://img.shields.io/github/forks/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai?style=social">
 </p>
 
 <p align="center">
@@ -32,20 +32,20 @@
 
 ## 📝 Project Overview
 
-This repository contains the official implementation of the **Hybrid Explainable AI Framework for Automatic Tuberculosis Detection from Chest X-Ray Images Using Convolutional Neural Networks (CNNs)**. This is a final year design project (FYDP) submitted to **Daffodil International University (DIU)**.
+This repository contains the official implementation of the **Hybrid Explainable AI Framework for Automatic Tuberculosis and Pneumonia Detection from Chest X-Ray Images Using Convolutional Neural Networks (CNNs)**. This is a final year design project (FYDP) submitted to **Daffodil International University (DIU)**.
 
-The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **CBAM Attention Blocks**) to classify tuberculosis from chest scans and provides real-time model interpretability using four advanced XAI methods to increase clinical trust.
+The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **CBAM Attention Blocks**) to classify tuberculosis and pneumonia from chest scans and provides real-time model interpretability using four advanced XAI methods to increase clinical trust.
 
 ### ⚙️ App Deployment Specifications
 
 | Parameter            | Configuration                                                                           |
 | :------------------- | :-------------------------------------------------------------------------------------- |
-| **App Title**        | Hybrid Tuberculosis Detection XAI                                                       |
+| **App Title**        | Hybrid Tuberculosis & Pneumonia Detection XAI                                           |
 | **App Emoji**        | 🫁                                                                                      |
 | **Theme Colors**     | Blue → Indigo                                                                           |
 | **Deployment SDK**   | Streamlit                                                                               |
 | **SDK Version**      | v1.35.0                                                                                 |
-| **Entry Point File** | [app.py](https://github.com/Shariar-Ahamed/hybrid-tb-detection-xai/blob/main/app/app.py) |
+| **Entry Point File** | [app.py](https://github.com/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai/blob/main/app/app.py) |
 
 ---
 
@@ -59,13 +59,13 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
   - **Saliency Maps**: Blends standard pixel gradients using `COLORMAP_HOT` overlays.
 - **Streamlit Dashboard**: Dark-themed, modern glassmorphic dashboard for diagnostic execution.
 - **Clinical PDF Report**: Generates print-ready PDFs directly in-memory featuring metadata, confidence metrics, and selected XAI maps.
-- **Outstanding Performance**: Achieved **100% test accuracy and sensitivity** on the test subset (630 images) of the hybrid dataset (4,200 chest X-ray scans).
+- **Outstanding Performance**: Achieved **97.99% test accuracy and 98.06% sensitivity (Recall)** on the test subset (1,392 images) of the hybrid dataset (13,959 chest X-ray scans).
 
 ---
 
 ## 🔗 Live Demo & Links
 
-- **Streamlit Community Cloud App**: [Live View](https://hybrid-tuberculosis-detection-xai.streamlit.app/)
+- **Streamlit Community Cloud App**: [Live View](https://hybrid-tuberculosis-pneumonia-detection-xai.streamlit.app/)
 
 ---
 
