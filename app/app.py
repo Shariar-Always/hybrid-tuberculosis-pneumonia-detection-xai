@@ -673,13 +673,41 @@ with display_col:
         )
             
     else:
-        st.markdown(
-            "<div style='border: 2px dashed rgba(255,255,255,0.05); border-radius: 12px; padding: 4rem; text-align: center; color: #64748b;'>"
-            "<h3>No Active Diagnostic Report</h3>"
-            "<p>Please upload a Chest X-ray scan on the left and click 'Run Diagnostic Analysis' to view predictions and Explainable AI (XAI) heatmaps.</p>"
-            "</div>", 
-            unsafe_allow_html=True
-        )
+        st.markdown("""<div class="welcome-container">
+<div class="welcome-header">
+<span class="welcome-status-dot"></span>
+<span class="welcome-status-text">System Active & Ready for Diagnostic Execution</span>
+</div>
+<div class="welcome-main-card">
+<div class="welcome-icon">🫁</div>
+<h2>No Active Diagnostic Report</h2>
+<p>Please upload a grayscale Chest X-Ray scan on the left column, fill in the patient metadata, and click <strong>'Run Diagnostic Analysis'</strong> to trigger the AI classifier model and interpretability engine.</p>
+</div>
+<h4 class="capabilities-title">🩺 Clinical Intelligence Capabilities</h4>
+<div class="capabilities-grid">
+<div class="capability-card">
+<div class="cap-icon-box" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">🔍</div>
+<h5>Automatic CXR Validation</h5>
+<p>Our OOD validation engine uses Edge SSIM and profile correlation to filter out non-lung images.</p>
+</div>
+<div class="capability-card">
+<div class="cap-icon-box" style="background: rgba(56, 189, 248, 0.1); color: #38bdf8;">🧠</div>
+<h5>Multi-Class Diagnostics</h5>
+<p>DenseNet121 based feature extraction classifies Normal, Tuberculosis, and Pneumonia scans.</p>
+</div>
+<div class="capability-card">
+<div class="cap-icon-box" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">⚡</div>
+<h5>Explainable AI Engine</h5>
+<p>Visualizes neural pathways and decision zones via Grad-CAM, Saliency, and Guided Backprop.</p>
+</div>
+<div class="capability-card">
+<div class="cap-icon-box" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;">📥</div>
+<h5>Clinical PDF Exports</h5>
+<p>Generates signed, institutional clinical reports containing patient data and XAI overlays.</p>
+</div>
+</div>
+</div>""", unsafe_allow_html=True)
+
 
 # Render the recent diagnoses session history if we have records
 if st.session_state.diagnoses_history:
