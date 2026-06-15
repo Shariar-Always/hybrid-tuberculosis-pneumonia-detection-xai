@@ -30,12 +30,15 @@ st.set_page_config(
 # Initialize session state variables for stats and history
 if "session_total_scans" not in st.session_state:
     st.session_state.session_total_scans = 0
-if "session_positive" not in st.session_state:
-    st.session_state.session_positive = 0
-if "session_negative" not in st.session_state:
-    st.session_state.session_negative = 0
 if "diagnoses_history" not in st.session_state:
     st.session_state.diagnoses_history = []
+if "session_tb" not in st.session_state:
+    st.session_state.session_tb = sum(1 for x in st.session_state.diagnoses_history if x.get("diagnosis") == "Tuberculosis")
+if "session_pneumonia" not in st.session_state:
+    st.session_state.session_pneumonia = sum(1 for x in st.session_state.diagnoses_history if x.get("diagnosis") == "Pneumonia")
+if "session_normal" not in st.session_state:
+    st.session_state.session_normal = sum(1 for x in st.session_state.diagnoses_history if x.get("diagnosis") == "Normal")
+
 
 
 # Render a premium full-screen splash loading screen on the first load to hide initial setup delay
@@ -335,8 +338,9 @@ st.markdown("""
 # Stats Metrics Section
 # Stats Metrics Section (Responsive CSS Grid containers for Model Metrics & Live Session Stats)
 total_scans = st.session_state.session_total_scans
-pos_count = st.session_state.session_positive
-neg_count = st.session_state.session_negative
+tb_count = st.session_state.session_tb
+pneumonia_count = st.session_state.session_pneumonia
+normal_count = st.session_state.session_normal
 
 current_xai = st.session_state.get("xai_method_select", "Grad-CAM")
 xai_display = "Guided BP" if current_xai == "Guided Backpropagation" else current_xai
@@ -365,14 +369,21 @@ st.markdown(f"""<div class="metrics-container" style="margin-bottom: 0.85rem;">
 <div class="metric-label">Total Scans Analyzed</div>
 </div>
 <div class="metric-card">
-<div class="metric-value" style="color: #f87171 !important;">{pos_count}</div>
-<div class="metric-label">Detected Positive</div>
+<div class="metric-value metric-value-tb">{tb_count}</div>
+<div class="metric-label">Tuberculosis Detected</div>
 </div>
 <div class="metric-card">
-<div class="metric-value" style="color: #4ade80 !important;">{neg_count}</div>
-<div class="metric-label">Detected Negative</div>
+<div class="metric-value metric-value-pneumonia">{pneumonia_count}</div>
+<div class="metric-label">Pneumonia Detected</div>
+</div>
+<div class="metric-card">
+<div class="metric-value metric-value-normal">{normal_count}</div>
+<div class="metric-label">Normal Detected</div>
 </div>
 </div>""", unsafe_allow_html=True)
+
+
+
 
 
 
@@ -524,10 +535,13 @@ with display_col:
             
         # Update session stats and log diagnosis details in history
         st.session_state.session_total_scans += 1
-        if prediction_name in ["Tuberculosis", "Pneumonia"]:
-            st.session_state.session_positive += 1
+        if prediction_name == "Tuberculosis":
+            st.session_state.session_tb += 1
+        elif prediction_name == "Pneumonia":
+            st.session_state.session_pneumonia += 1
         else:
-            st.session_state.session_negative += 1
+            st.session_state.session_normal += 1
+
 
         st.session_state.diagnoses_history.append({
             "date_time": time.strftime("%d-%b-%Y, %I:%M %p"),

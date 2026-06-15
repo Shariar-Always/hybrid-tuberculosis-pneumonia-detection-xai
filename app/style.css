@@ -1060,4 +1060,27 @@ input, textarea {
     margin: 0 !important;
 }
 
+/* Custom class-specific metric colors to bypass Streamlit inline style sanitization */
+.metric-value-tb {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #f87171 !important;
+    color: #f87171 !important;
+}
+
+.metric-value-pneumonia {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #fb923c !important;
+    color: #fb923c !important;
+}
+
+.metric-value-normal {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #4ade80 !important;
+    color: #4ade80 !important;
+}
+
+
 
