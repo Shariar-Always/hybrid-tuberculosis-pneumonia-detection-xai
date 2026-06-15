@@ -392,16 +392,32 @@ st.markdown(f"""<div class="metrics-container" style="margin-bottom: 0.85rem;">
 upload_col, display_col = st.columns([1, 2])
 
 with upload_col:
-    st.subheader("📄 Upload CXR Scan")
+    st.subheader("📤 Upload CXR Scan")
     
     if "uploader_key" not in st.session_state:
         st.session_state["uploader_key"] = 0
         
-    uploaded_file = st.file_uploader(
-        "Upload a Chest X-ray image (PNG or JPG format) to detect Tuberculosis and Pneumonia signs.", 
-        type=["png", "jpg", "jpeg"],
-        key=f"file_uploader_{st.session_state.uploader_key}"
-    )
+    if "image_source" not in st.session_state:
+        st.session_state.image_source = "📄 File Upload"
+        
+    if st.session_state.image_source == "📄 File Upload":
+        uploaded_file = st.file_uploader(
+            "Upload a Chest X-ray image (PNG or JPG format) to detect Tuberculosis and Pneumonia signs.", 
+            type=["png", "jpg", "jpeg"],
+            key=f"file_uploader_{st.session_state.uploader_key}"
+        )
+        if st.button("📷 Use Camera", key="trigger_camera_mode", help="Switch to webcam input mode to capture a scan directly."):
+            st.session_state.image_source = "📷 Use Camera"
+            st.rerun()
+    else:
+        uploaded_file = st.camera_input(
+            "Capture a grayscale Chest X-Ray scan image using your webcam or camera.",
+            key=f"camera_input_{st.session_state.uploader_key}"
+        )
+        if st.button("📄 Switch to File Upload", key="trigger_upload_mode", help="Switch back to uploading a scan from your local files."):
+            st.session_state.image_source = "📄 File Upload"
+            st.rerun()
+
     
     if uploaded_file is not None:
         image = Image.open(uploaded_file).convert("RGB")

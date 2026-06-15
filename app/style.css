@@ -1082,5 +1082,57 @@ input, textarea {
     color: #4ade80 !important;
 }
 
+/* Custom Positioning for Camera Trigger next to the File Uploader button */
+div[data-testid="element-container"]:has(div[data-testid="stFileUploader"]) + div[data-testid="element-container"] {
+    margin-top: -96px !important;
+    margin-left: 175px !important;
+    position: relative !important;
+    z-index: 99 !important;
+    height: 0px !important;
+}
+
+/* Premium styling for camera trigger button */
+div[data-testid="element-container"]:has(div[data-testid="stFileUploader"]) + div[data-testid="element-container"] button {
+    background: rgba(30, 41, 59, 0.7) !important;
+    color: #e2e8f0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 8px !important;
+    padding: 0.45rem 1rem !important;
+    height: 42px !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s ease-in-out !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+div[data-testid="element-container"]:has(div[data-testid="stFileUploader"]) + div[data-testid="element-container"] button:hover {
+    background-color: #38bdf8 !important;
+    color: #080a0f !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Back button in camera view style (follows the camera input container) */
+div[data-testid="element-container"]:has(div[data-testid="stCameraInput"]) + div[data-testid="element-container"] {
+    margin-top: 12px !important;
+}
+
+div[data-testid="element-container"]:has(div[data-testid="stCameraInput"]) + div[data-testid="element-container"] button {
+    background: rgba(22, 28, 36, 0.45) !important;
+    color: #94a3b8 !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+    padding: 0.45rem 1rem !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+div[data-testid="element-container"]:has(div[data-testid="stCameraInput"]) + div[data-testid="element-container"] button:hover {
+    color: #38bdf8 !important;
+    border-color: rgba(56, 189, 248, 0.3) !important;
+    background: rgba(56, 189, 248, 0.05) !important;
+}
+
 
 
