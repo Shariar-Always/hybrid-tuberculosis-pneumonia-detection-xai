@@ -324,6 +324,7 @@ st.markdown("""
 # Stats Metrics Section
 # Stats Metrics Section (Responsive CSS Grid container)
 current_xai = st.session_state.get("xai_method_select", "Grad-CAM")
+xai_display = "Guided BP" if current_xai == "Guided Backpropagation" else current_xai
 st.markdown(f"""
 <div class="metrics-container">
     <div class="metric-card">
@@ -331,7 +332,7 @@ st.markdown(f"""
         <div class="metric-label">Test Accuracy</div>
     </div>
     <div class="metric-card">
-        <div class="metric-value">{current_xai}</div>
+        <div class="metric-value">{xai_display}</div>
         <div class="metric-label">XAI Engine</div>
     </div>
     <div class="metric-card">
