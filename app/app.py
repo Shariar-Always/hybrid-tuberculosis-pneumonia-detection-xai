@@ -27,6 +27,17 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Initialize session state variables for stats and history
+if "session_total_scans" not in st.session_state:
+    st.session_state.session_total_scans = 0
+if "session_positive" not in st.session_state:
+    st.session_state.session_positive = 0
+if "session_negative" not in st.session_state:
+    st.session_state.session_negative = 0
+if "diagnoses_history" not in st.session_state:
+    st.session_state.diagnoses_history = []
+
+
 # Render a premium full-screen splash loading screen on the first load to hide initial setup delay
 if "first_load_done" not in st.session_state:
     st.markdown("""
@@ -322,29 +333,49 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Stats Metrics Section
-# Stats Metrics Section (Responsive CSS Grid container)
+# Stats Metrics Section (Responsive CSS Grid containers for Model Metrics & Live Session Stats)
+total_scans = st.session_state.session_total_scans
+pos_count = st.session_state.session_positive
+neg_count = st.session_state.session_negative
+
 current_xai = st.session_state.get("xai_method_select", "Grad-CAM")
 xai_display = "Guided BP" if current_xai == "Guided Backpropagation" else current_xai
-st.markdown(f"""
-<div class="metrics-container">
-    <div class="metric-card">
-        <div class="metric-value">97.99%</div>
-        <div class="metric-label">Test Accuracy</div>
-    </div>
-    <div class="metric-card">
-        <div class="metric-value">{xai_display}</div>
-        <div class="metric-label">XAI Engine</div>
-    </div>
-    <div class="metric-card">
-        <div class="metric-value">0.45s</div>
-        <div class="metric-label">Inference Time</div>
-    </div>
-    <div class="metric-card">
-        <div class="metric-value">13,959 Scans</div>
-        <div class="metric-label">Dataset Size</div>
-    </div>
+
+st.markdown(f"""<div class="metrics-container" style="margin-bottom: 0.85rem;">
+<div class="metric-card">
+<div class="metric-value">97.99%</div>
+<div class="metric-label">Test Accuracy</div>
 </div>
-""",unsafe_allow_html=True)
+<div class="metric-card">
+<div class="metric-value">{xai_display}</div>
+<div class="metric-label">XAI Engine</div>
+</div>
+<div class="metric-card">
+<div class="metric-value">0.45s</div>
+<div class="metric-label">Inference Time</div>
+</div>
+<div class="metric-card">
+<div class="metric-value">13,959 Scans</div>
+<div class="metric-label">Dataset Size</div>
+</div>
+</div>
+<div class="metrics-container">
+<div class="metric-card">
+<div class="metric-value">{total_scans}</div>
+<div class="metric-label">Total Scans Analyzed</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" style="color: #f87171 !important;">{pos_count}</div>
+<div class="metric-label">Detected Positive</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" style="color: #4ade80 !important;">{neg_count}</div>
+<div class="metric-label">Detected Negative</div>
+</div>
+</div>""", unsafe_allow_html=True)
+
+
+
 
 # File Uploader and Diagnostic Display
 upload_col, display_col = st.columns([1, 2])
@@ -491,6 +522,25 @@ with display_col:
             prediction_name = class_names[class_idx]
             confidence = probabilities[class_idx] * 100
             
+        # Update session stats and log diagnosis details in history
+        st.session_state.session_total_scans += 1
+        if prediction_name in ["Tuberculosis", "Pneumonia"]:
+            st.session_state.session_positive += 1
+        else:
+            st.session_state.session_negative += 1
+
+        st.session_state.diagnoses_history.append({
+            "date_time": time.strftime("%d-%b-%Y, %I:%M %p"),
+            "patient_id": patient_id or "N/A",
+            "patient_name": patient_name or "Anonymous",
+            "patient_gender": patient_gender or "N/A",
+            "diagnosis": prediction_name,
+            "confidence": f"{confidence:.2f}%",
+            "xai_method": xai_method
+        })
+
+
+            
         # 3. Generate XAI interpretability map
         try:
             overlay = generate_xai_visualization(
@@ -631,8 +681,59 @@ with display_col:
             unsafe_allow_html=True
         )
 
+# Render the recent diagnoses session history if we have records
+if st.session_state.diagnoses_history:
+    st.markdown("<hr style='margin: 40px 0 20px 0; opacity: 0.15;'>", unsafe_allow_html=True)
+    st.markdown("### 🕒 Recent Diagnoses Session History")
+    
+    # Build a beautiful HTML table for the history
+    table_rows = ""
+    for idx, item in enumerate(reversed(st.session_state.diagnoses_history)): # Show newest first
+        # Select badge class based on diagnosis
+        if item["diagnosis"] == "Normal":
+            badge_class = "history-badge-normal"
+        elif item["diagnosis"] == "Tuberculosis":
+            badge_class = "history-badge-tb"
+        else:
+            badge_class = "history-badge-pneumonia"
+            
+        # Safe extractions for older records
+        dt = item.get("date_time", item.get("time", "N/A"))
+        gender = item.get("patient_gender", "N/A")
+        
+        table_rows += f"""<tr>
+<td>{dt}</td>
+<td><code>{item["patient_id"]}</code></td>
+<td>{item["patient_name"]}</td>
+<td>{gender}</td>
+<td><span class="history-badge {badge_class}">{item["diagnosis"]}</span></td>
+<td><strong>{item["confidence"]}</strong></td>
+<td><span class="xai-badge">{item["xai_method"]}</span></td>
+</tr>"""
+        
+    st.markdown(f"""<div class="history-table-container">
+<table class="history-table">
+<thead>
+<tr>
+<th>Date & Time</th>
+<th>Patient ID</th>
+<th>Patient Name</th>
+<th>Gender</th>
+<th>Diagnosis Result</th>
+<th>Confidence Score</th>
+<th>XAI Method</th>
+</tr>
+</thead>
+<tbody>
+{table_rows}
+</tbody>
+</table>
+</div>""", unsafe_allow_html=True)
+
+
 # Render the premium footer at the bottom of the page
 st.markdown("""
+
 <div class="dashboard-footer">
     <div class="footer-left">
         <span class="footer-left-title">🫁 TB-XAI Platform</span>
