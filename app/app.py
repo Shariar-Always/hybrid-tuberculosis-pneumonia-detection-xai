@@ -243,10 +243,19 @@ def validate_chest_xray(image):
 def load_trained_model():
     model = HybridTBPredictor(pretrained=False)
     weights_path = base_dir / "models" / "best_tb_model.pth"
+    print(f"[DEBUG] load_trained_model: base_dir = {base_dir}")
+    print(f"[DEBUG] load_trained_model: weights_path = {weights_path}")
+    print(f"[DEBUG] load_trained_model: weights_path.exists() = {weights_path.exists()}")
     loaded = False
     if weights_path.exists():
-        model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
-        loaded = True
+        try:
+            model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
+            print("[DEBUG] load_trained_model: successfully loaded weights!")
+            loaded = True
+        except Exception as e:
+            print(f"[DEBUG] load_trained_model: failed to load weights! Error: {e}")
+    else:
+        print("[DEBUG] load_trained_model: weights file does not exist!")
     model.eval()
     return model, loaded
 # Transforms for inference (exactly same as validation transforms)
@@ -318,7 +327,7 @@ current_xai = st.session_state.get("xai_method_select", "Grad-CAM")
 st.markdown(f"""
 <div class="metrics-container">
     <div class="metric-card">
-        <div class="metric-value">100.0%</div>
+        <div class="metric-value">97.99%</div>
         <div class="metric-label">Test Accuracy</div>
     </div>
     <div class="metric-card">
@@ -330,7 +339,7 @@ st.markdown(f"""
         <div class="metric-label">Inference Time</div>
     </div>
     <div class="metric-card">
-        <div class="metric-value">4,200 Scans</div>
+        <div class="metric-value">13,959 Scans</div>
         <div class="metric-label">Dataset Size</div>
     </div>
 </div>
