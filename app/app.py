@@ -159,6 +159,11 @@ def adjust_image(image, brightness, contrast, sharpness):
     img = enhancer.enhance(sharpness)
     return img
 
+def reset_sliders():
+    st.session_state.cxr_brightness = 1.0
+    st.session_state.cxr_contrast = 1.0
+    st.session_state.cxr_sharpness = 1.0
+
 # Backward-compatible wrapper for st.image to handle version deprecations without warnings or crashes
 def st_image_compatible(image, caption=None):
     try:
@@ -452,9 +457,18 @@ with upload_col:
             
             # --- Image Enhancement Settings ---
             with st.expander("🎛️ CXR Image Enhancement Settings", expanded=False):
-                brightness = st.slider("Brightness", 0.5, 2.0, 1.0, 0.05)
-                contrast = st.slider("Contrast", 0.5, 2.0, 1.0, 0.05)
-                sharpness = st.slider("Sharpness", 0.0, 3.0, 1.0, 0.05)
+                if "cxr_brightness" not in st.session_state:
+                    st.session_state.cxr_brightness = 1.0
+                if "cxr_contrast" not in st.session_state:
+                    st.session_state.cxr_contrast = 1.0
+                if "cxr_sharpness" not in st.session_state:
+                    st.session_state.cxr_sharpness = 1.0
+                
+                brightness = st.slider("Brightness", 0.5, 2.0, key="cxr_brightness", step=0.05)
+                contrast = st.slider("Contrast", 0.5, 2.0, key="cxr_contrast", step=0.05)
+                sharpness = st.slider("Sharpness", 0.0, 3.0, key="cxr_sharpness", step=0.05)
+                
+                st.button("🔄 Reset to Default Settings", on_click=reset_sliders, use_container_width=True, type="secondary")
                 
             display_image = adjust_image(image, brightness, contrast, sharpness)
             
