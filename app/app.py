@@ -29,6 +29,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+def clean_html(html_str):
+    return "\n".join(line.strip() for line in html_str.split("\n") if line.strip())
+
 # Initialize session state variables for stats and history
 if "session_total_scans" not in st.session_state:
     st.session_state.session_total_scans = 0
@@ -164,9 +167,6 @@ def reset_sliders():
     st.session_state.cxr_brightness = 1.0
     st.session_state.cxr_contrast = 1.0
     st.session_state.cxr_sharpness = 1.0
-
-def clean_html(html_str):
-    return "\n".join(line.strip() for line in html_str.split("\n") if line.strip())
 
 # Backward-compatible wrapper for st.image to handle version deprecations without warnings or crashes
 def st_image_compatible(image, caption=None):
