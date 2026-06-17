@@ -45,95 +45,95 @@ if "session_normal" not in st.session_state:
 
 # Render a premium full-screen splash loading screen on the first load to hide initial setup delay
 if "first_load_done" not in st.session_state:
-    st.markdown("""
-    <div id="splash-screen" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: radial-gradient(circle at 50% 50%, #0c0f17 0%, #05070a 100%);
-        z-index: 999999;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #e2e8f0;
-        font-family: 'Poppins', sans-serif;
-    ">
-        <style>
-            @keyframes spin-splash {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-            @keyframes spin-splash-reverse {
-                0% { transform: rotate(360deg); }
-                100% { transform: rotate(0deg); }
-            }
-            @keyframes pulse-splash-core {
-                0% { transform: scale(0.85); opacity: 0.7; }
-                100% { transform: scale(1.1); opacity: 1; }
-            }
-            @keyframes pulse-splash-text {
-                0%, 100% { opacity: 0.6; }
-                50% { opacity: 1; }
-            }
-        </style>
-        <div style="position: relative; margin-bottom: 1.8rem; display: flex; align-items: center; justify-content: center; width: 120px; height: 120px;">
-            <!-- Outer dashed ring -->
+    st.markdown(clean_html("""
+        <div id="splash-screen" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 50%, #0c0f17 0%, #05070a 100%);
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0;
+            font-family: 'Poppins', sans-serif;
+        ">
+            <style>
+                @keyframes spin-splash {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                @keyframes spin-splash-reverse {
+                    0% { transform: rotate(360deg); }
+                    100% { transform: rotate(0deg); }
+                }
+                @keyframes pulse-splash-core {
+                    0% { transform: scale(0.85); opacity: 0.7; }
+                    100% { transform: scale(1.1); opacity: 1; }
+                }
+                @keyframes pulse-splash-text {
+                    0%, 100% { opacity: 0.6; }
+                    50% { opacity: 1; }
+                }
+            </style>
+            <div style="position: relative; margin-bottom: 1.8rem; display: flex; align-items: center; justify-content: center; width: 120px; height: 120px;">
+                <!-- Outer dashed ring -->
+                <div style="
+                    position: absolute;
+                    width: 110px;
+                    height: 110px;
+                    border: 2px dashed rgba(56, 189, 248, 0.3);
+                    border-radius: 50%;
+                    animation: spin-splash 6s linear infinite;
+                "></div>
+                <!-- Inner glowing ring -->
+                <div style="
+                    position: absolute;
+                    width: 85px;
+                    height: 85px;
+                    border: 3px solid transparent;
+                    border-top: 3px solid #38bdf8;
+                    border-bottom: 3px solid #60a5fa;
+                    border-radius: 50%;
+                    animation: spin-splash-reverse 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.5));
+                "></div>
+                <!-- Central pulsing core (Lungs) -->
+                <div style="
+                    position: absolute;
+                    font-size: 2.2rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    animation: pulse-splash-core 1.2s ease-in-out infinite alternate;
+                    z-index: 10;
+                    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
+                ">\U0001fac1</div>
+            </div>
             <div style="
-                position: absolute;
-                width: 110px;
-                height: 110px;
-                border: 2px dashed rgba(56, 189, 248, 0.3);
-                border-radius: 50%;
-                animation: spin-splash 6s linear infinite;
-            "></div>
-            <!-- Inner glowing ring -->
+                font-size: 1.7rem;
+                font-weight: 800;
+                background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 0.5rem;
+                letter-spacing: -0.8px;
+                font-family: 'Poppins', sans-serif;
+            ">⚕️ TB & Pneumonia XAI Platform</div>
             <div style="
-                position: absolute;
-                width: 85px;
-                height: 85px;
-                border: 3px solid transparent;
-                border-top: 3px solid #38bdf8;
-                border-bottom: 3px solid #60a5fa;
-                border-radius: 50%;
-                animation: spin-splash-reverse 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-                filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.5));
-            "></div>
-            <!-- Central pulsing core (Lungs) -->
-            <div style="
-                position: absolute;
-                font-size: 2.2rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                animation: pulse-splash-core 1.2s ease-in-out infinite alternate;
-                z-index: 10;
-                filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
-            ">\U0001fac1</div>
+                color: #94a3b8;
+                font-size: 0.78rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                animation: pulse-splash-text 1.5s infinite ease-in-out;
+                font-family: 'Poppins', sans-serif;
+            ">Initializing Clinical Intelligence Systems...</div>
         </div>
-        <div style="
-            font-size: 1.7rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.8px;
-            font-family: 'Poppins', sans-serif;
-        ">⚕️ TB & Pneumonia XAI Platform</div>
-        <div style="
-            color: #94a3b8;
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: pulse-splash-text 1.5s infinite ease-in-out;
-            font-family: 'Poppins', sans-serif;
-        ">Initializing Clinical Intelligence Systems...</div>
-    </div>
-    """, unsafe_allow_html=True)
+    """), unsafe_allow_html=True)
     st.session_state.first_load_done = True
 
 # Helper function to load local CSS files
@@ -164,6 +164,9 @@ def reset_sliders():
     st.session_state.cxr_brightness = 1.0
     st.session_state.cxr_contrast = 1.0
     st.session_state.cxr_sharpness = 1.0
+
+def clean_html(html_str):
+    return "\n".join(line.strip() for line in html_str.split("\n") if line.strip())
 
 # Backward-compatible wrapper for st.image to handle version deprecations without warnings or crashes
 def st_image_compatible(image, caption=None):
@@ -367,7 +370,7 @@ current_xai = st.session_state.get("xai_method_select", "Grad-CAM")
 xai_display = "Guided BP" if current_xai == "Guided Backpropagation" else current_xai
 
 st.markdown(
-    textwrap.dedent(f"""
+    clean_html(f"""
         <div class="metrics-container" style="margin-bottom: 0.85rem;">
             <div class="metric-card">
                 <div class="metric-value">97.99%</div>
@@ -671,7 +674,7 @@ with display_col:
             card_class = "result-card-negative"
             
         st.markdown(
-            textwrap.dedent(f"""
+            clean_html(f"""
                 <div class="report-card {card_class}">
                     <h3 style="margin-top:0; color:#e2e8f0; font-family:'Poppins',sans-serif; font-size:1.4rem;">🔬 Diagnostic & Interpretability Report</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.2rem;">
@@ -761,7 +764,7 @@ with display_col:
             
     else:
         st.markdown(
-            textwrap.dedent("""
+            clean_html("""
                 <div class="welcome-container">
                     <div class="welcome-header">
                         <span class="welcome-status-dot"></span>
@@ -821,7 +824,7 @@ if st.session_state.diagnoses_history:
         dt = item.get("date_time", item.get("time", "N/A"))
         gender = item.get("patient_gender", "N/A")
         
-        table_rows += textwrap.dedent(f"""
+        table_rows += clean_html(f"""
             <tr>
                 <td>{dt}</td>
                 <td><code>{item["patient_id"]}</code></td>
@@ -831,10 +834,10 @@ if st.session_state.diagnoses_history:
                 <td><strong>{item["confidence"]}</strong></td>
                 <td><span class="xai-badge">{item["xai_method"]}</span></td>
             </tr>
-        """).strip() + "\n"
+        """) + "\n"
         
     st.markdown(
-        textwrap.dedent(f"""
+        clean_html(f"""
             <div class="history-table-container">
                 <table class="history-table">
                     <thead>
@@ -882,13 +885,13 @@ st.markdown("""
 
 # Hide the splash screen once loading and layout rendering are complete
 st.markdown(
-    """
-    <style>
-        #splash-screen {
-            display: none !important;
-        }
-    </style>
-    """, 
+    clean_html("""
+        <style>
+            #splash-screen {
+                display: none !important;
+            }
+        </style>
+    """), 
     unsafe_allow_html=True
 )
 # Trigger auto-reload for header banner top spacing fixes
