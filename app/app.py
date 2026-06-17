@@ -145,6 +145,20 @@ def local_css(file_name):
 # Premium Custom CSS styling injection from separate stylesheet
 local_css("style.css")
 
+from PIL import ImageEnhance
+
+def adjust_image(image, brightness, contrast, sharpness):
+    # Adjust Brightness
+    enhancer = ImageEnhance.Brightness(image)
+    img = enhancer.enhance(brightness)
+    # Adjust Contrast
+    enhancer = ImageEnhance.Contrast(img)
+    img = enhancer.enhance(contrast)
+    # Adjust Sharpness
+    enhancer = ImageEnhance.Sharpness(img)
+    img = enhancer.enhance(sharpness)
+    return img
+
 # Backward-compatible wrapper for st.image to handle version deprecations without warnings or crashes
 def st_image_compatible(image, caption=None):
     try:
@@ -436,8 +450,16 @@ with upload_col:
         else:
             st.success("✅ Valid Chest X-Ray scan detected!")
             
+            # --- Image Enhancement Settings ---
+            with st.expander("🎛️ CXR Image Enhancement Settings", expanded=False):
+                brightness = st.slider("Brightness", 0.5, 2.0, 1.0, 0.05)
+                contrast = st.slider("Contrast", 0.5, 2.0, 1.0, 0.05)
+                sharpness = st.slider("Sharpness", 0.0, 3.0, 1.0, 0.05)
+                
+            display_image = adjust_image(image, brightness, contrast, sharpness)
+            
             # Display small preview of uploaded image
-            st_image_compatible(image, caption="Uploaded Scan Preview")
+            st_image_compatible(display_image, caption="Uploaded Scan Preview (Adjusted)")
             
             # --- Patient Information Inputs ---
             st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
@@ -581,7 +603,7 @@ with display_col:
                 method_name=xai_method,
                 model=model,
                 input_tensor=input_tensor,
-                original_image=image
+                original_image=display_image
             )
         except Exception as e:
             overlay = None
@@ -593,9 +615,9 @@ with display_col:
         # Show results side by side
         img_col1, img_col2 = st.columns(2)
         
-        # Original Image
+        # Adjusted Image
         with img_col1:
-            st_image_compatible(image.resize((224, 224)), caption="Original CXR")
+            st_image_compatible(display_image.resize((224, 224)), caption="Adjusted CXR View")
             
         # Selected XAI visualization image display
         with img_col2:
@@ -682,6 +704,17 @@ with display_col:
             unsafe_allow_html=True
         )
         
+        # Generate XAI interpretability map for PDF report using original raw image
+        try:
+            pdf_overlay = generate_xai_visualization(
+                method_name=xai_method,
+                model=model,
+                input_tensor=input_tensor,
+                original_image=image
+            )
+        except Exception as e:
+            pdf_overlay = None
+
         # Generate the clinical PDF report bytes
         pdf_data = generate_pdf_report(
             patient_name=patient_name,
@@ -693,7 +726,7 @@ with display_col:
             confidence=confidence,
             insights=insights_html,
             original_image=image,
-            xai_overlay=overlay,
+            xai_overlay=pdf_overlay,
             xai_method_name=xai_method
         )
         
