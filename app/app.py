@@ -8,6 +8,7 @@ import os
 import sys
 from pathlib import Path
 import time
+import textwrap
 
 # Append project root directory to path for imports
 base_dir = Path(__file__).resolve().parent.parent
@@ -366,42 +367,44 @@ current_xai = st.session_state.get("xai_method_select", "Grad-CAM")
 xai_display = "Guided BP" if current_xai == "Guided Backpropagation" else current_xai
 
 st.markdown(
-    f"""<div class="metrics-container" style="margin-bottom: 0.85rem;">
-<div class="metric-card">
-<div class="metric-value">97.99%</div>
-<div class="metric-label">Test Accuracy</div>
-</div>
-<div class="metric-card">
-<div class="metric-value">{xai_display}</div>
-<div class="metric-label">XAI Engine</div>
-</div>
-<div class="metric-card">
-<div class="metric-value">0.45s</div>
-<div class="metric-label">Inference Time</div>
-</div>
-<div class="metric-card">
-<div class="metric-value">13,959 Scans</div>
-<div class="metric-label">Dataset Size</div>
-</div>
-</div>
-<div class="metrics-container">
-<div class="metric-card">
-<div class="metric-value">{total_scans}</div>
-<div class="metric-label">Total Scans Analyzed</div>
-</div>
-<div class="metric-card">
-<div class="metric-value metric-value-tb">{tb_count}</div>
-<div class="metric-label">Tuberculosis Detected</div>
-</div>
-<div class="metric-card">
-<div class="metric-value metric-value-pneumonia">{pneumonia_count}</div>
-<div class="metric-label">Pneumonia Detected</div>
-</div>
-<div class="metric-card">
-<div class="metric-value metric-value-normal">{normal_count}</div>
-<div class="metric-label">Normal Detected</div>
-</div>
-</div>""", 
+    textwrap.dedent(f"""
+        <div class="metrics-container" style="margin-bottom: 0.85rem;">
+            <div class="metric-card">
+                <div class="metric-value">97.99%</div>
+                <div class="metric-label">Test Accuracy</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">{xai_display}</div>
+                <div class="metric-label">XAI Engine</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">0.45s</div>
+                <div class="metric-label">Inference Time</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">13,959 Scans</div>
+                <div class="metric-label">Dataset Size</div>
+            </div>
+        </div>
+        <div class="metrics-container">
+            <div class="metric-card">
+                <div class="metric-value">{total_scans}</div>
+                <div class="metric-label">Total Scans Analyzed</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value metric-value-tb">{tb_count}</div>
+                <div class="metric-label">Tuberculosis Detected</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value metric-value-pneumonia">{pneumonia_count}</div>
+                <div class="metric-label">Pneumonia Detected</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value metric-value-normal">{normal_count}</div>
+                <div class="metric-label">Normal Detected</div>
+            </div>
+        </div>
+    """), 
     unsafe_allow_html=True
 )
 
@@ -668,53 +671,55 @@ with display_col:
             card_class = "result-card-negative"
             
         st.markdown(
-            f"""<div class="report-card {card_class}">
-<h3 style="margin-top:0; color:#e2e8f0; font-family:'Poppins',sans-serif; font-size:1.4rem;">🔬 Diagnostic & Interpretability Report</h3>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.2rem;">
-<div>
-<h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">Prediction Status</h5>
-{badge_html}
-<p style="margin-top:1.2rem; font-size:1.1rem; color:#e2e8f0; margin-bottom:0;">Confidence Score: <strong>{confidence:.2f}%</strong></p>
-</div>
-<div>
-<h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">{xai_method} Insights</h5>
-<div style="font-size:0.95rem; line-height:1.6; color:#cbd5e1;">{insights_html}</div>
-</div>
-</div>
-<div style="margin-top: 1.5rem; background: rgba(0,0,0,0.15); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03);">
-<h5 style="margin-top:0; margin-bottom:1rem; color:#94a3b8; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">Probability Distribution</h5>
-<!-- Normal -->
-<div style="margin-bottom: 0.8rem;">
-<div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-<span style="color: #cbd5e1; font-weight: 500;">Normal (Healthy)</span>
-<span style="color: #4ade80; font-weight: 700;">{p_normal:.2f}%</span>
-</div>
-<div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
-<div style="background: linear-gradient(90deg, #22c55e, #4ade80); width: {p_normal}%; height: 100%; border-radius: 4px;"></div>
-</div>
-</div>
-<!-- TB -->
-<div style="margin-bottom: 0.8rem;">
-<div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-<span style="color: #cbd5e1; font-weight: 500;">Tuberculosis</span>
-<span style="color: #f87171; font-weight: 700;">{p_tb:.2f}%</span>
-</div>
-<div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
-<div style="background: linear-gradient(90deg, #ef4444, #f87171); width: {p_tb}%; height: 100%; border-radius: 4px;"></div>
-</div>
-</div>
-<!-- Pneumonia -->
-<div style="margin-bottom: 0.2rem;">
-<div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-<span style="color: #cbd5e1; font-weight: 500;">Pneumonia</span>
-<span style="color: #fb923c; font-weight: 700;">{p_pneumonia:.2f}%</span>
-</div>
-<div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
-<div style="background: linear-gradient(90deg, #f97316, #fb923c); width: {p_pneumonia}%; height: 100%; border-radius: 4px;"></div>
-</div>
-</div>
-</div>
-</div>""", 
+            textwrap.dedent(f"""
+                <div class="report-card {card_class}">
+                    <h3 style="margin-top:0; color:#e2e8f0; font-family:'Poppins',sans-serif; font-size:1.4rem;">🔬 Diagnostic & Interpretability Report</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.2rem;">
+                        <div>
+                            <h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">Prediction Status</h5>
+                            {badge_html}
+                            <p style="margin-top:1.2rem; font-size:1.1rem; color:#e2e8f0; margin-bottom:0;">Confidence Score: <strong>{confidence:.2f}%</strong></p>
+                        </div>
+                        <div>
+                            <h5 style="margin-top:0; margin-bottom:0.5rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px;">{xai_method} Insights</h5>
+                            <div style="font-size:0.95rem; line-height:1.6; color:#cbd5e1;">{insights_html}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.15); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03);">
+                        <h5 style="margin-top:0; margin-bottom:1rem; color:#94a3b8; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">Probability Distribution</h5>
+                        <!-- Normal -->
+                        <div style="margin-bottom: 0.8rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                                <span style="color: #cbd5e1; font-weight: 500;">Normal (Healthy)</span>
+                                <span style="color: #4ade80; font-weight: 700;">{p_normal:.2f}%</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: linear-gradient(90deg, #22c55e, #4ade80); width: {p_normal}%; height: 100%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <!-- TB -->
+                        <div style="margin-bottom: 0.8rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                                <span style="color: #cbd5e1; font-weight: 500;">Tuberculosis</span>
+                                <span style="color: #f87171; font-weight: 700;">{p_tb:.2f}%</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: linear-gradient(90deg, #ef4444, #f87171); width: {p_tb}%; height: 100%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <!-- Pneumonia -->
+                        <div style="margin-bottom: 0.2rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                                <span style="color: #cbd5e1; font-weight: 500;">Pneumonia</span>
+                                <span style="color: #fb923c; font-weight: 700;">{p_pneumonia:.2f}%</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: linear-gradient(90deg, #f97316, #fb923c); width: {p_pneumonia}%; height: 100%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            """), 
             unsafe_allow_html=True
         )
         
@@ -756,40 +761,42 @@ with display_col:
             
     else:
         st.markdown(
-            """<div class="welcome-container">
-<div class="welcome-header">
-<span class="welcome-status-dot"></span>
-<span class="welcome-status-text">System Active & Ready for Diagnostic Execution</span>
-</div>
-<div class="welcome-main-card">
-<div class="welcome-icon">\U0001fac1</div>
-<h2>No Active Diagnostic Report</h2>
-<p>Please upload a grayscale Chest X-Ray scan on the left column, fill in the patient metadata, and click <strong>'Run Diagnostic Analysis'</strong> to trigger the AI classifier model and interpretability engine.</p>
-</div>
-<h4 class="capabilities-title">🩺 Clinical Intelligence Capabilities</h4>
-<div class="capabilities-grid">
-<div class="capability-card">
-<div class="cap-icon-box" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">🔍</div>
-<h5>Automatic CXR Validation</h5>
-<p>Our OOD validation engine uses Edge SSIM and profile correlation to filter out non-lung images.</p>
-</div>
-<div class="capability-card">
-<div class="cap-icon-box" style="background: rgba(56, 189, 248, 0.1); color: #38bdf8;">🧠</div>
-<h5>Multi-Class Diagnostics</h5>
-<p>DenseNet121 based feature extraction classifies Normal, Tuberculosis, and Pneumonia scans.</p>
-</div>
-<div class="capability-card">
-<div class="cap-icon-box" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">⚡</div>
-<h5>Explainable AI Engine</h5>
-<p>Visualizes neural pathways and decision zones via Grad-CAM, Saliency, and Guided Backprop.</p>
-</div>
-<div class="capability-card">
-<div class="cap-icon-box" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;">📥</div>
-<h5>Clinical PDF Exports</h5>
-<p>Generates signed, institutional clinical reports containing patient data and XAI overlays.</p>
-</div>
-</div>
-</div>""", 
+            textwrap.dedent("""
+                <div class="welcome-container">
+                    <div class="welcome-header">
+                        <span class="welcome-status-dot"></span>
+                        <span class="welcome-status-text">System Active & Ready for Diagnostic Execution</span>
+                    </div>
+                    <div class="welcome-main-card">
+                        <div class="welcome-icon">\U0001fac1</div>
+                        <h2>No Active Diagnostic Report</h2>
+                        <p>Please upload a grayscale Chest X-Ray scan on the left column, fill in the patient metadata, and click <strong>'Run Diagnostic Analysis'</strong> to trigger the AI classifier model and interpretability engine.</p>
+                    </div>
+                    <h4 class="capabilities-title">🩺 Clinical Intelligence Capabilities</h4>
+                    <div class="capabilities-grid">
+                        <div class="capability-card">
+                            <div class="cap-icon-box" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">🔍</div>
+                            <h5>Automatic CXR Validation</h5>
+                            <p>Our OOD validation engine uses Edge SSIM and profile correlation to filter out non-lung images.</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="cap-icon-box" style="background: rgba(56, 189, 248, 0.1); color: #38bdf8;">🧠</div>
+                            <h5>Multi-Class Diagnostics</h5>
+                            <p>DenseNet121 based feature extraction classifies Normal, Tuberculosis, and Pneumonia scans.</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="cap-icon-box" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">⚡</div>
+                            <h5>Explainable AI Engine</h5>
+                            <p>Visualizes neural pathways and decision zones via Grad-CAM, Saliency, and Guided Backprop.</p>
+                        </div>
+                        <div class="capability-card">
+                            <div class="cap-icon-box" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;">📥</div>
+                            <h5>Clinical PDF Exports</h5>
+                            <p>Generates signed, institutional clinical reports containing patient data and XAI overlays.</p>
+                        </div>
+                    </div>
+                </div>
+            """), 
             unsafe_allow_html=True
         )
 
@@ -814,35 +821,39 @@ if st.session_state.diagnoses_history:
         dt = item.get("date_time", item.get("time", "N/A"))
         gender = item.get("patient_gender", "N/A")
         
-        table_rows += f"""<tr>
-<td>{dt}</td>
-<td><code>{item["patient_id"]}</code></td>
-<td>{item["patient_name"]}</td>
-<td>{gender}</td>
-<td><span class="history-badge {badge_class}">{item["diagnosis"]}</span></td>
-<td><strong>{item["confidence"]}</strong></td>
-<td><span class="xai-badge">{item["xai_method"]}</span></td>
-</tr>"""
+        table_rows += textwrap.dedent(f"""
+            <tr>
+                <td>{dt}</td>
+                <td><code>{item["patient_id"]}</code></td>
+                <td>{item["patient_name"]}</td>
+                <td>{gender}</td>
+                <td><span class="history-badge {badge_class}">{item["diagnosis"]}</span></td>
+                <td><strong>{item["confidence"]}</strong></td>
+                <td><span class="xai-badge">{item["xai_method"]}</span></td>
+            </tr>
+        """).strip() + "\n"
         
     st.markdown(
-        f"""<div class="history-table-container">
-<table class="history-table">
-<thead>
-<tr>
-<th>Date & Time</th>
-<th>Patient ID</th>
-<th>Patient Name</th>
-<th>Gender</th>
-<th>Diagnosis Result</th>
-<th>Confidence Score</th>
-<th>XAI Method</th>
-</tr>
-</thead>
-<tbody>
-{table_rows}
-</tbody>
-</table>
-</div>""", 
+        textwrap.dedent(f"""
+            <div class="history-table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Patient ID</th>
+                            <th>Patient Name</th>
+                            <th>Gender</th>
+                            <th>Diagnosis Result</th>
+                            <th>Confidence Score</th>
+                            <th>XAI Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {table_rows}
+                    </tbody>
+                </table>
+            </div>
+        """), 
         unsafe_allow_html=True
     )
 
