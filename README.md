@@ -15,14 +15,9 @@
 
 <p align="center">
   <a href="https://hybrid-tuberculosis-pneumonia-detection-xai.streamlit.app/"><img src="https://img.shields.io/badge/Streamlit-Active-green?style=flat-square&logo=streamlit" alt="Streamlit App"></a>
-  <a href="https://github.com/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase"><img src="https://img.shields.io/github/license/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase" alt="License"></a>
-  <a href="https://github.com/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase"><img src="https://img.shields.io/github/repo-size/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase" alt="Repo Size"></a>
-  <a href="https://github.com/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase"><img src="https://img.shields.io/github/last-commit/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase" alt="Last Commit"></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase/stargazers"><img src="https://img.shields.io/github/stars/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase?style=social" alt="Stars"></a>
-  <a href="https://github.com/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase/network/members"><img src="https://img.shields.io/github/forks/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase?style=social" alt="Forks"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
+  <img src="https://img.shields.io/badge/repo%20size-743%20MB-blue" alt="Repo Size">
+  <img src="https://img.shields.io/badge/last%20commit-June%202026-green" alt="Last Commit">
 </p>
 
 <p align="center">
