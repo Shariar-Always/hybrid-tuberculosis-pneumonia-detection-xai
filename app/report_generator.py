@@ -1,6 +1,6 @@
 import os
 import io
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image as RLImage, Table, TableStyle, KeepTogether
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -167,7 +167,9 @@ def generate_pdf_report(patient_name, patient_id, patient_age, patient_gender, s
     
     # --- PATIENT INFO TABLE ---
     story.append(Paragraph("Patient Information", section_heading))
-    date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # Use Bangladesh Standard Time (BST - UTC+6) for institutional reporting
+    dhaka_tz = timezone(timedelta(hours=6))
+    date_str = datetime.now(dhaka_tz).strftime("%Y-%m-%d %H:%M:%S")
     
     patient_data = [
         [
