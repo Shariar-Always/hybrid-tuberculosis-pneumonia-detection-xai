@@ -61,6 +61,44 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
 
 ---
 
+## 📂 Repository Structure
+
+```text
+├── 📁 .streamlit
+│   └── ⚙️ config.toml
+├── 📁 app
+│   ├── 🐍 app.py
+│   ├── 🖼️ cxr_template.png
+│   ├── 🖼️ diu_logo.png
+│   ├── 🐍 report_generator.py
+│   ├── 🎨 style.css
+│   └── 🐍 xai_methods.py
+├── 📁 data
+│   └── 📄 metadata.csv
+├── 📁 models
+│   ├── 📄 best_tb_model_densenet121.pth
+│   ├── 📄 best_tb_model_efficientnet_b0.pth
+│   └── 📄 best_tb_model_resnet50.pth
+├── 📁 notebooks
+│   ├── 📄 01_data_preprocessing.ipynb
+│   ├── 📄 02_model_training.ipynb
+│   ├── 📄 02_model_training_densenet121.ipynb
+│   ├── 📄 02_model_training_efficientnet_b0.ipynb
+│   └── 📄 02_model_training_resnet50.ipynb
+├── 📁 src
+│   ├── 📁 models
+│   │   └── 🐍 hybrid_model.py
+│   ├── 🐍 preprocess.py
+│   └── 🐍 train.py
+├── ⚙️ .gitignore
+├── 📕 1. Title_Phase_Evaluation_Report.pdf
+├── 📄 LICENSE
+├── 📝 README.md
+└── 📄 requirements.txt
+```
+
+---
+
 ## 🫁 Methodology & Architecture
 
 Our proposed hybrid model, **HybridTBPredictor**, integrates deep feature extraction with dual-attention blocks:
