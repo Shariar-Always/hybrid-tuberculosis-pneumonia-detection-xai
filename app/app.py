@@ -436,7 +436,35 @@ st.markdown(
 upload_col, display_col = st.columns([1, 2])
 
 with upload_col:
-    st.subheader("📤 Upload CXR Scan")
+    st.components.v1.html(
+        """
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: transparent;
+                overflow: hidden;
+            }
+            .header-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-family: 'Poppins', sans-serif;
+            }
+        </style>
+        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+        <div class="header-container">
+            <lord-icon
+                src="https://cdn.lordicon.com/rqedipls.json"
+                trigger="hover"
+                colors="primary:#17171c,secondary:#66a1ee,tertiary:#ffffff"
+                style="width:36px;height:36px;">
+            </lord-icon>
+            <h3 style="margin: 0; font-size: 1.35rem; font-weight: 700; color: #e2e8f0; line-height: 36px;">Upload CXR Scan</h3>
+        </div>
+        """,
+        height=40
+    )
     
     if "uploader_key" not in st.session_state:
         st.session_state["uploader_key"] = 0
@@ -493,8 +521,6 @@ with upload_col:
             st.warning("Please upload a genuine grayscale Chest X-Ray scan to proceed.")
             analyze_button = False
         else:
-            st.success("✅ Valid Chest X-Ray scan detected!")
-            
             # --- Image Enhancement Settings ---
             with st.expander("🎛️ CXR Image Enhancement Settings", expanded=False):
                 if "cxr_brightness" not in st.session_state:
@@ -514,6 +540,8 @@ with upload_col:
             
             # Display small preview of uploaded image
             st_image_compatible(display_image, caption="Uploaded Scan Preview (Adjusted)")
+            
+            st.success("✅ Valid Chest X-Ray scan detected!")
             
             # --- Patient Information Inputs ---
             st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
