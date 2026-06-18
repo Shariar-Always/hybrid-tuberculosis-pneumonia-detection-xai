@@ -472,15 +472,70 @@ with upload_col:
     if "image_source" not in st.session_state:
         st.session_state.image_source = "📄 File Upload"
         
+    if "mode" in st.query_params:
+        mode = st.query_params["mode"]
+        if mode == "camera":
+            st.session_state.image_source = "📷 Use Camera"
+            st.query_params.clear()
+            st.rerun()
+        elif mode == "upload":
+            st.session_state.image_source = "📄 File Upload"
+            st.query_params.clear()
+            st.rerun()
+        
     if st.session_state.image_source == "📄 File Upload":
         uploaded_file = st.file_uploader(
             "Upload a Chest X-ray image (PNG or JPG format) to detect Tuberculosis and Pneumonia signs.", 
             type=["png", "jpg", "jpeg"],
             key=f"file_uploader_{st.session_state.uploader_key}"
         )
-        if st.button("📷 Use Camera", key="trigger_camera_mode", help="Switch to webcam input mode to capture a scan directly."):
-            st.session_state.image_source = "📷 Use Camera"
-            st.rerun()
+        st.components.v1.html(
+            """
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    background-color: transparent;
+                    overflow: hidden;
+                }
+                .custom-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    background-color: #1e293b;
+                    border: 1px solid #334155;
+                    color: #cbd5e1;
+                    padding: 6px 14px;
+                    border-radius: 6px;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: all 0.2s ease;
+                }
+                .custom-btn:hover {
+                    background-color: #334155;
+                    border-color: #475569;
+                    color: #ffffff;
+                }
+            </style>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <a href="/?mode=camera" target="_parent" class="custom-btn" title="Switch to webcam input mode to capture a scan directly.">
+                <lord-icon
+                    src="https://cdn.lordicon.com/wyupmbaf.json"
+                    trigger="in"
+                    delay="1500"
+                    stroke="light"
+                    state="in-reveal"
+                    colors="primary:#121331,secondary:#3a3347,tertiary:#30e849,quaternary:#ebe6ef,quinary:#ffc738,senary:#646e78,septenary:#f24c00"
+                    style="width:24px;height:24px;flex-shrink:0;">
+                </lord-icon>
+                <span>Use Camera</span>
+            </a>
+            """,
+            height=42
+        )
     else:
         uploaded_file = st.camera_input(
             "Capture a grayscale Chest X-Ray scan image using your webcam or camera.",
@@ -541,7 +596,42 @@ with upload_col:
             # Display small preview of uploaded image
             st_image_compatible(display_image, caption="Uploaded Scan Preview (Adjusted)")
             
-            st.success("✅ Valid Chest X-Ray scan detected!")
+            st.components.v1.html(
+                """
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        background-color: transparent;
+                        overflow: hidden;
+                    }
+                    .success-card {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        background-color: rgba(22, 199, 46, 0.08);
+                        border: 1px solid rgba(22, 199, 46, 0.2);
+                        border-radius: 8px;
+                        padding: 8px 14px;
+                        color: #4ade80;
+                        font-family: 'Poppins', sans-serif;
+                    }
+                </style>
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <div class="success-card">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/pxixoqxa.json"
+                        trigger="in"
+                        delay="1500"
+                        state="in-reveal"
+                        colors="primary:#121331,secondary:#16c72e"
+                        style="width:26px;height:26px;flex-shrink:0;">
+                    </lord-icon>
+                    <span style="font-size: 0.93rem; font-weight: 500; line-height: 22px; margin-left: 4px;">Valid Chest X-Ray scan detected!</span>
+                </div>
+                """,
+                height=65
+            )
             
             # --- Patient Information Inputs ---
             st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
@@ -591,7 +681,43 @@ with st.spinner(f"🧠 Loading {backbone_choice}..."):
     model, model_loaded = load_trained_model(selected_backbone)
 
 if model_loaded:
-    model_status_placeholder.success(f"✅ Trained {backbone_choice} weights loaded successfully!")
+    with model_status_placeholder:
+        st.components.v1.html(
+            f"""
+            <style>
+                body {{
+                    margin: 0;
+                    padding: 0;
+                    background-color: transparent;
+                    overflow: hidden;
+                }}
+                .success-card {{
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    background-color: rgba(22, 199, 46, 0.08);
+                    border: 1px solid rgba(22, 199, 46, 0.2);
+                    border-radius: 8px;
+                    padding: 8px 14px;
+                    color: #4ade80;
+                    font-family: 'Poppins', sans-serif;
+                }}
+            </style>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <div class="success-card">
+                <lord-icon
+                    src="https://cdn.lordicon.com/pxixoqxa.json"
+                    trigger="in"
+                    delay="1500"
+                    state="in-reveal"
+                    colors="primary:#121331,secondary:#16c72e"
+                    style="width:26px;height:26px;flex-shrink:0;">
+                </lord-icon>
+                <span style="font-size: 0.93rem; font-weight: 500; line-height: 22px; margin-left: 4px;">Trained {backbone_choice} weights loaded successfully!</span>
+            </div>
+            """,
+            height=65
+        )
 else:
     model_status_placeholder.warning(f"⚠️ {backbone_choice} weights not found. Running with pre-trained ImageNet backbone.")
 
