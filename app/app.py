@@ -324,24 +324,6 @@ with st.sidebar:
         st.image(str(logo_path), width=170)
     else:
         st.image("https://i.postimg.cc/HnfyLQYZ/DIU-Logo.png", width=170)
-        
-    # Placeholder for model status directly below the logo to prevent initial load freeze
-    model_status_placeholder = st.empty()
-    
-    st.markdown("#### **🧠 Model Configuration**")
-    backbone_choice = st.selectbox(
-        "Select Neural Backbone",
-        ["DenseNet121 (Hybrid)", "ResNet50 (Hybrid)", "EfficientNetB0 (Hybrid)"],
-        index=0,
-        key="model_backbone_select"
-    )
-    
-    backbone_map = {
-        "DenseNet121 (Hybrid)": "densenet121",
-        "ResNet50 (Hybrid)": "resnet50",
-        "EfficientNetB0 (Hybrid)": "efficientnet_b0"
-    }
-    selected_backbone = backbone_map[backbone_choice]
     st.markdown("<hr style='margin: 8px 0; opacity: 0.15;'>", unsafe_allow_html=True)
         
     st.markdown("### FYDP Title Phase Evaluation")
@@ -477,6 +459,25 @@ with upload_col:
             st.session_state.image_source = "📄 File Upload"
             st.rerun()
 
+    # Model Configuration on Main Page
+    st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
+    st.markdown("#### **🧠 Model Configuration**")
+    backbone_choice = st.selectbox(
+        "Select Neural Backbone",
+        ["DenseNet121 (Hybrid)", "ResNet50 (Hybrid)", "EfficientNetB0 (Hybrid)"],
+        index=0,
+        key="model_backbone_select"
+    )
+    
+    backbone_map = {
+        "DenseNet121 (Hybrid)": "densenet121",
+        "ResNet50 (Hybrid)": "resnet50",
+        "EfficientNetB0 (Hybrid)": "efficientnet_b0"
+    }
+    selected_backbone = backbone_map[backbone_choice]
+    
+    # Placeholder for weights loading status
+    model_status_placeholder = st.empty()
     
     if uploaded_file is not None:
         image = Image.open(uploaded_file).convert("RGB")
@@ -555,9 +556,8 @@ with upload_col:
 
 # ----------------- DEFERRED MODEL LOADING -----------------
 # Load model after layout renders to prevent blocking blank screen on initial page refresh
-with st.sidebar:
-    with st.spinner(f"🧠 Loading {backbone_choice}..."):
-        model, model_loaded = load_trained_model(selected_backbone)
+with st.spinner(f"🧠 Loading {backbone_choice}..."):
+    model, model_loaded = load_trained_model(selected_backbone)
 
 if model_loaded:
     model_status_placeholder.success(f"✅ Trained {backbone_choice} weights loaded successfully!")
