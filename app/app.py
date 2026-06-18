@@ -491,51 +491,9 @@ with upload_col:
             type=["png", "jpg", "jpeg"],
             key=f"file_uploader_{st.session_state.uploader_key}"
         )
-        st.components.v1.html(
-            """
-            <style>
-                body {
-                    margin: 0;
-                    padding: 0;
-                    background-color: transparent;
-                    overflow: hidden;
-                }
-                .custom-btn {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    background-color: #1e293b;
-                    border: 1px solid #334155;
-                    color: #cbd5e1;
-                    padding: 6px 14px;
-                    border-radius: 6px;
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 0.85rem;
-                    font-weight: 500;
-                    cursor: pointer;
-                    text-decoration: none;
-                    transition: all 0.2s ease;
-                }
-                .custom-btn:hover {
-                    background-color: #334155;
-                    border-color: #475569;
-                    color: #ffffff;
-                }
-            </style>
-            <script src="https://cdn.lordicon.com/lordicon.js"></script>
-            <a href="/?mode=camera" target="_parent" class="custom-btn" title="Switch to webcam input mode to capture a scan directly.">
-                <lord-icon
-                    src="https://cdn.lordicon.com/wyupmbaf.json"
-                    trigger="hover"
-                    stroke="light"
-                    colors="primary:#ffffff,secondary:#e4e4e4,tertiary:#ffffff,quaternary:#f4f19c,quinary:#e88c30,senary:#848484,septenary:#f24c00"
-                    style="width:24px;height:24px;flex-shrink:0;">
-                </lord-icon>
-                <span>Use Camera</span>
-            </a>
-            """,
-            height=42
-        )
+        if st.button("📸 Use Camera", key="trigger_camera_mode", help="Switch to webcam input mode to capture a scan directly."):
+            st.session_state.image_source = "📷 Use Camera"
+            st.rerun()
     else:
         uploaded_file = st.camera_input(
             "Capture a grayscale Chest X-Ray scan image using your webcam or camera.",
