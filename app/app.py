@@ -524,11 +524,9 @@ with upload_col:
             <a href="/?mode=camera" target="_parent" class="custom-btn" title="Switch to webcam input mode to capture a scan directly.">
                 <lord-icon
                     src="https://cdn.lordicon.com/wyupmbaf.json"
-                    trigger="in"
-                    delay="1500"
+                    trigger="hover"
                     stroke="light"
-                    state="in-reveal"
-                    colors="primary:#121331,secondary:#3a3347,tertiary:#30e849,quaternary:#ebe6ef,quinary:#ffc738,senary:#646e78,septenary:#f24c00"
+                    colors="primary:#ffffff,secondary:#e4e4e4,tertiary:#ffffff,quaternary:#f4f19c,quinary:#e88c30,senary:#848484,septenary:#f24c00"
                     style="width:24px;height:24px;flex-shrink:0;">
                 </lord-icon>
                 <span>Use Camera</span>
