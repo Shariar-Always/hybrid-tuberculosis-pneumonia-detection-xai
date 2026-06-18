@@ -456,7 +456,9 @@ with upload_col:
         <div class="header-container">
             <lord-icon
                 src="https://cdn.lordicon.com/rqedipls.json"
-                trigger="hover"
+                trigger="in"
+                delay="1500"
+                state="in-reveal"
                 colors="primary:#17171c,secondary:#66a1ee,tertiary:#ffffff"
                 style="width:36px;height:36px;">
             </lord-icon>
@@ -526,7 +528,7 @@ with upload_col:
                     src="https://cdn.lordicon.com/wyupmbaf.json"
                     trigger="hover"
                     stroke="light"
-                    colors="primary:#2516c7,secondary:#3080e8,tertiary:#30e849,quaternary:#9cc2f4,quinary:#e88c30,senary:#848484,septenary:#f24c00"
+                    colors="primary:#ffffff,secondary:#e4e4e4,tertiary:#ffffff,quaternary:#f4f19c,quinary:#e88c30,senary:#848484,septenary:#f24c00"
                     style="width:24px;height:24px;flex-shrink:0;">
                 </lord-icon>
                 <span>Use Camera</span>
