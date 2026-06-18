@@ -85,6 +85,26 @@ graph TD
 
 ---
 
+## 📊 Model Training & Evaluation
+
+We trained and evaluated our proposed framework using three distinct convolutional neural network backbones (**DenseNet121**, **ResNet50**, and **EfficientNet-B0**) integrated with CBAM dual-attention blocks. The models were trained on Google Colab using a **Tesla T4 GPU** on a hybrid dataset of **13,959 chest X-ray scans** (Normal, Tuberculosis, and Pneumonia).
+
+### Performance Comparison (on hold-out Test Set of 1,392 images):
+
+| Metric | DenseNet121 (Baseline) | ResNet50 | EfficientNet-B0 (Best) |
+| :--- | :---: | :---: | :---: |
+| **Test Accuracy** | 97.10% | 97.92% | **98.06%** |
+| **Test Sensitivity (Recall)** | 97.20% | 98.00% | **98.18%** |
+| **Test Specificity** | 98.50% | 98.94% | **99.03%** |
+| **Test ROC-AUC** | 0.9975 | 0.9989 | **0.9991** |
+
+### Key Takeaways:
+- **Unified Improvement**: Both newly implemented backbones (**ResNet50** and **EfficientNet-B0**) outperform the baseline DenseNet121 model.
+- **Top Performer**: The **EfficientNet-B0** model achieved the highest **Test Accuracy of 98.06%** and **Test Sensitivity (Recall) of 98.18%** on the hold-out test set.
+- **Efficiency**: EfficientNet-B0 is highly lightweight (~18.5 MB checkpoint weights compared to ResNet50's ~98.5 MB), enabling much faster real-time inference and a lower computational footprint on web/mobile deployments.
+
+---
+
 ## 🔗 Live Demo & Links
 
 - **Streamlit Community Cloud App**: [![Streamlit App](https://img.shields.io/badge/Streamlit-Active-green?style=flat-square&logo=streamlit)](https://hybrid-tuberculosis-pneumonia-detection-xai.streamlit.app/)
