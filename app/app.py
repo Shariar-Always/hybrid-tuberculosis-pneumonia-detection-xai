@@ -149,6 +149,9 @@ def local_css(file_name):
 # Premium Custom CSS styling injection from separate stylesheet
 local_css("style.css")
 
+# Load Lordicon player script CDN for interactive animated icons
+st.markdown('<script src="https://cdn.lordicon.com/lordicon.js"></script>', unsafe_allow_html=True)
+
 from PIL import ImageEnhance
 
 def adjust_image(image, brightness, contrast, sharpness):
