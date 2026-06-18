@@ -48,23 +48,40 @@ class SpatialAttention(nn.Module):
 class HybridTBPredictor(nn.Module):
     """
     Hybrid CNN + Attention Model for Tuberculosis Detection
-    Uses pre-trained DenseNet121 as feature extractor backbone
+    Uses pre-trained backbone as feature extractor
     coupled with Channel and Spatial Attention Blocks (CBAM).
     """
-    def __init__(self, pretrained=True):
+    def __init__(self, backbone="densenet121", pretrained=True):
         super(HybridTBPredictor, self).__init__()
+        self.backbone_name = backbone
         
-        # Load pre-trained DenseNet121 backbone
-        if pretrained:
-            densenet = models.densenet121(weights=models.DenseNet121_Weights.DEFAULT)
-        else:
-            densenet = models.densenet121()
+        if backbone == "densenet121":
+            if pretrained:
+                densenet = models.densenet121(weights=models.DenseNet121_Weights.DEFAULT)
+            else:
+                densenet = models.densenet121()
+            self.features = densenet.features
+            self.num_features = 1024
             
-        # Extract features (before the final classifier)
-        # DenseNet121 features output has 1024 channels
-        self.features = densenet.features
-        self.num_features = 1024
-        
+        elif backbone == "resnet50":
+            if pretrained:
+                resnet = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+            else:
+                resnet = models.resnet50()
+            self.features = nn.Sequential(*list(resnet.children())[:-2])
+            self.num_features = 2048
+            
+        elif backbone == "efficientnet_b0":
+            if pretrained:
+                effnet = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.DEFAULT)
+            else:
+                effnet = models.efficientnet_b0()
+            self.features = effnet.features
+            self.num_features = 1280
+            
+        else:
+            raise ValueError(f"Unsupported backbone: {backbone}")
+            
         # Attention Blocks
         self.channel_attention = ChannelAttention(self.num_features)
         self.spatial_attention = SpatialAttention(kernel_size=7)
@@ -104,10 +121,14 @@ class HybridTBPredictor(nn.Module):
         return logits
 
 if __name__ == "__main__":
-    # Test instantiation and forward pass
-    model = HybridTBPredictor(pretrained=False)
+    # Test instantiation and forward pass for all supported backbones
+    backbones = ["densenet121", "resnet50", "efficientnet_b0"]
     dummy_input = torch.randn(2, 3, 224, 224)
-    outputs = model(dummy_input)
-    print("Model Input Shape:  ", dummy_input.shape)
-    print("Model Output Shape: ", outputs.shape)
-    print("Model initialized and verified successfully!")
+    
+    for bb in backbones:
+        print(f"\n--- Testing Backbone: {bb} ---")
+        model = HybridTBPredictor(backbone=bb, pretrained=False)
+        outputs = model(dummy_input)
+        print("Model Input Shape:  ", dummy_input.shape)
+        print("Model Output Shape: ", outputs.shape)
+        print(f"Backbone {bb} initialized and verified successfully!")

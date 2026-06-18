@@ -278,22 +278,32 @@ def validate_chest_xray(image):
 
 # ----------------- MODEL LOADING (Cached) -----------------
 @st.cache_resource
-def load_trained_model():
-    model = HybridTBPredictor(pretrained=False)
-    weights_path = base_dir / "models" / "best_tb_model.pth"
-    print(f"[DEBUG] load_trained_model: base_dir = {base_dir}")
+def load_trained_model(backbone="densenet121"):
+    # Map backbones to weight files
+    if backbone == "densenet121":
+        weights_name = "best_tb_model.pth"  # Backward compatibility
+    else:
+        weights_name = f"best_tb_model_{backbone}.pth"
+        
+    weights_path = base_dir / "models" / weights_name
+    print(f"[DEBUG] load_trained_model: backbone = {backbone}")
     print(f"[DEBUG] load_trained_model: weights_path = {weights_path}")
     print(f"[DEBUG] load_trained_model: weights_path.exists() = {weights_path.exists()}")
+    
     loaded = False
     if weights_path.exists():
+        model = HybridTBPredictor(backbone=backbone, pretrained=False)
         try:
             model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
-            print("[DEBUG] load_trained_model: successfully loaded weights!")
+            print(f"[DEBUG] load_trained_model: successfully loaded weights for {backbone}!")
             loaded = True
         except Exception as e:
             print(f"[DEBUG] load_trained_model: failed to load weights! Error: {e}")
+            model = HybridTBPredictor(backbone=backbone, pretrained=True)
     else:
-        print("[DEBUG] load_trained_model: weights file does not exist!")
+        print(f"[DEBUG] load_trained_model: weights file not found for {backbone}. Fallback to pre-trained ImageNet weights.")
+        model = HybridTBPredictor(backbone=backbone, pretrained=True)
+        
     model.eval()
     return model, loaded
 # Transforms for inference (exactly same as validation transforms)
@@ -313,6 +323,22 @@ with st.sidebar:
         
     # Placeholder for model status directly below the logo to prevent initial load freeze
     model_status_placeholder = st.empty()
+    
+    st.markdown("#### **🧠 Model Configuration**")
+    backbone_choice = st.selectbox(
+        "Select Neural Backbone",
+        ["DenseNet121 (Hybrid)", "ResNet50 (Hybrid)", "EfficientNetB0 (Hybrid)"],
+        index=0,
+        key="model_backbone_select"
+    )
+    
+    backbone_map = {
+        "DenseNet121 (Hybrid)": "densenet121",
+        "ResNet50 (Hybrid)": "resnet50",
+        "EfficientNetB0 (Hybrid)": "efficientnet_b0"
+    }
+    selected_backbone = backbone_map[backbone_choice]
+    st.markdown("<hr style='margin: 8px 0; opacity: 0.15;'>", unsafe_allow_html=True)
         
     st.markdown("### FYDP Title Phase Evaluation")
     st.markdown("<hr style='margin: 8px 0; opacity: 0.15;'>", unsafe_allow_html=True)
@@ -526,13 +552,13 @@ with upload_col:
 # ----------------- DEFERRED MODEL LOADING -----------------
 # Load model after layout renders to prevent blocking blank screen on initial page refresh
 with st.sidebar:
-    with st.spinner("🧠 Loading AI Model..."):
-        model, model_loaded = load_trained_model()
+    with st.spinner(f"🧠 Loading {backbone_choice}..."):
+        model, model_loaded = load_trained_model(selected_backbone)
 
 if model_loaded:
-    model_status_placeholder.success("✅ Real Model weights loaded successfully!")
+    model_status_placeholder.success(f"✅ Trained {backbone_choice} weights loaded successfully!")
 else:
-    model_status_placeholder.warning("⚠️ Model weights not found. Running in MOCK Mode.")
+    model_status_placeholder.warning(f"⚠️ {backbone_choice} weights not found. Running with pre-trained ImageNet backbone.")
 
 with display_col:
     st.subheader("🔬 Diagnostic & Interpretability Report")
