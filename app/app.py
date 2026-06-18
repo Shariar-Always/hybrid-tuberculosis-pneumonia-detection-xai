@@ -281,7 +281,11 @@ def validate_chest_xray(image):
 def load_trained_model(backbone="densenet121"):
     # Map backbones to weight files
     if backbone == "densenet121":
-        weights_name = "best_tb_model.pth"  # Backward compatibility
+        # Check if the renamed file exists, otherwise fall back to old name
+        if (base_dir / "models" / "best_tb_model_densenet121.pth").exists():
+            weights_name = "best_tb_model_densenet121.pth"
+        else:
+            weights_name = "best_tb_model.pth"  # Backward compatibility
     else:
         weights_name = f"best_tb_model_{backbone}.pth"
         

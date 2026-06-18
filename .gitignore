@@ -77,3 +77,7 @@ venv.bak/
 *.njsproj
 *.sln
 *.sw?
+
+# Heavy Model checkpoints (avoid pushing to Git)
+models/best_tb_model_resnet50.pth
+models/best_tb_model_efficientnet_b0.pth

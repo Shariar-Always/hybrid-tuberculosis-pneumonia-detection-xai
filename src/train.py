@@ -153,7 +153,7 @@ def main():
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2)
 
     # Save filename mapping
-    weights_name = "best_tb_model.pth" if args.backbone == "densenet121" else f"best_tb_model_{args.backbone}.pth"
+    weights_name = f"best_tb_model_{args.backbone}.pth"
     models_dir = Path("models")
     models_dir.mkdir(exist_ok=True)
     model_save_path = models_dir / weights_name
