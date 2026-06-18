@@ -218,7 +218,7 @@ def validate_chest_xray(image):
     # 2. Standard deviation check (filters out flat icons, plain backgrounds, screenshots)
     img_std = np.std(gray_img)
     if img_std < 15:  # Lowered to 15 to be extremely safe for low-contrast scans
-        return False, "The uploaded image lacks typical X-Ray structural details (flat graphics or low contrast detected)."
+        return False, "The uploaded image does not match the typical structural and anatomical patterns of a Chest X-Ray scan."
         
     # 4. Edge-based Structural Similarity (Edge SSIM) check to reject OOD non-CXR images
     if CXR_TEMPLATE_EDGES is not None:
@@ -503,6 +503,45 @@ with upload_col:
             st.session_state.image_source = "📄 File Upload"
             st.rerun()
 
+    # Perform validation immediately to render error card before Model Configuration if needed
+    is_valid = True
+    err_msg = ""
+    image = None
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file).convert("RGB")
+        is_valid, err_msg = validate_chest_xray(image)
+        if not is_valid:
+            st.components.v1.html(
+                f"""
+                <style>
+                    body {{
+                        margin: 0;
+                        padding: 0;
+                        background-color: transparent;
+                        overflow: hidden;
+                    }}
+                    .error-card {{
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        background-color: rgba(244, 69, 69, 0.08);
+                        border: 1px solid rgba(244, 69, 69, 0.2);
+                        border-radius: 8px;
+                        padding: 8px 14px;
+                        color: #f87171;
+                        font-family: 'Poppins', sans-serif;
+                    }}
+                </style>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                <div class="error-card">
+                    <i class="fa-solid fa-xmark fa-beat-fade fa-xl" style="color: rgb(244, 69, 69); margin-left: 4px; margin-right: 4px;"></i>
+                    <span style="font-size: 0.93rem; font-weight: 500; line-height: 22px;">Image Validation Failed: {err_msg}</span>
+                </div>
+                """,
+                height=115
+            )
+            st.warning("Please upload a genuine grayscale Chest X-Ray scan to proceed.")
+
     # Model Configuration on Main Page
     st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
     st.markdown("#### **🧠 Model Configuration**")
@@ -524,14 +563,7 @@ with upload_col:
     model_status_placeholder = st.empty()
     
     if uploaded_file is not None:
-        image = Image.open(uploaded_file).convert("RGB")
-        
-        # Validate if image is a valid Chest X-Ray scan
-        is_valid, err_msg = validate_chest_xray(image)
-        
         if not is_valid:
-            st.error(f"❌ Image Validation Failed: {err_msg}")
-            st.warning("Please upload a genuine grayscale Chest X-Ray scan to proceed.")
             analyze_button = False
         else:
             # --- Image Enhancement Settings ---
