@@ -41,11 +41,13 @@ def render_performance_hub():
         clean_html("""
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
             <style>
-                body {
+                html, body {
                     margin: 0;
                     padding: 0;
                     background-color: transparent;
                     overflow: hidden;
+                    height: 100%;
+                    width: 100%;
                 }
                 .container {
                     display: flex;
@@ -54,6 +56,9 @@ def render_performance_hub():
                     justify-content: center;
                     text-align: center;
                     font-family: 'Poppins', sans-serif;
+                    height: 100%;
+                    width: 100%;
+                    box-sizing: border-box;
                 }
             </style>
             <script src="https://cdn.lordicon.com/lordicon.js"></script>
@@ -67,10 +72,10 @@ def render_performance_hub():
                     colors="primary:#121331,secondary:#a866ee,tertiary:#66ee78,quaternary:#66a1ee"
                     style="width:90px;height:90px">
                 </lord-icon>
-                <h2 style='color: #e2e8f0; font-weight: 700; margin-top: 5px; margin-bottom: 0; font-size: 1.6rem;'>Model Performance Hub</h2>
+                <h2 style='color: #e2e8f0; font-weight: 700; margin: 5px 0 0 0; font-size: 1.6rem;'>Model Performance Hub</h2>
             </div>
         """),
-        height=130
+        height=150
     )
     st.markdown("<p style='text-align: center; color: #94a3b8; font-size: 0.95rem; margin-bottom: 2rem;'>Comprehensive performance evaluation, diagnostic accuracy, and speed comparison across the three hybrid CNN model backbones.</p>", unsafe_allow_html=True)
     
