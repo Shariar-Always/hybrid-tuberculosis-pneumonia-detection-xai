@@ -789,6 +789,7 @@ with display_col:
             "patient_gender": patient_gender or "N/A",
             "diagnosis": prediction_name,
             "confidence": f"{confidence:.2f}%",
+            "model": backbone_choice.split()[0],
             "xai_method": xai_method
         })
 
@@ -1000,6 +1001,7 @@ if st.session_state.diagnoses_history:
         # Safe extractions for older records
         dt = item.get("date_time", item.get("time", "N/A"))
         gender = item.get("patient_gender", "N/A")
+        model_name = item.get("model", "N/A")
         
         table_rows += clean_html(f"""
             <tr>
@@ -1009,6 +1011,7 @@ if st.session_state.diagnoses_history:
                 <td>{gender}</td>
                 <td><span class="history-badge {badge_class}">{item["diagnosis"]}</span></td>
                 <td><strong>{item["confidence"]}</strong></td>
+                <td><span class="xai-badge" style="background-color: rgba(168, 85, 247, 0.08) !important; color: #a855f7 !important; border-color: rgba(168, 85, 247, 0.2) !important;">{model_name}</span></td>
                 <td><span class="xai-badge">{item["xai_method"]}</span></td>
             </tr>
         """) + "\n"
@@ -1025,6 +1028,7 @@ if st.session_state.diagnoses_history:
                             <th>Gender</th>
                             <th>Diagnosis Result</th>
                             <th>Confidence Score</th>
+                            <th>Model</th>
                             <th>XAI Method</th>
                         </tr>
                     </thead>

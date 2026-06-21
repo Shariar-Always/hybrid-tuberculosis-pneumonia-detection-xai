@@ -846,12 +846,14 @@ input, textarea {
     color: #94a3b8 !important;
     font-size: 0.75rem !important;
     border-bottom: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    white-space: nowrap !important;
 }
 
 .history-table td {
     padding: 0.95rem 1rem !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
     vertical-align: middle !important;
+    white-space: nowrap !important;
 }
 
 .history-table tbody tr {
