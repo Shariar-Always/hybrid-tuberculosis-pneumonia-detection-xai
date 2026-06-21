@@ -68,7 +68,7 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
 - **Interactive Visual Adjustments**: Integrated controls to adjust uploaded CXR scan brightness, contrast, and sharpness using real-time PIL image enhancements, featuring an option to reset all configurations dynamically via session state callbacks.
 - **Clinical PDF Report Generation**: Generates print-ready, high-resolution diagnostic reports in-memory, featuring medical/patient metadata, confidence scores, selected XAI maps, and timestamps standardized to **Bangladesh Standard Time (BST - UTC+6)**.
 - **Streamlit Dashboard**: Dark-themed, modern glassmorphic dashboard optimized for clinical flow, clean HTML rendering, and session state persistence.
-- **Outstanding Performance**: Achieved **97.99% test accuracy and 98.06% sensitivity (Recall)** on the test subset (1,392 images) of the hybrid dataset (13,959 chest X-ray scans).
+- **Outstanding Performance**: Achieved **98.06% test accuracy and 98.18% sensitivity (Recall)** on the test subset (1,392 images) of the hybrid dataset (13,959 chest X-ray scans).
 
 ---
 
@@ -142,13 +142,13 @@ We trained and evaluated our proposed framework using three distinct convolution
 
 | Metric | DenseNet121 (Baseline) | ResNet50 | EfficientNet-B0 (Best) |
 | :--- | :---: | :---: | :---: |
-| **Test Accuracy** | 97.10% | 97.92% | **98.06%** |
-| **Test Sensitivity (Recall)** | 97.20% | 98.00% | **98.18%** |
-| **Test Specificity** | 98.50% | 98.94% | **99.03%** |
-| **Test ROC-AUC** | 0.9975 | 0.9989 | **0.9991** |
+| **Test Accuracy** | 97.99% | 97.92% | **98.06%** |
+| **Test Sensitivity (Recall)** | 98.06% | 98.00% | **98.18%** |
+| **Test Specificity** | 98.98% | 98.94% | **99.03%** |
+| **Test ROC-AUC** | 0.9991 | 0.9989 | **0.9991** |
 
 ### Key Takeaways:
-- **Unified Improvement**: Both newly implemented backbones (**ResNet50** and **EfficientNet-B0**) outperform the baseline DenseNet121 model.
+- **Unified High Performance**: All three proposed hybrid attention backbones achieved outstanding performance on the test set, exceeding 97.9% accuracy.
 - **Top Performer**: The **EfficientNet-B0** model achieved the highest **Test Accuracy of 98.06%** and **Test Sensitivity (Recall) of 98.18%** on the hold-out test set.
 - **Efficiency**: EfficientNet-B0 is highly lightweight (~18.5 MB checkpoint weights compared to ResNet50's ~98.5 MB), enabling much faster real-time inference and a lower computational footprint on web/mobile deployments.
 
