@@ -27,8 +27,15 @@ pinned: false
 <p align="center">
   <a href="https://hybrid-tuberculosis-pneumonia-detection-xai.streamlit.app/"><img src="https://img.shields.io/badge/Streamlit-Active-green?style=flat-square&logo=streamlit" alt="Streamlit App"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
-  <img src="https://img.shields.io/badge/repo%20size-743%20MB-blue" alt="Repo Size">
-  <img src="https://img.shields.io/badge/last%20commit-June%202026-green" alt="Last Commit">
+  <img src="https://img.shields.io/github/repo-size/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
+  <img src="https://img.shields.io/github/last-commit/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
+
+</p>
+
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai?style=social">
+  <img src="https://img.shields.io/github/forks/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai?style=social">
 </p>
 
 <p align="center">
@@ -52,7 +59,7 @@ The framework utilizes a hybrid CNN model (incorporating **CNN Backbones** and *
 | **Theme Colors** | Blue → Indigo |
 | **Deployment SDK** | Streamlit |
 | **SDK Version** | v1.35.0 |
-| **Entry Point File** | [app.py](file:///e:/Git%20All%20Repo/hybrid-tuberculosis-pneumonia-detection-xai/app/app.py) |
+| **Entry Point File** | [app.py](https://github.com/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai/blob/main/app/app.py) |
 
 ---
 
