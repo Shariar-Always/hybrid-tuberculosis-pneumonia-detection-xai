@@ -609,7 +609,7 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] small {
     gap: 1rem;
 }
 
-/* Responsive query for medium screens and Hugging Face space iframes */
+/* Responsive query for medium screens and embedded iframes */
 @media (max-width: 1024px) {
     .dashboard-footer {
         flex-direction: column !important;

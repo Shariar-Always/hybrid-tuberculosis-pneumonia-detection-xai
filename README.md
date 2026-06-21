@@ -1,13 +1,3 @@
----
-title: Hybrid Tuberculosis Detection XAI
-emoji: 🫁
-colorFrom: blue
-colorTo: indigo
-sdk: streamlit
-sdk_version: 1.35.0
-app_file: app/app.py
-pinned: false
----
 
 <h1 align="center">🫁 Hybrid Explainable AI (XAI) Framework for Automatic Tuberculosis and Pneumonia Detection</h1>
 
