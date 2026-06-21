@@ -12,7 +12,7 @@ pinned: false
 <h1 align="center">🫁 Hybrid Explainable AI (XAI) Framework for Automatic Tuberculosis and Pneumonia Detection</h1>
 
 <p align="center">
-  <img src="https://i.postimg.cc/tTTFpzdM/demo.png" alt="Hybrid TB Detection XAI Cover Page">
+  <img src="https://i.postimg.cc/tTTFpzdM/demo.png" alt="Hybrid TB Detection XAI Cover Page" width="100%">
 </p>
 
 ---
@@ -31,44 +31,52 @@ pinned: false
   <img src="https://img.shields.io/badge/last%20commit-June%202026-green" alt="Last Commit">
 </p>
 
-<p align="center">
-  <a href="https://wakatime.com/badge/user/c7433bc5-6f12-4c97-baea-430790fa608c/project/a814d58e-60f5-4f29-a8d5-c061501de0cb"><img src="https://wakatime.com/badge/user/c7433bc5-6f12-4c97-baea-430790fa608c/project/a814d58e-60f5-4f29-a8d5-c061501de0cb.svg" alt="wakatime"></a>
-</p>
-
 ---
 
 ## 📝 Project Overview
 
-This repository contains the official implementation of the **Hybrid Explainable AI Framework for Automatic Tuberculosis and Pneumonia Detection from Chest X-Ray Images Using Convolutional Neural Networks (CNNs)**. This is a final year design project (FYDP) submitted to **Daffodil International University (DIU)**.
+This repository contains the official implementation of the **Hybrid Explainable AI Framework for Automatic Tuberculosis and Pneumonia Detection from Chest X-Ray Images Using Convolutional Neural Networks (CNNs)**. This is a final year design project (FYDP) submitted to the **Department of Computer Science and Engineering (CSE)** at **Daffodil International University (DIU)**.
 
-The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **CBAM Attention Blocks**) to classify tuberculosis and pneumonia from chest scans and provides real-time model interpretability using four advanced XAI methods to increase clinical trust.
+The framework utilizes a hybrid CNN model (incorporating **CNN Backbones** and **CBAM Attention Blocks**) to classify tuberculosis and pneumonia from chest scans and provides real-time model interpretability using four advanced XAI methods to increase clinical trust.
 
 ### ⚙️ App Deployment Specifications
 
-| Parameter            | Configuration                                                                           |
-| :------------------- | :-------------------------------------------------------------------------------------- |
-| **App Title**        | Hybrid Tuberculosis & Pneumonia Detection XAI                                           |
-| **App Emoji**        | 🫁                                                                                      |
-| **Theme Colors**     | Blue → Indigo                                                                           |
-| **Deployment SDK**   | Streamlit                                                                               |
-| **SDK Version**      | v1.35.0                                                                                 |
-| **Entry Point File** | [app.py](https://github.com/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai/blob/main/app/app.py) |
+| Parameter | Configuration |
+| :--- | :--- |
+| **App Title** | Hybrid Tuberculosis & Pneumonia Detection XAI |
+| **App Emoji** | 🫁 |
+| **Theme Colors** | Blue → Indigo |
+| **Deployment SDK** | Streamlit |
+| **SDK Version** | v1.35.0 |
+| **Entry Point File** | [app.py](file:///e:/Git%20All%20Repo/hybrid-tuberculosis-pneumonia-detection-xai/app/app.py) |
 
 ---
 
 ## 📊 Features
 
-- **Hybrid CNN-Attention Architecture**: Combines features from DenseNet121 with Channel and Spatial Attention Blocks (CBAM) to focus on relevant pathological regions.
-- **Comparative XAI Engine**: Real-time visualization using four distinct methods:
-  - **Grad-CAM**: Visualizes activation heatmaps highlighting general disease regions.
-  - **Grad-CAM++**: Focuses on more localized multiple instances of features.
-  - **Guided Backpropagation**: Highlights fine-grained, high-frequency textural borders and details.
-  - **Saliency Maps**: Blends standard pixel gradients using `COLORMAP_HOT` overlays.
-- **Chest X-Ray Input Validation Engine**: Automated structural checks (Standard deviation filtering), edge-based SSIM template matching (with generic CXR templates), and anatomical profile correlation checks to automatically detect and reject out-of-distribution (OOD) images (e.g., icons, screenshots, aeroplanes).
-- **Interactive Visual Adjustments**: Integrated controls to adjust uploaded CXR scan brightness, contrast, and sharpness using real-time PIL image enhancements, featuring an option to reset all configurations dynamically via session state callbacks.
-- **Clinical PDF Report Generation**: Generates print-ready, high-resolution diagnostic reports in-memory, featuring medical/patient metadata, confidence scores, selected XAI maps, and timestamps standardized to **Bangladesh Standard Time (BST - UTC+6)**.
-- **Streamlit Dashboard**: Dark-themed, modern glassmorphic dashboard optimized for clinical flow, clean HTML rendering, and session state persistence.
-- **Outstanding Performance**: Achieved **98.06% test accuracy and 98.18% sensitivity (Recall)** on the test subset (1,392 images) of the hybrid dataset (13,959 chest X-ray scans).
+### 🧠 Core Deep Learning Engine
+- **Hybrid CNN-Attention Architecture**: Integrates convolutional backbones with Channel and Spatial Attention Blocks (CBAM) to focus on pathological features.
+- **Multi-Backbone Framework**: Trained and benchmarked using three distinct architectures: **DenseNet121**, **ResNet50**, and **EfficientNet-B0**.
+- **Dataset Scale**: Trained on a massive hybrid dataset of **13,959 chest X-ray scans** (Normal, Tuberculosis, and Pneumonia).
+
+### 🔍 Explainable AI (XAI) Engine
+Provides visual interpretability via four advanced diagnostic methods:
+- **Grad-CAM**: Highlights class-activation feature maps to show general disease regions.
+- **Grad-CAM++**: Highlights multiple instances and localized features of the target pathologies.
+- **Guided Backpropagation**: Extracts pixel-space fine-grained, high-frequency textural borders and lung details.
+- **Saliency Maps**: Blends raw gradients using hot-color overlays to trace diagnostic pixel importances.
+
+### 📊 Model Performance Hub (New Update)
+Interactive analytics and comparative visualization dashboard including:
+- **Overview Cards**: Glassmorphic, color-coded summaries displaying overall test accuracy, backbone categories, and animated vector icons.
+- **Diagnostic Metrics Plot**: Visual comparison of Accuracy, Sensitivity, and Specificity across the three hybrid backbones.
+- **Inference Throughput Plot**: Execution speed benchmark mapping processed images per second (img/s) on a GPU.
+- **Architecture Trade-off Analysis**: Tabular breakdown of model parameter sizes, strengths, limitations, and specific clinical use cases.
+
+### 🛠️ Clinical Tools & Preprocessing
+- **Chest X-Ray Input Validation Engine**: Rejects non-CXR images, screenshots, icons, or out-of-distribution (OOD) scans using template matching (SSIM edge maps) and anatomical profile standard deviation filters.
+- **Interactive CXR Image Enhancements**: Real-time adjustment of brightness, contrast, and sharpness using session state callbacks.
+- **Clinical PDF Report Generator**: Generates high-resolution diagnostic reports in-memory, detailing patient metadata, predictions, confidence levels, timestamps (standardized to Bangladesh Standard Time - BST / UTC+6), and XAI maps.
 
 ---
 
@@ -78,14 +86,14 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
 ├── 📁 .streamlit
 │   └── ⚙️ config.toml
 ├── 📁 app
-│   ├── 🐍 app.py
-│   ├── 🖼️ cxr_template.png
-│   ├── 🖼️ diu_logo.png
-│   ├── 🐍 report_generator.py
-│   ├── 🎨 style.css
-│   └── 🐍 xai_methods.py
+│   ├── 🐍 app.py               # Streamlit application dashboard
+│   ├── 🖼️ cxr_template.png     # Validation template for CXR alignment
+│   ├── 🖼️ diu_logo.png         # institution logo for PDF report header
+│   ├── 🐍 report_generator.py  # ReportLab Clinical PDF Generator
+│   ├── 🎨 style.css             # Glassmorphic custom stylesheet
+│   └── 🐍 xai_methods.py       # Core XAI map implementations (PyTorch)
 ├── 📁 data
-│   └── 📄 metadata.csv
+│   └── 📄 metadata.csv         # Hybrid dataset metadata details
 ├── 📁 models
 │   ├── 📄 best_tb_model_densenet121.pth
 │   ├── 📄 best_tb_model_efficientnet_b0.pth
@@ -98,9 +106,9 @@ The framework utilizes a hybrid CNN model (incorporating **DenseNet121** and **C
 │   └── 📄 02_model_training_resnet50.ipynb
 ├── 📁 src
 │   ├── 📁 models
-│   │   └── 🐍 hybrid_model.py
-│   ├── 🐍 preprocess.py
-│   └── 🐍 train.py
+│   │   └── 🐍 hybrid_model.py  # PyTorch model definitions (CBAM)
+│   ├── 🐍 preprocess.py        # Preprocessing scripts
+│   └── 🐍 train.py             # Backbone model training script
 ├── ⚙️ .gitignore
 ├── 📕 1. Title_Phase_Evaluation_Report.pdf
 ├── 📄 LICENSE
@@ -129,42 +137,73 @@ graph TD
 ```
 
 ### 1. The Attention Blocks (CBAM)
-- **Channel Attention:** Focuses on the "what" by learning which feature channels are most relevant to pathological signatures using both Average and Max Pooling operations.
-- **Spatial Attention:** Focuses on the "where" by applying a spatial convolutional layer to highlight the precise anatomical region containing infiltrates or consolidation.
+- **Channel Attention:** Focuses on "what" is pathologically relevant by aggregating channel-wise relationship coefficients using both Average and Max Pooling.
+- **Spatial Attention:** Focuses on "where" the consolidation, cavitation, or pleural effusion is located in the lung lobes by applying spatial convolutions.
 
 ---
 
 ## 📊 Model Training & Evaluation
 
-We trained and evaluated our proposed framework using three distinct convolutional neural network backbones (**DenseNet121**, **ResNet50**, and **EfficientNet-B0**) integrated with CBAM dual-attention blocks. The models were trained on Google Colab using a **Tesla T4 GPU** on a hybrid dataset of **13,959 chest X-ray scans** (Normal, Tuberculosis, and Pneumonia).
+We trained and evaluated the framework using three distinct convolutional neural network backbones integrated with CBAM dual-attention blocks. The models were trained on Google Colab using a **Tesla T4 GPU**.
 
 ### Performance Comparison (on hold-out Test Set of 1,392 images):
 
-| Metric | DenseNet121 (Baseline) | ResNet50 | EfficientNet-B0 (Best) |
+| Metric | DenseNet121 (Hybrid) | ResNet50 (Hybrid) | EfficientNet-B0 (Hybrid) |
 | :--- | :---: | :---: | :---: |
 | **Test Accuracy** | 97.99% | 97.92% | **98.06%** |
 | **Test Sensitivity (Recall)** | 98.06% | 98.00% | **98.18%** |
 | **Test Specificity** | 98.98% | 98.94% | **99.03%** |
 | **Test ROC-AUC** | 0.9991 | 0.9989 | **0.9991** |
+| **Throughput (Images/sec)** | 3.1 img/s | 2.2 img/s | **4.8 img/s** |
 
 ### Key Takeaways:
 - **Unified High Performance**: All three proposed hybrid attention backbones achieved outstanding performance on the test set, exceeding 97.9% accuracy.
 - **Top Performer**: The **EfficientNet-B0** model achieved the highest **Test Accuracy of 98.06%** and **Test Sensitivity (Recall) of 98.18%** on the hold-out test set.
-- **Efficiency**: EfficientNet-B0 is highly lightweight (~18.5 MB checkpoint weights compared to ResNet50's ~98.5 MB), enabling much faster real-time inference and a lower computational footprint on web/mobile deployments.
+- **Throughput Efficiency**: EfficientNet-B0 processed **4.8 images per second**, making it highly lightweight (~18.5 MB checkpoint weights compared to ResNet50's ~98.5 MB) and ideal for rapid real-time clinical screening.
 
 ---
 
-## 🔗 Live Demo & Links
+## 💻 Local Setup & Installation
 
-- **Streamlit Community Cloud App**: [![Streamlit App](https://img.shields.io/badge/Streamlit-Active-green?style=flat-square&logo=streamlit)](https://hybrid-tuberculosis-pneumonia-detection-xai.streamlit.app/)
-- **Public Showcase Repository**: [GitHub Link](https://github.com/Shariar-Ahamed/hybrid-tb-pneumonia-detection-xai-showcase)
+### Prerequisites
+- Python 3.10 or higher
+- Git
+- PyTorch (compiled with CUDA support for GPU acceleration is recommended but CPU works as well)
+
+### Steps
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai.git
+   cd hybrid-tuberculosis-pneumonia-detection-xai
+   ```
+
+2. **Set up Virtual Environment:**
+   ```bash
+   python -m venv venv
+   # On Windows:
+   .\venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+
+3. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the Streamlit Dashboard:**
+   ```bash
+   streamlit run app/app.py
+   ```
+
+5. Access the app locally at `http://localhost:8501`.
 
 ---
 
 ## 👥 Project Team & Supervision
 
 - **Supervised by**:
-  - **Dr. Md. Ali Hossain** (Associate Professor, Department of CSE, DIU)
+  - **Dr. Md. Ali Hossain** (Associate Professor, Department of CSE, Daffodil International University)
   - **Mr. Md. Mizanur Rahman** (Co-Supervisor)
 - **Developed by**:
   - **Shariar Ahamed Ripon** (ID: 0242310005101019)
