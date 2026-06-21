@@ -31,6 +31,10 @@ pinned: false
   <img src="https://img.shields.io/badge/last%20commit-June%202026-green" alt="Last Commit">
 </p>
 
+<p align="center">
+  <a href="https://wakatime.com/badge/user/c7433bc5-6f12-4c97-baea-430790fa608c/project/941af381-3b72-4873-b4c0-4409eae76717"><img src="https://wakatime.com/badge/user/c7433bc5-6f12-4c97-baea-430790fa608c/project/941af381-3b72-4873-b4c0-4409eae76717.svg" alt="wakatime"></a>
+</p>
+
 ---
 
 ## 📝 Project Overview
