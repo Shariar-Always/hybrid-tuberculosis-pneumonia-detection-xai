@@ -9,6 +9,8 @@ import sys
 from pathlib import Path
 import time
 import textwrap
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 # Append project root directory to path for imports
 base_dir = Path(__file__).resolve().parent.parent
@@ -990,6 +992,14 @@ if st.session_state.diagnoses_history:
     
     # Build a beautiful HTML table for the history
     table_rows = ""
+    
+    # Get user's timezone from browser context, default to Dhaka timezone
+    user_tz_str = st.context.timezone or "Asia/Dhaka"
+    try:
+        user_tz = ZoneInfo(user_tz_str)
+    except Exception:
+        user_tz = ZoneInfo("Asia/Dhaka")
+
     for idx, item in enumerate(reversed(st.session_state.diagnoses_history)): # Show newest first
         # Select badge class based on diagnosis
         if item["diagnosis"] == "Normal":
@@ -1000,19 +1010,22 @@ if st.session_state.diagnoses_history:
             badge_class = "history-badge-pneumonia"
             
         # Safe extractions for older records
-        dt = item.get("date_time", item.get("time", "N/A"))
         timestamp = item.get("timestamp", None)
         if timestamp:
-            dt_html = f'<span class="local-time" data-timestamp="{timestamp}">{dt}</span>'
+            try:
+                dt_obj = datetime.fromtimestamp(timestamp, tz=user_tz)
+                dt = dt_obj.strftime("%d-%b-%Y, %I:%M %p")
+            except Exception:
+                dt = item.get("date_time", item.get("time", "N/A"))
         else:
-            dt_html = f'<span>{dt}</span>'
+            dt = item.get("date_time", item.get("time", "N/A"))
             
         gender = item.get("patient_gender", "N/A")
         model_name = item.get("model", "N/A")
         
         table_rows += clean_html(f"""
             <tr>
-                <td>{dt_html}</td>
+                <td>{dt}</td>
                 <td><code>{item["patient_id"]}</code></td>
                 <td>{item["patient_name"]}</td>
                 <td>{gender}</td>
@@ -1044,29 +1057,6 @@ if st.session_state.diagnoses_history:
                     </tbody>
                 </table>
             </div>
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="
-                (function() {{
-                    document.querySelectorAll('.local-time').forEach(function(el) {{
-                        var ts = el.getAttribute('data-timestamp');
-                        if (ts) {{
-                            var date = new Date(parseFloat(ts) * 1000);
-                            var day = String(date.getDate()).padStart(2, '0');
-                            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                            var month = months[date.getMonth()];
-                            var year = date.getFullYear();
-                            
-                            var hours = date.getHours();
-                            var minutes = String(date.getMinutes()).padStart(2, '0');
-                            var ampm = hours >= 12 ? 'PM' : 'AM';
-                            hours = hours % 12;
-                            hours = hours ? hours : 12;
-                            var strTime = hours + ':' + minutes + ' ' + ampm;
-                            
-                            el.textContent = day + '-' + month + '-' + year + ', ' + strTime;
-                        }}
-                    }});
-                }})();
-            " style="display:none;">
         """), 
         unsafe_allow_html=True
     )
