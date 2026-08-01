@@ -224,7 +224,7 @@ These empirical results validate that combining hybrid attention backbones with 
 
 ---
 
-## 7. Resources Utilized
+## 8. Resources Utilized
 
 This research project utilized publicly available radiological datasets, cloud-based high-performance computing infrastructure, and open-source software libraries. Deep learning model development, training, and explainability experiments were conducted using Python and PyTorch within Google Colab Pro environments, leveraging NVIDIA Tesla T4 GPU acceleration to enable efficient gradient propagation and model convergence.
 
@@ -232,7 +232,7 @@ Dataset preparation, metadata management, and statistical analytics were perform
 
 ---
 
-## 8. Project Management and Financial Analysis
+## 9. Project Management and Financial Analysis
 
 The project was executed following a structured milestone-based research timeline aligned with university academic semester guidelines. The research design relied entirely on open-source datasets, software frameworks, and cloud computing environments, ensuring minimal financial expenditure.
 
@@ -240,7 +240,7 @@ The primary operational expense incurred was for cloud-based GPU compute subscri
 
 ---
 
-## 9. Conclusion
+## 11. Conclusion
 
 This progress report presents the completed research activities and technical outcomes for the proposed Explainable AI (XAI) framework for automated Tuberculosis and Pneumonia detection from Chest X-Rays. A robust research foundation was established through extensive literature review, dataset curation, and the engineering of a leakage-safe multi-backbone hybrid architecture incorporating CBAM dual-attention mechanisms.
 
