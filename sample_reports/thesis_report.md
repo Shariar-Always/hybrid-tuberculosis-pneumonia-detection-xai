@@ -263,81 +263,81 @@ The updated project timeline below illustrates the planned versus actual task ex
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Literature Review</td>
       <td style="padding: 6px;">Planned</td>
-      <td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <!-- Task 2: Dataset Collection & Indexing -->
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Dataset Collection & Indexing</td>
       <td style="padding: 6px;">Planned</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <!-- Task 3: Data Preprocessing & Normalization -->
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Data Preprocessing & Normalization</td>
       <td style="padding: 6px;">Planned</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">🟩</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <!-- Task 4: Leakage-Safe Perceptual Hashing & Splitting -->
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Leakage-Safe Perceptual Hashing & Splitting</td>
       <td style="padding: 6px;">Planned</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">🟩</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <!-- Task 5: CNN Backbones & CBAM Attention Selection -->
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">CNN Backbones & CBAM Attention Selection</td>
       <td style="padding: 6px;">Planned</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <!-- Task 6: Model Training Setup & Optimization -->
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Model Training Setup & Optimization</td>
       <td style="padding: 6px;">Planned</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">🟩</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <!-- Task 7: Benchmark Pipelining & Trade-off Evaluation -->
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Benchmark Pipelining & Trade-off Evaluation</td>
       <td style="padding: 6px;">Planned</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
     <!-- Task 8: Methodology Design & Dashboard Deployment -->
     <tr>
       <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Methodology Design & Dashboard Deployment</td>
       <td style="padding: 6px;">Planned</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td>
     </tr>
     <tr>
       <td style="padding: 6px;">Actual</td>
-      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td><td bgcolor="#10b981">🟩</td>
     </tr>
   </tbody>
 </table>
@@ -345,14 +345,14 @@ The updated project timeline below illustrates the planned versus actual task ex
 <br>
 
 **Legend:**
-* <span style="display: inline-block; width: 12px; height: 12px; background-color: #3b82f6; border: 1px solid #000;"></span> **Planned Timeline (Original Estimate)**
-* <span style="display: inline-block; width: 12px; height: 12px; background-color: #10b981; border: 1px solid #000;"></span> **Actual Timeline (Completed Progress)**
+* 🟦 **Planned Timeline (Original Estimate)**
+* 🟩 **Actual Timeline (Completed Progress)**
 
 ## 8. Resources Utilized
 
 This research project utilized publicly available radiological datasets, cloud-based high-performance computing infrastructure, and open-source software libraries. Deep learning model development, training, and explainability experiments were conducted using Python and PyTorch within Google Colab Pro environments, leveraging NVIDIA Tesla T4 GPU acceleration to enable efficient gradient propagation and model convergence.
 
-Dataset preparation, metadata management, and statistical analytics were performed using Python scientific libraries, including Pandas, NumPy, OpenCV, and Scikit-Learn. Visual interpretability heatmaps were generated using PyTorch Grad-CAM utilities and Matplotlib. The clinical web dashboard was built using Streamlit, while automated PDF diagnostic report generation was implemented using the ReportLab library. All code repositories and model weights were managed under Git version control to ensure complete experimental reproducibility and scalability.
+Dataset preparation, metadata management, and statistical analytics were performed using Python scientific libraries, including Pandas, NumPy, OpenCV, and Scikit-Learn. Visual interpretability heatmaps were generated using PyTorch Grad-CAM utilities and Matplotlib. The clinical web dashboard was built using Streamlit, while automated PDF report generation was implemented using the ReportLab library. All code repositories and model weights were managed under Git version control to ensure complete experimental reproducibility and scalability.
 
 ---
 
