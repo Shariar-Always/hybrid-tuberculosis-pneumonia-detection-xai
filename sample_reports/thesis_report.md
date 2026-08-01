@@ -224,6 +224,35 @@ These empirical results validate that combining hybrid attention backbones with 
 
 ---
 
+## 7. Updated Project Timeline
+
+The updated project timeline below illustrates the planned versus actual task execution across weeks 6 to 23 of the academic semester. The tasks have been tailored to reflect our hybrid classification, CBAM attention, and Explainable AI (XAI) deployment framework.
+
+### Project Timeline Gantt Chart (Weeks 6–23)
+
+| Task Description | Timeline | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Literature Review** | Planned | 🟦 | 🟦 | | | | | | | | | | | | | | | | |
+| | Actual | 🟩 | 🟩 | 🟩 | 🟩 | 🟩 | | | | | | | | | | | | | |
+| **Dataset Collection & Indexing** | Planned | | | | | 🟦 | 🟦 | | | | | | | | | | | | |
+| | Actual | | | 🟩 | 🟩 | 🟩 | 🟩 | 🟩 | | | | | | | | | | | |
+| **Data Preprocessing & Normalization** | Planned | | | | | | | 🟦 | | | | | | | | | | | |
+| | Actual | | | | | | | 🟩 | | | | | | | | | | | | |
+| **Leakage-Safe Perceptual Hashing & Splitting** | Planned | | | | | | | | 🟦 | 🟦 | | | | | | | | | |
+| | Actual | | | | | | | | 🟩 | | | | | | | | | | | |
+| **CNN Backbones & CBAM Attention Selection** | Planned | | | | | | | | | | 🟦 | 🟦 | | | | | | | |
+| | Actual | | | | | | | | | | 🟩 | 🟩 | 🟩 | 🟩 | | | | | |
+| **Model Training Setup & Optimization** | Planned | | | | | | | | | | | | 🟦 | 🟦 | 🟦 | | | | |
+| | Actual | | | | | | | | | | | | 🟩 | | | | | | |
+| **Benchmark Pipelining & Trade-off Evaluation** | Planned | | | | | | | | | | | | | | | 🟦 | 🟦 | | |
+| | Actual | | | | | | | | | | | | | | | 🟩 | 🟩 | 🟩 | |
+| **Methodology Design & Dashboard Deployment** | Planned | | | | | | | | | | | | | | | | | 🟦 | 🟦 |
+| | Actual | | | | | | | | | | | | | | | | | 🟩 | 🟩 | 🟩 |
+
+**Legend:**
+* 🟦 **Planned Timeline (Original Estimate)**
+* 🟩 **Actual Timeline (Completed Progress)**
+
 ## 8. Resources Utilized
 
 This research project utilized publicly available radiological datasets, cloud-based high-performance computing infrastructure, and open-source software libraries. Deep learning model development, training, and explainability experiments were conducted using Python and PyTorch within Google Colab Pro environments, leveraging NVIDIA Tesla T4 GPU acceleration to enable efficient gradient propagation and model convergence.
