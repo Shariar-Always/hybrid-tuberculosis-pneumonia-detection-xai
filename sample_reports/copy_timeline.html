@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Copy Timeline to MS Word</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      max-width: 95%;
+      text-align: center;
+    }
+    h1 {
+      font-size: 24px;
+      margin-top: 0;
+      background: linear-gradient(to right, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+      margin-bottom: 30px;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .table-container {
+      overflow-x: auto;
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      margin-top: 10px;
+    }
+    /* Style for copying to clipboard */
+    table {
+      border-collapse: collapse;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+    }
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Project Timeline Copy Tool</h1>
+    <p>Click the button below to copy the timeline table in HTML format. Then, paste (Ctrl+V) directly into Microsoft Word.</p>
+    <button class="btn" onclick="copyTable()">Copy Table for MS Word</button>
+
+    <div class="table-container">
+      <table id="timeline-table" border="1" cellspacing="0" cellpadding="4">
+        <thead>
+          <tr bgcolor="#f3f4f6">
+            <th rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Tasks</th>
+            <th rowspan="2" style="padding: 6px; font-weight: bold;">Timeline</th>
+            <th colspan="18" style="padding: 6px; font-weight: bold;">Weeks</th>
+          </tr>
+          <tr bgcolor="#f3f4f6">
+            <th style="padding: 4px; font-weight: bold;">6</th>
+            <th style="padding: 4px; font-weight: bold;">7</th>
+            <th style="padding: 4px; font-weight: bold;">8</th>
+            <th style="padding: 4px; font-weight: bold;">9</th>
+            <th style="padding: 4px; font-weight: bold;">10</th>
+            <th style="padding: 4px; font-weight: bold;">11</th>
+            <th style="padding: 4px; font-weight: bold;">12</th>
+            <th style="padding: 4px; font-weight: bold;">13</th>
+            <th style="padding: 4px; font-weight: bold;">14</th>
+            <th style="padding: 4px; font-weight: bold;">15</th>
+            <th style="padding: 4px; font-weight: bold;">16</th>
+            <th style="padding: 4px; font-weight: bold;">17</th>
+            <th style="padding: 4px; font-weight: bold;">18</th>
+            <th style="padding: 4px; font-weight: bold;">19</th>
+            <th style="padding: 4px; font-weight: bold;">20</th>
+            <th style="padding: 4px; font-weight: bold;">21</th>
+            <th style="padding: 4px; font-weight: bold;">22</th>
+            <th style="padding: 4px; font-weight: bold;">23</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Task 1 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Literature Review</td>
+            <td style="padding: 6px;">Planned</td>
+            <td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <!-- Task 2 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Dataset Collection & Indexing</td>
+            <td style="padding: 6px;">Planned</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <!-- Task 3 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Data Preprocessing & Normalization</td>
+            <td style="padding: 6px;">Planned</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <!-- Task 4 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Leakage-Safe Perceptual Hashing & Splitting</td>
+            <td style="padding: 6px;">Planned</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <!-- Task 5 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">CNN Backbones & CBAM Attention Selection</td>
+            <td style="padding: 6px;">Planned</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">🟦</td><td bgcolor="#3b82f6">🟦</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <!-- Task 6 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Model Training Setup & Optimization</td>
+            <td style="padding: 6px;">Planned</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <!-- Task 7 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Benchmark Pipelining & Trade-off Evaluation</td>
+            <td style="padding: 6px;">Planned</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+          </tr>
+          <!-- Task 8 -->
+          <tr>
+            <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Methodology Design & Dashboard Deployment</td>
+            <td style="padding: 6px;">Planned</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px;">Actual</td>
+            <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Table copied to clipboard!</div>
+
+  <script>
+    function copyTable() {
+      const table = document.getElementById("timeline-table");
+      
+      const clone = table.cloneNode(true);
+      clone.setAttribute("border", "1");
+      clone.setAttribute("cellspacing", "0");
+      clone.setAttribute("cellpadding", "6");
+      clone.style.borderCollapse = "collapse";
+      clone.style.fontFamily = "Calibri, Arial, sans-serif";
+      clone.style.fontSize = "11pt";
+      
+      const htmlContent = clone.outerHTML;
+      
+      const blob = new Blob([htmlContent], { type: "text/html" });
+      const clipboardData = [new ClipboardItem({ "text/html": blob })];
+      
+      navigator.clipboard.write(clipboardData).then(() => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2500);
+      }).catch(err => {
+        alert("Failed to copy table: " + err);
+      });
+    }
+  </script>
+</body>
+</html>
