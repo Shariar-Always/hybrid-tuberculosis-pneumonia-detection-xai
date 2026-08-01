@@ -230,28 +230,123 @@ The updated project timeline below illustrates the planned versus actual task ex
 
 ### Project Timeline Gantt Chart (Weeks 6–23)
 
-| Task Description | Timeline | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Literature Review** | Planned | 🟦 | 🟦 | | | | | | | | | | | | | | | | |
-| | Actual | 🟩 | 🟩 | 🟩 | 🟩 | 🟩 | | | | | | | | | | | | | |
-| **Dataset Collection & Indexing** | Planned | | | | | 🟦 | 🟦 | | | | | | | | | | | | |
-| | Actual | | | 🟩 | 🟩 | 🟩 | 🟩 | 🟩 | | | | | | | | | | | |
-| **Data Preprocessing & Normalization** | Planned | | | | | | | 🟦 | | | | | | | | | | | |
-| | Actual | | | | | | | 🟩 | | | | | | | | | | | | |
-| **Leakage-Safe Perceptual Hashing & Splitting** | Planned | | | | | | | | 🟦 | 🟦 | | | | | | | | | |
-| | Actual | | | | | | | | 🟩 | | | | | | | | | | | |
-| **CNN Backbones & CBAM Attention Selection** | Planned | | | | | | | | | | 🟦 | 🟦 | | | | | | | |
-| | Actual | | | | | | | | | | 🟩 | 🟩 | 🟩 | 🟩 | | | | | |
-| **Model Training Setup & Optimization** | Planned | | | | | | | | | | | | 🟦 | 🟦 | 🟦 | | | | |
-| | Actual | | | | | | | | | | | | 🟩 | | | | | | |
-| **Benchmark Pipelining & Trade-off Evaluation** | Planned | | | | | | | | | | | | | | | 🟦 | 🟦 | | |
-| | Actual | | | | | | | | | | | | | | | 🟩 | 🟩 | 🟩 | |
-| **Methodology Design & Dashboard Deployment** | Planned | | | | | | | | | | | | | | | | | 🟦 | 🟦 |
-| | Actual | | | | | | | | | | | | | | | | | 🟩 | 🟩 | 🟩 |
+<table border="1" cellspacing="0" cellpadding="4" style="border-collapse: collapse; text-align: center; font-family: sans-serif; font-size: 13px; width: 100%;">
+  <thead>
+    <tr bgcolor="#f3f4f6">
+      <th rowspan="2" align="left" style="padding: 6px;">Tasks</th>
+      <th rowspan="2" style="padding: 6px;">Timeline</th>
+      <th colspan="18" style="padding: 6px;">Weeks</th>
+    </tr>
+    <tr bgcolor="#f3f4f6">
+      <th style="padding: 4px; width: 4.5%;">6</th>
+      <th style="padding: 4px; width: 4.5%;">7</th>
+      <th style="padding: 4px; width: 4.5%;">8</th>
+      <th style="padding: 4px; width: 4.5%;">9</th>
+      <th style="padding: 4px; width: 4.5%;">10</th>
+      <th style="padding: 4px; width: 4.5%;">11</th>
+      <th style="padding: 4px; width: 4.5%;">12</th>
+      <th style="padding: 4px; width: 4.5%;">13</th>
+      <th style="padding: 4px; width: 4.5%;">14</th>
+      <th style="padding: 4px; width: 4.5%;">15</th>
+      <th style="padding: 4px; width: 4.5%;">16</th>
+      <th style="padding: 4px; width: 4.5%;">17</th>
+      <th style="padding: 4px; width: 4.5%;">18</th>
+      <th style="padding: 4px; width: 4.5%;">19</th>
+      <th style="padding: 4px; width: 4.5%;">20</th>
+      <th style="padding: 4px; width: 4.5%;">21</th>
+      <th style="padding: 4px; width: 4.5%;">22</th>
+      <th style="padding: 4px; width: 4.5%;">23</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Task 1: Literature Review -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Literature Review</td>
+      <td style="padding: 6px;">Planned</td>
+      <td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!-- Task 2: Dataset Collection & Indexing -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Dataset Collection & Indexing</td>
+      <td style="padding: 6px;">Planned</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!-- Task 3: Data Preprocessing & Normalization -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Data Preprocessing & Normalization</td>
+      <td style="padding: 6px;">Planned</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!-- Task 4: Leakage-Safe Perceptual Hashing & Splitting -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Leakage-Safe Perceptual Hashing & Splitting</td>
+      <td style="padding: 6px;">Planned</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!-- Task 5: CNN Backbones & CBAM Attention Selection -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">CNN Backbones & CBAM Attention Selection</td>
+      <td style="padding: 6px;">Planned</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!-- Task 6: Model Training Setup & Optimization -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Model Training Setup & Optimization</td>
+      <td style="padding: 6px;">Planned</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!-- Task 7: Benchmark Pipelining & Trade-off Evaluation -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Benchmark Pipelining & Trade-off Evaluation</td>
+      <td style="padding: 6px;">Planned</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!-- Task 8: Methodology Design & Dashboard Deployment -->
+    <tr>
+      <td rowspan="2" align="left" style="padding: 6px; font-weight: bold;">Methodology Design & Dashboard Deployment</td>
+      <td style="padding: 6px;">Planned</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td><td bgcolor="#3b82f6">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px;">Actual</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td bgcolor="#10b981">&nbsp;</td><td bgcolor="#10b981">&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
 
 **Legend:**
-* 🟦 **Planned Timeline (Original Estimate)**
-* 🟩 **Actual Timeline (Completed Progress)**
+* <span style="display: inline-block; width: 12px; height: 12px; background-color: #3b82f6; border: 1px solid #000;"></span> **Planned Timeline (Original Estimate)**
+* <span style="display: inline-block; width: 12px; height: 12px; background-color: #10b981; border: 1px solid #000;"></span> **Actual Timeline (Completed Progress)**
 
 ## 8. Resources Utilized
 
