@@ -226,8 +226,6 @@ These empirical results validate that combining hybrid attention backbones with 
 
 ## 7. Updated Project Timeline
 
-> 💡 **Tip for MS Word Copying:** এই ফোল্ডারে থাকা [copy_timeline.html](./copy_timeline.html) ফাইলটি আপনার পিসির যেকোনো ব্রাউজারে ডাবল-ক্লিক করে ওপেন করুন। তারপর সেখানে থাকা **"Copy Table for MS Word"** বাটনে ক্লিক করলেই সম্পূর্ণ রঙিন টেবিলটি সঠিক কালারসহ কপি হয়ে যাবে, যা আপনি সরাসরি MS Word-এ পেস্ট (Ctrl+V) করতে পারবেন।
-
 The updated project timeline below illustrates the planned versus actual task execution across weeks 6 to 23 of the academic semester. The tasks have been tailored to reflect our hybrid classification, CBAM attention, and Explainable AI (XAI) deployment framework.
 
 ### Project Timeline Gantt Chart (Weeks 6–23)
