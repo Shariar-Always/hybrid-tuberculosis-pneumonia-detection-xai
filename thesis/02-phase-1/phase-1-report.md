@@ -281,7 +281,7 @@ Overall, all planned phase objectives were successfully achieved. The outcomes d
 
 ## References (Recent 2023–2025 Publications)
 
-[1] World Health Organization (WHO), "Global Tuberculosis Report 2024," *World Health Organization*, Geneva, Switzerland, **2024**. [🔍 Search on Google Scholar](https://scholar.google.com/scholar?q=Global+Tuberculosis+Report+2024+World+Health+Organization)
+[1] World Health Organization, Global Tuberculosis Report 2024. Geneva, Switzerland: World Health Organization, 2024. [Online]. Available: https://www.who.int/teams/global-tuberculosis-programme/tb-reports/global-tuberculosis-report-2024
 
 [2] C. Zhang, Z. Liu, Y. Ma, et al., "Attention-guided DenseNet architectures for multi-class pulmonary infection screening," *Computers in Biology and Medicine*, vol. 169, Art. no. 107846, **2024**. [🔍 Search on Google Scholar](https://scholar.google.com/scholar?q=Attention-guided+DenseNet+architectures+for+multi-class+pulmonary+infection+screening)
 
