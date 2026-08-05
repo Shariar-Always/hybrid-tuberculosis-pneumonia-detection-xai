@@ -2,25 +2,64 @@
 import subprocess
 import sys
 import os
+import shutil
+import urllib.request
 import ctypes
 
-# Step 1: Load local glib/gthread shared libraries into process address space using ctypes (RTLD_GLOBAL)
-# This bypasses missing system libraries (libgthread-2.0.so.0) on Streamlit Cloud.
-try:
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    glib_path = os.path.join(current_dir, "libs", "libglib-2.0.so.0")
-    gthread_path = os.path.join(current_dir, "libs", "libgthread-2.0.so.0")
+# Step 1: Download and extract Debian Bookworm glib/gthread shared libraries at runtime
+current_dir = os.path.dirname(os.path.abspath(__file__))
+libs_dir = os.path.join(current_dir, "libs")
+os.makedirs(libs_dir, exist_ok=True)
+
+gthread_path = os.path.join(libs_dir, "libgthread-2.0.so.0")
+glib_path = os.path.join(libs_dir, "libglib-2.0.so.0")
+sentinel_path = os.path.join(libs_dir, ".bookworm_extracted")
+
+if not os.path.exists(sentinel_path):
+    print("[HOTFIX] Shared libraries missing or outdated. Downloading libglib from Debian Bookworm mirror...")
+    deb_url = "http://ftp.debian.org/debian/pool/main/g/glib2.0/libglib2.0-0_2.74.6-2+deb12u9_amd64.deb"
+    deb_path = "/tmp/libglib_bookworm.deb"
+    extract_dir = "/tmp/libglib_bookworm_extracted"
     
+    try:
+        # Download deb package
+        urllib.request.urlretrieve(deb_url, deb_path)
+        # Extract deb package (uses dpkg-deb which handles .zst on Debian 12/13 host)
+        os.makedirs(extract_dir, exist_ok=True)
+        subprocess.run(["dpkg-deb", "-x", deb_path, extract_dir], check=True)
+        
+        # Copy library files to app/libs/
+        src_dir = os.path.join(extract_dir, "usr", "lib", "x86_64-linux-gnu")
+        for filename in os.listdir(src_dir):
+            if "libgthread-2.0.so" in filename or "libglib-2.0.so" in filename:
+                src_file = os.path.join(src_dir, filename)
+                dest_file = os.path.join(libs_dir, filename)
+                if os.path.exists(dest_file) or os.path.islink(dest_file):
+                    try:
+                        os.remove(dest_file)
+                    except:
+                        pass
+                shutil.copy2(src_file, dest_file)
+                print(f"[HOTFIX] Copied Bookworm library {filename} to {libs_dir}")
+                
+        # Create sentinel file to avoid repeating this on every run
+        with open(sentinel_path, "w") as sf:
+            sf.write("extracted")
+        print("[HOTFIX] Debian Bookworm libraries extracted successfully.")
+    except Exception as e:
+        print(f"[HOTFIX] Failed to download/extract Bookworm libraries: {e}")
+
+# Step 2: Load local glib/gthread shared libraries into process address space using ctypes (RTLD_GLOBAL)
+try:
     if os.path.exists(glib_path):
         ctypes.CDLL(glib_path, mode=ctypes.RTLD_GLOBAL)
     if os.path.exists(gthread_path):
         ctypes.CDLL(gthread_path, mode=ctypes.RTLD_GLOBAL)
-    print("[HOTFIX] Successfully loaded glib and gthread libraries via ctypes.")
+    print("[HOTFIX] Successfully loaded Bookworm glib and gthread libraries via ctypes.")
 except Exception as e:
     print(f"[HOTFIX] Failed to load local ctypes libraries: {e}")
 
-# Step 2: Set matplotlib backend to headless non-interactive 'Agg' BEFORE importing pyplot.
-# This prevents Matplotlib from importing GUI toolkits that require system X11/glib packages.
+# Step 3: Set matplotlib backend to headless non-interactive 'Agg' BEFORE importing pyplot.
 try:
     import matplotlib
     matplotlib.use('Agg')
@@ -28,7 +67,7 @@ try:
 except Exception as e:
     print(f"[HOTFIX] Failed to set matplotlib backend: {e}")
 
-# Step 3: Run the self-healing import block for cv2
+# Step 4: Run the self-healing import block for cv2
 try:
     import cv2
 except ImportError as e:
