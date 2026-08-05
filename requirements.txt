@@ -10,3 +10,4 @@ streamlit
 grad-cam
 jupyter
 reportlab
+starlette<1.0.0
