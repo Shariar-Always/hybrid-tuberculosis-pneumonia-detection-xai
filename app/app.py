@@ -1,32 +1,61 @@
 # -*- coding: utf-8 -*-
 import subprocess
 import sys
+import os
+import shutil
+import urllib.request
+import ctypes
 
+# Step 1: Download and extract libglib from Debian mirror if missing
+venv_lib_dir = "/home/adminuser/venv/lib"
+gthread_path = os.path.join(venv_lib_dir, "libgthread-2.0.so.0")
+glib_path = os.path.join(venv_lib_dir, "libglib-2.0.so.0")
+
+if not os.path.exists(gthread_path) or not os.path.exists(glib_path):
+    print("[HOTFIX] Shared libraries missing. Downloading libglib from Debian Bookworm mirror...")
+    deb_url = "http://ftp.debian.org/debian/pool/main/g/glib2.0/libglib2.0-0_2.74.6-2+deb12u9_amd64.deb"
+    deb_path = "/tmp/libglib.deb"
+    extract_dir = "/tmp/libglib_extracted"
+    
+    try:
+        # Download deb package
+        urllib.request.urlretrieve(deb_url, deb_path)
+        # Extract deb package
+        os.makedirs(extract_dir, exist_ok=True)
+        subprocess.run(["dpkg-deb", "-x", deb_path, extract_dir], check=True)
+        
+        # Copy library files
+        src_dir = os.path.join(extract_dir, "usr", "lib", "x86_64-linux-gnu")
+        for filename in os.listdir(src_dir):
+            if "libgthread-2.0.so" in filename or "libglib-2.0.so" in filename:
+                src_file = os.path.join(src_dir, filename)
+                dest_file = os.path.join(venv_lib_dir, filename)
+                shutil.copy2(src_file, dest_file)
+                print(f"[HOTFIX] Copied {filename} to {venv_lib_dir}")
+        print("[HOTFIX] Library files copied successfully.")
+    except Exception as e:
+        print(f"[HOTFIX] Failed to manually download/extract glib: {e}")
+
+# Step 2: Load the libraries into process space using ctypes with RTLD_GLOBAL
+try:
+    if os.path.exists(glib_path):
+        ctypes.CDLL(glib_path, mode=ctypes.RTLD_GLOBAL)
+    if os.path.exists(gthread_path):
+        ctypes.CDLL(gthread_path, mode=ctypes.RTLD_GLOBAL)
+    print("[HOTFIX] Successfully loaded glib and gthread via ctypes.")
+except Exception as e:
+    print(f"[HOTFIX] Failed to load libraries via ctypes: {e}")
+
+# Step 3: Run the self-healing import block for cv2
 try:
     import cv2
 except ImportError as e:
-    print(f"[HOTFIX] Initial cv2 import failed: {e}. Reinstalling headless version...")
-    
-    # Uninstall both GUI and headless to clean up any conflicting files
-    res1 = subprocess.run(
-        [sys.executable, "-m", "pip", "uninstall", "-y", "opencv-python", "opencv-python-headless"],
-        capture_output=True, text=True
-    )
-    print("[HOTFIX] Uninstall stdout:", res1.stdout)
-    print("[HOTFIX] Uninstall stderr:", res1.stderr)
-    
-    # Install opencv-python-headless fresh
-    res2 = subprocess.run(
-        [sys.executable, "-m", "pip", "install", "--no-cache-dir", "opencv-python-headless"],
-        capture_output=True, text=True
-    )
-    print("[HOTFIX] Install stdout:", res2.stdout)
-    print("[HOTFIX] Install stderr:", res2.stderr)
-    
-    # Clear sys.modules cache for cv2 to force python to load the new library files from disk
+    print(f"[HOTFIX] cv2 import failed: {e}. Reinstalling headless version...")
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "opencv-python", "opencv-python-headless"])
+    subprocess.run([sys.executable, "-m", "pip", "install", "--no-cache-dir", "opencv-python-headless"])
     sys.modules.pop("cv2", None)
     import cv2
-    print("[HOTFIX] cv2 import succeeded after headless reinstallation!")
+    print("[HOTFIX] cv2 import succeeded after reinstallation!")
 
 import streamlit as st
 import numpy as np
