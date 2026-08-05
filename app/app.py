@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
+import subprocess
+import sys
+
+try:
+    import cv2
+except ImportError:
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "opencv-python", "opencv-python-headless"])
+    subprocess.run([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
+    import cv2
+
 import streamlit as st
 import numpy as np
-import cv2
 from PIL import Image
 import torch
 import os
