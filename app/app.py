@@ -4,10 +4,29 @@ import sys
 
 try:
     import cv2
-except ImportError:
-    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "opencv-python", "opencv-python-headless"])
-    subprocess.run([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
+except ImportError as e:
+    print(f"[HOTFIX] Initial cv2 import failed: {e}. Reinstalling headless version...")
+    
+    # Uninstall both GUI and headless to clean up any conflicting files
+    res1 = subprocess.run(
+        [sys.executable, "-m", "pip", "uninstall", "-y", "opencv-python", "opencv-python-headless"],
+        capture_output=True, text=True
+    )
+    print("[HOTFIX] Uninstall stdout:", res1.stdout)
+    print("[HOTFIX] Uninstall stderr:", res1.stderr)
+    
+    # Install opencv-python-headless fresh
+    res2 = subprocess.run(
+        [sys.executable, "-m", "pip", "install", "--no-cache-dir", "opencv-python-headless"],
+        capture_output=True, text=True
+    )
+    print("[HOTFIX] Install stdout:", res2.stdout)
+    print("[HOTFIX] Install stderr:", res2.stderr)
+    
+    # Clear sys.modules cache for cv2 to force python to load the new library files from disk
+    sys.modules.pop("cv2", None)
     import cv2
+    print("[HOTFIX] cv2 import succeeded after headless reinstallation!")
 
 import streamlit as st
 import numpy as np
