@@ -601,33 +601,40 @@ inference_transform = transforms.Compose([
 with st.sidebar:
     logo_path = Path(__file__).resolve().parent / "diu_logo.png"
     if logo_path.exists():
-        st.image(str(logo_path), width=170)
+        st.image(str(logo_path), width=180)
     else:
-        st.image("https://i.postimg.cc/HnfyLQYZ/DIU-Logo.png", width=170)
-    st.markdown("<hr style='margin: 8px 0; opacity: 0.15;'>", unsafe_allow_html=True)
-        
-    st.markdown("### FYDP Title Phase Evaluation")
-    st.markdown("<hr style='margin: 8px 0; opacity: 0.15;'>", unsafe_allow_html=True)
+        st.image("https://i.postimg.cc/HnfyLQYZ/DIU-Logo.png", width=180)
+    st.markdown("<div style='margin-top: 1.5rem;'></div>", unsafe_allow_html=True)
     
-    st.markdown("#### **Project Title**")
     st.markdown(
-        "<div class='sidebar-card' style='font-size: 0.9rem; font-weight: 500;'>"
-        "A Hybrid Explainable AI Framework for Automatic Tuberculosis and Pneumonia Detection from Chest X-Ray Images Using Convolutional Neural Networks"
-        "</div>", 
-        unsafe_allow_html=True
-    )
-    
-    st.markdown("#### **Team Members**")
-    st.markdown(
-        "• **Shariar Ahamed Ripon**<br><small style='color:#64748b;'>ID: 0242310005101019</small><br>"
-        "• **Md. Moniruzzaman Rifat**<br><small style='color:#64748b;'>ID: 0242310005101020</small>",
-        unsafe_allow_html=True
-    )
-    
-    st.markdown("#### **Supervision**")
-    st.markdown(
-        "• **Dr. Md. Ali Hossain** (Associate Professor)<br>"
-        "• **Mr. Md. Mizanur Rahman** (Co-Supervisor)",
+        clean_html("""
+            <div class="sidebar-card" style="margin-bottom: 1.5rem;">
+                <h4 style="margin-top:0; margin-bottom:0.6rem; color:#e2e8f0; font-size:0.95rem; font-weight:700; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:6px;">🎓 Project Title</h4>
+                <p style="font-size:0.82rem; line-height:1.5; color:#cbd5e1; margin:0;">
+                    A Hybrid Explainable AI Framework for Automatic Tuberculosis and Pneumonia Detection from Chest X-Ray Images Using Convolutional Neural Networks
+                </p>
+            </div>
+            <div class="sidebar-card" style="margin-bottom: 1.5rem;">
+                <h4 style="margin-top:0; margin-bottom:0.6rem; color:#e2e8f0; font-size:0.95rem; font-weight:700; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:6px;">👥 Team Members</h4>
+                <div style="font-size:0.82rem; line-height:1.6; color:#cbd5e1;">
+                    <div style="margin-bottom: 8px;">
+                        <b>Shariar Ahamed Ripon</b><br>
+                        <span style="color:#8a99ad; font-size:0.75rem;">ID: 0242310005101019</span>
+                    </div>
+                    <div>
+                        <b>Md. Moniruzzaman Rifat</b><br>
+                        <span style="color:#8a99ad; font-size:0.75rem;">ID: 0242310005101020</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-card" style="margin-bottom: 1rem;">
+                <h4 style="margin-top:0; margin-bottom:0.6rem; color:#e2e8f0; font-size:0.95rem; font-weight:700; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:6px;">👔 Supervision</h4>
+                <div style="font-size:0.82rem; line-height:1.6; color:#cbd5e1;">
+                    <div style="margin-bottom: 6px;"><b>Dr. Md. Ali Hossain</b><br><span style="color:#8a99ad; font-size:0.78rem;">Associate Professor</span></div>
+                    <div><b>Mr. Md. Mizanur Rahman</b><br><span style="color:#8a99ad; font-size:0.78rem;">Co-Supervisor</span></div>
+                </div>
+            </div>
+        """),
         unsafe_allow_html=True
     )
 
@@ -713,43 +720,21 @@ st.markdown(
 
 # Create tabs for Diagnostics and Performance Comparison
 tab_diag, tab_perf = st.tabs(["🔬 Clinical Diagnostics & XAI", "📊 Model Performance Hub"])
-
 with tab_diag:
     upload_col, display_col = st.columns([1, 2])
-
     with upload_col:
-        st.components.v1.html(
-            """
-            <style>
-                body {
-                    margin: 0;
-                    padding: 0;
-                    background-color: transparent;
-                    overflow: hidden;
-                }
-                .header-container {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    font-family: 'Poppins', sans-serif;
-                }
-            </style>
-            <script src="https://cdn.lordicon.com/lordicon.js"></script>
-            <div class="header-container">
-                <lord-icon
-                    src="https://cdn.lordicon.com/rqedipls.json"
-                    trigger="in"
-                    delay="1500"
-                    state="in-reveal"
-                    colors="primary:#17171c,secondary:#66a1ee,tertiary:#ffffff"
-                    style="width:36px;height:36px;">
-                </lord-icon>
-                <h3 style="margin: 0; font-size: 1.35rem; font-weight: 700; color: #e2e8f0; line-height: 36px;">Upload CXR Scan</h3>
-            </div>
-            """,
-            height=40
-        )
-    
+        # Default values for inputs to prevent NameError
+        patient_name = ""
+        patient_age = ""
+        patient_id = ""
+        patient_gender = "Male"
+        patient_symptoms = ""
+        xai_method = "Grad-CAM"
+        selected_backbone = "densenet121"
+        backbone_choice = "DenseNet121 (Hybrid)"
+        analyze_button = False
+        clear_button = False
+
         if "uploader_key" not in st.session_state:
             st.session_state["uploader_key"] = 0
         
@@ -766,14 +751,27 @@ with tab_diag:
                 st.session_state.image_source = "📄 File Upload"
                 st.query_params.clear()
                 st.rerun()
-        
+
+        # --- STEP 1 CARD ---
+        st.markdown(
+            clean_html("""
+                <div class="step-card">
+                    <div class="step-header">
+                        <span class="step-number">Step 01</span>
+                        <h3 class="step-title">Chest X-Ray Upload</h3>
+                    </div>
+                    <div class="step-body">
+            """),
+            unsafe_allow_html=True
+        )
+
         if st.session_state.image_source == "📄 File Upload":
             uploaded_file = st.file_uploader(
                 "Upload a Chest X-ray image (PNG or JPG format) to detect Tuberculosis and Pneumonia signs.", 
                 type=["png", "jpg", "jpeg"],
                 key=f"file_uploader_{st.session_state.uploader_key}"
             )
-            if st.button("📷 Use Camera", key="trigger_camera_mode", help="Switch to webcam input mode to capture a scan directly."):
+            if st.button("📷 Use Camera", key="trigger_camera_mode", help="Switch to webcam input to capture a scan directly."):
                 st.session_state.image_source = "📷 Use Camera"
                 st.rerun()
         else:
@@ -785,7 +783,7 @@ with tab_diag:
                 st.session_state.image_source = "📄 File Upload"
                 st.rerun()
 
-        # Perform validation immediately to render error card before Model Configuration if needed
+        # Perform validation immediately
         is_valid = True
         err_msg = ""
         image = None
@@ -823,32 +821,8 @@ with tab_diag:
                     height=115
                 )
                 st.warning("Please upload a genuine grayscale Chest X-Ray scan to proceed.")
-
-        # Model Configuration on Main Page
-        st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
-        st.markdown("#### **🧠 Model Configuration**")
-        backbone_choice = st.selectbox(
-            "Select Neural Backbone",
-            ["DenseNet121 (Hybrid)", "ResNet50 (Hybrid)", "EfficientNetB0 (Hybrid)"],
-            index=0,
-            key="model_backbone_select"
-        )
-    
-        backbone_map = {
-            "DenseNet121 (Hybrid)": "densenet121",
-            "ResNet50 (Hybrid)": "resnet50",
-            "EfficientNetB0 (Hybrid)": "efficientnet_b0"
-        }
-        selected_backbone = backbone_map[backbone_choice]
-    
-        # Placeholder for weights loading status
-        model_status_placeholder = st.empty()
-    
-        if uploaded_file is not None:
-            if not is_valid:
-                analyze_button = False
             else:
-                # --- Image Enhancement Settings ---
+                # Image Adjustment sliders inside expander
                 with st.expander("🎛️ CXR Image Enhancement Settings", expanded=False):
                     if "cxr_brightness" not in st.session_state:
                         st.session_state.cxr_brightness = 1.0
@@ -864,10 +838,8 @@ with tab_diag:
                     st.button("🔄 Reset to Default Settings", on_click=reset_sliders, use_container_width=True, type="secondary")
                 
                 display_image = adjust_image(image, brightness, contrast, sharpness)
-            
-                # Display small preview of uploaded image
                 st_image_compatible(display_image, caption="Uploaded Scan Preview (Adjusted)")
-            
+
                 st.components.v1.html(
                     """
                     <style>
@@ -904,99 +876,175 @@ with tab_diag:
                     """,
                     height=65
                 )
+
+        st.markdown("</div></div>", unsafe_allow_html=True)
+
+        # --- STEP 2 CARD ---
+        st.markdown(
+            clean_html("""
+                <div class="step-card">
+                    <div class="step-header">
+                        <span class="step-number">Step 02</span>
+                        <h3 class="step-title">Patient Metadata</h3>
+                    </div>
+                    <div class="step-body">
+            """),
+            unsafe_allow_html=True
+        )
+
+        if uploaded_file is not None and is_valid:
+            pat_col1, pat_col2 = st.columns(2)
+            with pat_col1:
+                patient_name = st.text_input("Patient Name", placeholder="e.g. John Doe")
+                patient_age = st.text_input("Age", placeholder="e.g. 45")
+            with pat_col2:
+                patient_id = st.text_input("Patient ID / Ref", placeholder="e.g. ID-9843")
+                patient_gender = st.selectbox("Gender", ["Male", "Female", "Other"])
             
-                # --- Patient Information Inputs ---
-                st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
-                st.markdown("#### 📋 Patient Metadata")
-            
-                pat_col1, pat_col2 = st.columns(2)
-                with pat_col1:
-                    patient_name = st.text_input("Patient Name", placeholder="e.g. John Doe")
-                    patient_age = st.text_input("Age", placeholder="e.g. 45")
-                with pat_col2:
-                    patient_id = st.text_input("Patient ID / Ref", placeholder="e.g. ID-9843")
-                    patient_gender = st.selectbox("Gender", ["Male", "Female", "Other"])
-                
-                patient_symptoms = st.text_area(
-                    "Symptoms & Clinical History", 
-                    placeholder="e.g. Cough for 3 weeks, fever, night sweats...",
-                    height=70
-                )
-                # --- XAI Method Selection ---
-                st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
-                st.markdown("#### 🔍 Explainable AI (XAI) Settings")
-                xai_method = st.selectbox(
-                    "Select Interpretability Method",
-                    ["Grad-CAM", "Grad-CAM++", "Guided Backpropagation", "Saliency Map"],
-                    help="Choose the algorithm used to visualize which features or regions the neural network focused on.",
-                    key="xai_method_select"
-                )
-                st.markdown("<hr style='margin: 15px 0; opacity: 0.1;'>", unsafe_allow_html=True)
-            
-                # Trigger prediction and clear buttons in columns
-                btn_col1, btn_col2 = st.columns([1.35, 0.65])
-                with btn_col1:
-                    analyze_button = st.button("Run Diagnostic Analysis", use_container_width=True, type="primary")
-                with btn_col2:
-                    clear_button = st.button("Clear Report", use_container_width=True, type="secondary")
-                
-                if clear_button:
-                    st.session_state["uploader_key"] += 1
-                    st.rerun()
+            patient_symptoms = st.text_area(
+                "Symptoms & Clinical History", 
+                placeholder="e.g. Cough for 3 weeks, fever, night sweats...",
+                height=70
+            )
         else:
-            st.info("Waiting for Chest X-Ray upload...")
-            analyze_button = False
+            st.info("Please upload a valid Chest X-Ray in Step 01 to input patient metadata.")
+
+        st.markdown("</div></div>", unsafe_allow_html=True)
+
+        # --- STEP 3 CARD ---
+        st.markdown(
+            clean_html("""
+                <div class="step-card">
+                    <div class="step-header">
+                        <span class="step-number">Step 03</span>
+                        <h3 class="step-title">Neural Backbone & XAI</h3>
+                    </div>
+                    <div class="step-body">
+            """),
+            unsafe_allow_html=True
+        )
+
+        if uploaded_file is not None and is_valid:
+            backbone_choice = st.selectbox(
+                "Select Neural Backbone",
+                ["DenseNet121 (Hybrid)", "ResNet50 (Hybrid)", "EfficientNetB0 (Hybrid)"],
+                index=0,
+                key="model_backbone_select"
+            )
+        
+            backbone_map = {
+                "DenseNet121 (Hybrid)": "densenet121",
+                "ResNet50 (Hybrid)": "resnet50",
+                "EfficientNetB0 (Hybrid)": "efficientnet_b0"
+            }
+            selected_backbone = backbone_map[backbone_choice]
+            
+            # Placeholder for weights loading status
+            model_status_placeholder = st.empty()
+
+            xai_method = st.selectbox(
+                "Select Interpretability Method",
+                ["Grad-CAM", "Grad-CAM++", "Guided Backpropagation", "Saliency Map"],
+                help="Choose the algorithm used to visualize which features or regions the neural network focused on.",
+                key="xai_method_select"
+            )
+            st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
+        
+            # Trigger prediction and clear buttons in columns
+            btn_col1, btn_col2 = st.columns([1.35, 0.65])
+            with btn_col1:
+                analyze_button = st.button("Run Diagnostic Analysis", use_container_width=True, type="primary")
+            with btn_col2:
+                clear_button = st.button("Clear Report", use_container_width=True, type="secondary")
+            
+            if clear_button:
+                st.session_state["uploader_key"] += 1
+                st.rerun()
+        else:
+            st.info("Please upload a valid Chest X-Ray in Step 01 to select configuration.")
+        st.markdown("</div></div>", unsafe_allow_html=True)
 
     # ----------------- DEFERRED MODEL LOADING -----------------
     # Load model after layout renders to prevent blocking blank screen on initial page refresh
     with st.spinner(f"🧠 Loading {backbone_choice}..."):
         model, model_loaded = load_trained_model(selected_backbone)
 
+    has_placeholder = 'model_status_placeholder' in locals() and model_status_placeholder is not None
+
     if model_loaded:
-        with model_status_placeholder:
-            st.components.v1.html(
-                f"""
-                <style>
-                    body {{
-                        margin: 0;
-                        padding: 0;
-                        background-color: transparent;
-                        overflow: hidden;
-                    }}
-                    .success-card {{
-                        display: flex;
-                        align-items: center;
-                        gap: 12px;
-                        background-color: rgba(22, 199, 46, 0.08);
-                        border: 1px solid rgba(22, 199, 46, 0.2);
-                        border-radius: 8px;
-                        padding: 8px 14px;
-                        color: #4ade80;
-                        font-family: 'Poppins', sans-serif;
-                    }}
-                </style>
-                <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                <div class="success-card">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/pxixoqxa.json"
-                        trigger="in"
-                        delay="1500"
-                        state="in-reveal"
-                        colors="primary:#121331,secondary:#16c72e"
-                        style="width:26px;height:26px;flex-shrink:0;">
-                    </lord-icon>
-                    <span style="font-size: 0.93rem; font-weight: 500; line-height: 22px; margin-left: 4px;">Trained {backbone_choice} weights loaded successfully!</span>
-                </div>
-                """,
-                height=65
-            )
+        if has_placeholder:
+            with model_status_placeholder:
+                st.components.v1.html(
+                    f"""
+                    <style>
+                        body {{
+                            margin: 0;
+                            padding: 0;
+                            background-color: transparent;
+                            overflow: hidden;
+                        }}
+                        .success-card {{
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            background-color: rgba(22, 199, 46, 0.08);
+                            border: 1px solid rgba(22, 199, 46, 0.2);
+                            border-radius: 8px;
+                            padding: 8px 14px;
+                            color: #4ade80;
+                            font-family: 'Poppins', sans-serif;
+                        }}
+                    </style>
+                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                    <div class="success-card">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/pxixoqxa.json"
+                            trigger="in"
+                            delay="1500"
+                            state="in-reveal"
+                            colors="primary:#121331,secondary:#16c72e"
+                            style="width:26px;height:26px;flex-shrink:0;">
+                        </lord-icon>
+                        <span style="font-size: 0.93rem; font-weight: 500; line-height: 22px; margin-left: 4px;">Trained {backbone_choice} weights loaded successfully!</span>
+                    </div>
+                    """,
+                    height=65
+                )
     else:
-        model_status_placeholder.warning(f"⚠️ {backbone_choice} weights not found. Running with pre-trained ImageNet backbone.")
+        if has_placeholder:
+            model_status_placeholder.warning(f"⚠️ {backbone_choice} weights not found. Running with pre-trained ImageNet backbone.")
 
     with display_col:
         st.subheader("🔬 Diagnostic & Interpretability Report")
     
         if uploaded_file is not None and analyze_button:
+            # Smooth scroll parent window to focus on the Diagnostic Report header
+            st.components.v1.html(
+                """
+                <script>
+                    try {
+                        var mainEl = window.parent.document.querySelector('.main');
+                        var headers = window.parent.document.querySelectorAll('h3, h2, h1');
+                        var targetHeader = null;
+                        for (var i = 0; i < headers.length; i++) {
+                            if (headers[i].textContent.includes('Diagnostic & Interpretability Report')) {
+                                targetHeader = headers[i];
+                                break;
+                            }
+                        }
+                        if (mainEl && targetHeader) {
+                            var rect = targetHeader.getBoundingClientRect();
+                            var mainRect = mainEl.getBoundingClientRect();
+                            var offset = rect.top - mainRect.top + mainEl.scrollTop - 90; // Offset by 90px for header buffer
+                            mainEl.scrollTo({ top: offset, behavior: 'smooth' });
+                        } else if (targetHeader) {
+                            targetHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    } catch (e) { console.error(e); }
+                </script>
+                """,
+                height=0
+            )
             loader_placeholder = st.empty()
         
             # UI animation steps with custom premium spinner updates
