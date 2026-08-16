@@ -214,3 +214,5 @@ We trained and evaluated the framework using three distinct convolutional neural
 
 > [!WARNING]
 > **Medical Disclaimer:** This dashboard is an explainable AI research prototype for educational and evaluation purposes. All clinical decisions and AI-generated visualization overlays must be verified and validated by a certified radiologist before medical action is taken.
+
+---
