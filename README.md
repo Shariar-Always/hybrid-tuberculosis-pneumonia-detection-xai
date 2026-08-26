@@ -1,13 +1,35 @@
-# 🫁 Hybrid Explainable AI Framework for Automatic Tuberculosis & Pneumonia Detection from Chest X-Ray Images
+<h1 align="center">🫁 Hybrid Explainable AI (XAI) Framework for Automatic Tuberculosis and Pneumonia Detection</h1>
 
-[![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Torchvision](https://img.shields.io/badge/Torchvision-0.15%2B-orange?logo=pytorch&logoColor=white)](https://pytorch.org/vision/)
-[![Streamlit App](https://img.shields.io/badge/Streamlit-1.35%2B-FF4B4B?logo=streamlit&logoColor=white)](https://tuberculosis-pneumonia-detection-xai.streamlit.app/)
-[![Dataset Scale](https://img.shields.io/badge/Dataset-13%2C959%20CXR%20Scans-green)](data/metadata.csv)
-[![Top Accuracy](https://img.shields.io/badge/Top%20Accuracy-98.06%25-brightgreen)](notebooks/)
-[![XAI Methods](https://img.shields.io/badge/XAI%20Engine-4%20Methods-purple)](app/xai_methods.py)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<p align="center">
+  <img src="https://i.postimg.cc/tTTFpzdM/demo.png" alt="Hybrid TB Detection XAI Cover Page" width="100%">
+</p>
+
+---
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
+  <img src="https://img.shields.io/badge/ReportLab-PDF%20Report-success?style=for-the-badge">
+</p>
+
+<p align="center">
+  <a href="https://tuberculosis-pneumonia-detection-xai.streamlit.app/"><img src="https://img.shields.io/badge/Streamlit-Active-green?style=flat-square&logo=streamlit" alt="Streamlit App"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
+  <img src="https://img.shields.io/github/repo-size/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
+  <img src="https://img.shields.io/github/last-commit/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai?style=social">
+  <img src="https://img.shields.io/github/forks/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai?style=social">
+</p>
+
+<p align="center">
+  <a href="https://wakatime.com/badge/user/c7433bc5-6f12-4c97-baea-430790fa608c/project/941af381-3b72-4873-b4c0-4409eae76717"><img src="https://wakatime.com/badge/user/c7433bc5-6f12-4c97-baea-430790fa608c/project/941af381-3b72-4873-b4c0-4409eae76717.svg" alt="wakatime"></a>
+</p>
+
+---
 
 An end-to-end, clinically validated, deep learning framework for the automated multi-class classification of **Normal**, **Tuberculosis (TB)**, and **Pneumonia** from Chest X-Ray (CXR) images. The system integrates pre-trained Convolutional Neural Network (CNN) backbones with a **Convolutional Block Attention Module (CBAM)** (combining sequential Channel and Spatial Attention) and provides transparent clinical interpretability through **four Explainable AI (XAI)** visualization algorithms: **Grad-CAM**, **Grad-CAM++**, **Guided Backpropagation**, and **Saliency Maps**.
 
