@@ -7,10 +7,14 @@
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white">
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
-  <img src="https://img.shields.io/badge/ReportLab-PDF%20Report-success?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Python-3.10%20%7C%203.11-blue?logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c?logo=pytorch&logoColor=white">
+  <img src="https://img.shields.io/badge/Torchvision-0.15%2B-orange?logo=pytorch&logoColor=white">
+  <img src="https://img.shields.io/badge/Streamlit-1.35%2B-FF4B4B?logo=streamlit&logoColor=white">
+  <img src="https://img.shields.io/badge/Dataset-13%2C959%20CXR%20Scans-green">
+  <img src="https://img.shields.io/badge/Top%20Accuracy-98.06%25-brightgreen">
+  <img src="https://img.shields.io/badge/XAI%20Engine-4%20Methods-purple">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
 </p>
 
 <p align="center">
