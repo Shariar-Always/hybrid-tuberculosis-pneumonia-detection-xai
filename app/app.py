@@ -1323,7 +1323,7 @@ with tab_diag:
         table_rows = ""
     
         # Get user's timezone from browser context, default to Dhaka timezone
-        user_tz_str = st.context.timezone or "Asia/Dhaka"
+        user_tz_str = getattr(getattr(st, "context", None), "timezone", None) or "Asia/Dhaka"
         try:
             user_tz = ZoneInfo(user_tz_str)
         except Exception:
