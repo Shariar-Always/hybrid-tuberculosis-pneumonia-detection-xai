@@ -47,13 +47,15 @@ class SpatialAttention(nn.Module):
 
 class HybridTBPredictor(nn.Module):
     """
-    Hybrid CNN + Attention Model for Tuberculosis Detection
-    Uses pre-trained backbone as feature extractor
-    coupled with Channel and Spatial Attention Blocks (CBAM).
+    Hybrid CNN + Attention Model (and Baseline CNN counterpart) for Tuberculosis & Pneumonia Detection.
+    Uses a pre-trained CNN backbone (DenseNet121, ResNet50, or EfficientNet-B0) as feature extractor.
+    When use_cbam=True (Hybrid mode), couples the backbone with Channel and Spatial Attention Blocks (CBAM).
+    When use_cbam=False (Normal / Baseline mode), bypasses CBAM attention for standard CNN classification.
     """
-    def __init__(self, backbone="densenet121", pretrained=True):
+    def __init__(self, backbone="densenet121", pretrained=True, use_cbam=True):
         super(HybridTBPredictor, self).__init__()
         self.backbone_name = backbone
+        self.use_cbam = use_cbam
         
         if backbone == "densenet121":
             if pretrained:
@@ -82,9 +84,10 @@ class HybridTBPredictor(nn.Module):
         else:
             raise ValueError(f"Unsupported backbone: {backbone}")
             
-        # Attention Blocks
-        self.channel_attention = ChannelAttention(self.num_features)
-        self.spatial_attention = SpatialAttention(kernel_size=7)
+        # Attention Blocks (Initialized only in Hybrid CBAM mode)
+        if self.use_cbam:
+            self.channel_attention = ChannelAttention(self.num_features)
+            self.spatial_attention = SpatialAttention(kernel_size=7)
         
         # Adaptive pooling to reduce spatial dimension to 1x1
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
@@ -99,21 +102,24 @@ class HybridTBPredictor(nn.Module):
         )
 
     def forward(self, x):
-        # 1. Feature Extraction via DenseNet backbone
-        # Output shape: [B, 1024, H_feat, W_feat]
+        # 1. Feature Extraction via CNN backbone
+        # Output shape: [B, C, H_feat, W_feat]
         features = self.features(x)
         
-        # 2. Apply Attention blocks (CBAM)
-        # Channel Attention
-        ca_out = self.channel_attention(features)
-        feat_ca = features * ca_out
-        
-        # Spatial Attention
-        sa_out = self.spatial_attention(feat_ca)
-        feat_sa = feat_ca * sa_out
+        # 2. Apply Attention blocks (CBAM) if in Hybrid mode, otherwise use raw backbone features
+        if self.use_cbam:
+            # Channel Attention
+            ca_out = self.channel_attention(features)
+            feat_ca = features * ca_out
+            
+            # Spatial Attention
+            sa_out = self.spatial_attention(feat_ca)
+            feat_out = feat_ca * sa_out
+        else:
+            feat_out = features
         
         # 3. Pooling and Flattening
-        pooled = self.avgpool(feat_sa)
+        pooled = self.avgpool(feat_out)
         flat = torch.flatten(pooled, 1)
         
         # 4. Classification
@@ -121,14 +127,16 @@ class HybridTBPredictor(nn.Module):
         return logits
 
 if __name__ == "__main__":
-    # Test instantiation and forward pass for all supported backbones
+    # Test instantiation and forward pass for all supported backbones in both Hybrid and Baseline modes
     backbones = ["densenet121", "resnet50", "efficientnet_b0"]
     dummy_input = torch.randn(2, 3, 224, 224)
     
-    for bb in backbones:
-        print(f"\n--- Testing Backbone: {bb} ---")
-        model = HybridTBPredictor(backbone=bb, pretrained=False)
-        outputs = model(dummy_input)
-        print("Model Input Shape:  ", dummy_input.shape)
-        print("Model Output Shape: ", outputs.shape)
-        print(f"Backbone {bb} initialized and verified successfully!")
+    for mode_name, cbam_flag in [("Hybrid (With CBAM)", True), ("Baseline / Normal (Without CBAM)", False)]:
+        print(f"\n================ {mode_name} ================")
+        for bb in backbones:
+            print(f"\n--- Testing Backbone: {bb} (use_cbam={cbam_flag}) ---")
+            model = HybridTBPredictor(backbone=bb, pretrained=False, use_cbam=cbam_flag)
+            outputs = model(dummy_input)
+            print("Model Input Shape:  ", dummy_input.shape)
+            print("Model Output Shape: ", outputs.shape)
+            print(f"Backbone {bb} ({mode_name}) initialized and verified successfully!")

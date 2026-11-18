@@ -77,14 +77,17 @@ def evaluate(model, dataloader, criterion, device):
     return total_loss / len(dataloader.dataset), correct / (total + 1e-8)
 
 def main():
-    parser = argparse.ArgumentParser(description="Train Hybrid CNN-Attention Model with Dynamic Backbones")
+    parser = argparse.ArgumentParser(description="Train Hybrid CNN-Attention or Baseline CNN Model with Dynamic Backbones")
     parser.add_argument("--backbone", type=str, default="densenet121", choices=["densenet121", "resnet50", "efficientnet_b0"], help="Select neural backbone")
+    parser.add_argument("--mode", type=str, default="hybrid", choices=["hybrid", "baseline"], help="Select 'hybrid' (with CBAM attention) or 'baseline' (normal CNN without CBAM)")
+    parser.add_argument("--no-cbam", action="store_true", help="Disable CBAM attention blocks (alias for --mode baseline)")
     parser.add_argument("--epochs", type=int, default=15, help="Number of training epochs")
     parser.add_argument("--batch-size", type=int, default=16, help="Batch size for training")
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
     parser.add_argument("--data-dir", type=str, default=None, help="Path to raw image database folder")
     parser.add_argument("--metadata-path", type=str, default=None, help="Path to metadata.csv")
     args = parser.parse_args()
+    use_cbam = (args.mode == "hybrid") and (not args.no_cbam)
 
     set_seed(42)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -145,15 +148,16 @@ def main():
     val_loader = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=2)
 
     # Initialize model dynamically
-    print(f"[+] Initializing HybridTBPredictor with {args.backbone} backbone...")
-    model = HybridTBPredictor(backbone=args.backbone, pretrained=True).to(device)
+    arch_type = "Hybrid (With CBAM)" if use_cbam else "Baseline / Normal (Without CBAM)"
+    print(f"[+] Initializing HybridTBPredictor [{arch_type}] with {args.backbone} backbone...")
+    model = HybridTBPredictor(backbone=args.backbone, pretrained=True, use_cbam=use_cbam).to(device)
 
     criterion = nn.CrossEntropyLoss(weight=class_weights)
     optimizer = optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2)
 
     # Save filename mapping
-    weights_name = f"best_tb_model_{args.backbone}.pth"
+    weights_name = f"best_tb_model_{args.backbone}.pth" if use_cbam else f"best_tb_model_{args.backbone}_baseline.pth"
     models_dir = Path("models")
     models_dir.mkdir(exist_ok=True)
     model_save_path = models_dir / weights_name

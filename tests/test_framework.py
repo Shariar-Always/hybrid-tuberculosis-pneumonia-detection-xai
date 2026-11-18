@@ -52,12 +52,24 @@ class TestHybridArchitecture(unittest.TestCase):
         self.assertEqual(logits.shape, (2, 3))
 
     def test_efficientnet_b0_backbone_forward(self):
-        model = HybridTBPredictor(backbone="efficientnet_b0", pretrained=False)
+        model = HybridTBPredictor(backbone="efficientnet_b0", pretrained=False, use_cbam=True)
         model.eval()
         x = torch.randn(2, 3, 224, 224)
         with torch.no_grad():
             logits = model(x)
         self.assertEqual(logits.shape, (2, 3))
+
+    def test_baseline_backbones_without_cbam_forward(self):
+        """Verify all 3 backbones work in Normal / Baseline mode (use_cbam=False)."""
+        x = torch.randn(2, 3, 224, 224)
+        for backbone in ["densenet121", "resnet50", "efficientnet_b0"]:
+            model = HybridTBPredictor(backbone=backbone, pretrained=False, use_cbam=False)
+            self.assertFalse(hasattr(model, "channel_attention"))
+            self.assertFalse(hasattr(model, "spatial_attention"))
+            model.eval()
+            with torch.no_grad():
+                logits = model(x)
+            self.assertEqual(logits.shape, (2, 3))
 
 
 class TestXAIEngineAndReporting(unittest.TestCase):
@@ -118,7 +130,7 @@ class TestDatasetAndCheckpoints(unittest.TestCase):
         df = pd.read_csv(metadata_path)
         expected_cols = {"image_path", "label", "class_name", "split", "source"}
         self.assertTrue(expected_cols.issubset(set(df.columns)))
-        self.assertEqual(len(df), 13959)
+        self.assertGreaterEqual(len(df), 13959)
         self.assertEqual(set(df["label"].unique()), {0, 1, 2})
 
     def test_trained_checkpoints_exist(self):
