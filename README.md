@@ -10,15 +10,13 @@
   <img src="https://img.shields.io/badge/Python-3.10%20%7C%203.11-blue?logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c?logo=pytorch&logoColor=white">
   <img src="https://img.shields.io/badge/Torchvision-0.15%2B-orange?logo=pytorch&logoColor=white">
-  <img src="https://img.shields.io/badge/Streamlit-1.35%2B-FF4B4B?logo=streamlit&logoColor=white">
-  <img src="https://img.shields.io/badge/Dataset-13%2C959%20CXR%20Scans-green">
+  <img src="https://img.shields.io/badge/Dataset-22%2C356%20CXR%20Scans-green">
   <img src="https://img.shields.io/badge/Top%20Accuracy-98.06%25-brightgreen">
   <img src="https://img.shields.io/badge/XAI%20Engine-4%20Methods-purple">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
 </p>
 
 <p align="center">
-  <a href="https://tuberculosis-pneumonia-detection-xai.streamlit.app/"><img src="https://img.shields.io/badge/Streamlit-Active-green?style=flat-square&logo=streamlit" alt="Streamlit App"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
   <img src="https://img.shields.io/github/repo-size/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
   <img src="https://img.shields.io/github/last-commit/Shariar-Ahamed/hybrid-tuberculosis-pneumonia-detection-xai">
@@ -37,13 +35,13 @@
 
 An end-to-end, clinically validated, deep learning framework for the automated multi-class classification of **Normal**, **Tuberculosis (TB)**, and **Pneumonia** from Chest X-Ray (CXR) images. The system integrates pre-trained Convolutional Neural Network (CNN) backbones with a **Convolutional Block Attention Module (CBAM)** (combining sequential Channel and Spatial Attention) and provides transparent clinical interpretability through **four Explainable AI (XAI)** visualization algorithms: **Grad-CAM**, **Grad-CAM++**, **Guided Backpropagation**, and **Saliency Maps**.
 
-The project also includes an **Out-of-Distribution (OOD) CXR input validation engine**, an interactive **Streamlit clinical dashboard**, and an **in-memory automated PDF diagnostic report generator** with timestamps and doctor sign-off blocks.
+The project also includes an **Out-of-Distribution (OOD) CXR input validation engine**, a powerful **Command-Line Diagnostic & XAI Inference Engine (`src/predict.py`)**, and an **in-memory automated PDF diagnostic report generator** with timestamps and doctor sign-off blocks.
 
 ---
 
-## 📌 Live Demo & Deployment
+## 📌 Clinical Inference & Project Assets
 
-- 🌐 **Live Web Application:** [https://tuberculosis-pneumonia-detection-xai.streamlit.app/](https://tuberculosis-pneumonia-detection-xai.streamlit.app/)
+- 💻 **Diagnostic Inference Engine:** [`src/predict.py`](src/predict.py)
 - 📄 **Dataset Metadata:** [`data/metadata.csv`](data/metadata.csv)
 - 🧪 **Model Checkpoints:** [`models/`](models/)
 - 🔬 **Thesis & Academic Documentation:** [`thesis/`](thesis/)
@@ -59,15 +57,14 @@ The project also includes an **Out-of-Distribution (OOD) CXR input validation en
 5. [Out-of-Distribution (OOD) Input Validation](#5-out-of-distribution-ood-input-validation)
 6. [Dataset Specification & Distribution](#6-dataset-specification--distribution)
 7. [Empirical Benchmarks & Experimental Results](#7-empirical-benchmarks--experimental-results)
-8. [Clinical Streamlit Dashboard & UI Architecture](#8-clinical-streamlit-dashboard--ui-architecture)
+8. [Command-Line Diagnostic & XAI Inference Engine](#8-command-line-diagnostic--xai-inference-engine)
 9. [Automated Clinical PDF Report Generator](#9-automated-clinical-pdf-report-generator)
 10. [Comprehensive Technology Stack](#10-comprehensive-technology-stack)
 11. [Repository Directory Structure (A to Z)](#11-repository-directory-structure-a-to-z)
 12. [Developer Installation & Quick Start Guide](#12-developer-installation--quick-start-guide)
 13. [CLI Model Training & Preprocessing](#13-cli-model-training--preprocessing)
-14. [Streamlit Cloud Deployment Notes](#14-streamlit-cloud-deployment-notes)
-15. [Research Team, Supervision & Affiliation](#15-research-team-supervision--affiliation)
-16. [Medical Disclaimer & License](#16-medical-disclaimer--license)
+14. [Research Team, Supervision & Affiliation](#14-research-team-supervision--affiliation)
+15. [Medical Disclaimer & License](#15-medical-disclaimer--license)
 
 ---
 
@@ -92,7 +89,7 @@ This project addresses these gaps by presenting a unified, clinically grounded *
 | **Multi-Backbone Framework** | Dynamically supports DenseNet121, ResNet50, and EfficientNet-B0 | Allows clinicians to balance sensitivity, parameter size, and inference throughput for mobile/edge or cloud tiers. |
 | **Multi-Method XAI Diagnostics** | Grad-CAM, Grad-CAM++, Guided Backprop & Saliency Maps | Visualizes both coarse activation heatmaps and fine-grained anatomical/micro-textural border gradients. |
 | **OOD CXR Validation Engine** | Edge Sobel SSIM matching + Spatial profile correlation | Prevents model hallucination by rejecting non-CXR images, plain graphics, or corrupted inputs before inference. |
-| **Live Clinical Web Dashboard** | Streamlit with custom Glassmorphic Dark theme & step cards | Streamlined 3-step diagnostic workflow: Upload & Tune CXR ➔ Enter Patient Metadata ➔ Run Analysis. |
+| **Diagnostic Inference CLI Engine** | Pure Python CLI (`src/predict.py`) with full XAI and PDF pipeline | Automated single-image or batch diagnostic inference, multi-class probability scoring, and report generation. |
 | **Institutional PDF Reports** | In-memory ReportLab engine with timestamps (BST / UTC+6) | Generates downloadable, print-ready clinical diagnostic certificates with patient information and XAI overlays. |
 | **Leakage-Safe Benchmarking** | Unified dataset split across 13,959 multi-source CXR scans | Class-weighted Cross-Entropy loss resolves real-world dataset imbalance without artificial synthetic oversampling. |
 
@@ -303,20 +300,23 @@ Evaluated on the uncorrupted hold-out **Test Set of 1,392 independent CXR scans*
 
 ---
 
-## 8. Clinical Streamlit Dashboard & UI Architecture
+## 8. Command-Line Diagnostic & XAI Inference Engine
 
-The front-end is crafted with a **Glassmorphic Dark Mode UI** ([`app/style.css`](app/style.css)) organized into three structured step cards:
+The framework features a standalone, pure Python CLI inference engine ([`src/predict.py`](src/predict.py)) that allows researchers and clinicians to run diagnostic evaluations directly on any digital Chest X-Ray:
 
+```bash
+# Run inference with all 4 Explainable AI (XAI) overlays:
+python src/predict.py --image "path/to/cxr_scan.png" --backbone efficientnet_b0
+
+# Run inference and generate an in-memory clinical PDF report:
+python src/predict.py --image "path/to/cxr_scan.png" --generate-pdf --patient-name "Anonymous Patient" --patient-id "CXR-1002"
 ```
-[ Step 01: Chest X-Ray Upload ] ➔ File uploader / Webcam + Contrast & Sharpness Sliders
-[ Step 02: Patient Metadata   ] ➔ Name, Age, ID, Gender, Clinical History & Symptoms
-[ Step 03: Neural Model & XAI ] ➔ Backbone Selector, XAI Method, "Run Analysis" Trigger
-```
 
-### UI Highlights:
-- **Auto-Scroll Focusing:** Clicking "Run Diagnostic Analysis" triggers an automated DOM scroll routine that scrolls directly to the *Diagnostic & Interpretability Report* header (with a 90px sticky navbar buffer).
-- **Session Tracking Table:** An interactive, height-constrained table logging previous diagnoses during the session.
-- **Model Performance Hub Tab:** Comparative double-bar charts and throughput speed benchmarks embedded natively via Matplotlib (`Agg` non-interactive backend).
+### Core Engine Capabilities:
+- **Multiclass Probability Distribution:** Evaluates normalized softmax confidences for Normal, Pneumonia, and Tuberculosis.
+- **Quad-Method Interpretability:** Simultaneously synthesizes **Grad-CAM**, **Grad-CAM++**, **Guided Backpropagation**, and **Saliency Maps** into `outputs/`.
+- **Ablation Comparison:** Supports the `--no-cbam` flag to contrast CBAM attention localization against standard baseline backbones.
+- **Automated Clinical Reporting:** Directly compiles patient demographics, classification results, and XAI imagery into printable PDF format.
 
 ---
 
@@ -337,38 +337,38 @@ Powered by **ReportLab** ([`app/report_generator.py`](app/report_generator.py)),
 
 | Category | Technology / Library | Purpose in Project |
 | :--- | :--- | :--- |
-| **Programming Language** | **Python (3.10 / 3.11)** | Core programming language for models, pipelines, and web serving. |
-| **Deep Learning** | **PyTorch (`torch`)** | Neural network definition, custom CBAM layers, forward/backward passes. |
+| **Programming Language** | **Python (3.10 / 3.11)** | Core programming language for models, training, inference, and reporting. |
+| **Deep Learning** | **PyTorch (`torch`)** | Neural network definition, custom CBAM layers, forward/backward optimization. |
 | **Vision Backbones** | **Torchvision (`torchvision.models`)** | Pre-trained weights for DenseNet121, ResNet50, EfficientNet-B0. |
 | **Explainable AI (XAI)** | **`grad-cam` + Custom PyTorch Hooks** | Grad-CAM, Grad-CAM++, Guided Backprop, Saliency Map generation. |
 | **Computer Vision** | **OpenCV (`opencv-python-headless`)** | Edge detection, SSIM computation, colormap overlay blending. |
 | **Image Manipulation** | **Pillow (`PIL`)** | Dynamic brightness, contrast, sharpness tuning, and format conversions. |
 | **Data Processing** | **Pandas & NumPy** | Metadata parsing, dataset stratification, vector matrix calculations. |
-| **Evaluation Metrics** | **Scikit-Learn (`scikit-learn`)** | Confusion matrix, ROC-AUC, classification report, class weights. |
-| **Web Dashboard** | **Streamlit (`streamlit`)** | Reactive web UI, multi-tab navigation, session state management. |
-| **Visual Styling** | **Vanilla CSS3 & HTML5** | Frosted glassmorphism, responsive grid containers, Google Poppins font. |
-| **Animated Icons** | **Lordicon CDN** | Animated vector icons for loading states and step cards. |
+| **Evaluation Metrics** | **Scikit-Learn (`scikit-learn`)** | Confusion matrix, ROC-AUC, classification report, cost-sensitive class weights. |
+| **Diagnostic CLI Engine** | **Python CLI (`src/predict.py`)** | End-to-end command-line prediction, XAI extraction, and batch evaluation. |
 | **PDF Generation** | **ReportLab (`reportlab`)** | Programmatic vector PDF compilation with tables, styles, and images. |
-| **Server Routing** | **Starlette (`starlette<1.0.0`)** | Lightweight ASGI server components for Streamlit web hosting. |
 
 ---
 
 ## 11. Repository Directory Structure (A to Z)
 
 ```text
-├── .streamlit/
-│   └── config.toml               # Streamlit server and theme configurations
 ├── .vscode/
 │   └── settings.json             # Workspace IDE settings
+├── Agent/
+│   └── agent.md                  # Autonomous agent workflow rules and guidelines
 ├── app/
-│   ├── app.py                    # Main Streamlit web application & UI logic
 │   ├── cxr_template.png          # Average CXR template for OOD edge SSIM validation
-│   ├── diu_logo.png              # Institutional logo for PDF reports and sidebar
+│   ├── diu_logo.png              # Institutional logo for PDF reports
 │   ├── report_generator.py       # ReportLab PDF report generation engine
-│   ├── style.css                 # Glassmorphic dark design system stylesheet
 │   └── xai_methods.py            # PyTorch XAI visualization algorithms (Grad-CAM, etc.)
 ├── data/
-│   └── metadata.csv              # Full dataset index (13,959 CXRs with labels & splits)
+│   ├── metadata.csv              # Full dataset index (22,356 CXRs with labels & splits)
+│   ├── metadata_22k_clinical.csv # Extended clinical provenance master metadata
+│   └── metadata_phase1_13k.csv   # Historical Phase 1 benchmark metadata
+├── docs/
+│   ├── CLINICAL_DATASET_PROVENANCE.md # Multi-center institutional provenance & ethics
+│   └── DATASET_SUMMARY_TABLES.md      # Full 22,356 dataset breakdown & DOI citations
 ├── models/
 │   ├── best_tb_model_densenet121.pth       # Trained DenseNet121+CBAM weights
 │   ├── best_tb_model_efficientnet_b0.pth   # Trained EfficientNet-B0+CBAM weights
@@ -384,17 +384,18 @@ Powered by **ReportLab** ([`app/report_generator.py`](app/report_generator.py)),
 │   └── 03_baseline_training_resnet50.ipynb      # Normal/Baseline ResNet50 (No CBAM) training
 ├── src/
 │   ├── models/
-│   │   └── hybrid_model.py       # PyTorch HybridTBPredictor (supports Hybrid CBAM & Baseline modes)
+│   │   └── hybrid_model.py       # PyTorch HybridTBPredictor (Hybrid CBAM & Baseline modes)
+│   ├── predict.py                # Standalone CLI diagnostic & XAI inference engine
 │   ├── preprocess.py             # CLI metadata compilation & validation script
 │   └── train.py                  # Standalone CLI model training pipeline (--mode hybrid / baseline)
 ├── tests/
 │   └── test_framework.py         # Automated unit test suite (12 tests for Hybrid, Baseline, XAI & PDF)
 ├── thesis/
 │   ├── 01-title-defense/         # Title phase evaluation report, slides, and approval forms
-│   └── 02-phase-1/               # Phase-1 comprehensive evaluation report, slides, and diagrams
+│   ├── 02-phase-1/               # Phase-1 comprehensive evaluation report, slides, and diagrams
+│   └── 03-pre-defense/           # Pre-defense manuscript chapter and clinical methodology
 ├── .gitignore                    # Git tracking rules
 ├── LICENSE                       # MIT Open-Source License
-├── packages.txt                  # Debian system-level dependencies for cloud deployment
 ├── README.md                     # Project master documentation (this file)
 └── requirements.txt              # Pinned Python package dependencies
 ```
@@ -433,12 +434,15 @@ Powered by **ReportLab** ([`app/report_generator.py`](app/report_generator.py)),
    pip install -r requirements.txt
    ```
 
-4. **Launch the Streamlit Clinical Web Dashboard:**
+4. **Run Diagnostic Inference & Generate XAI Heatmaps:**
    ```bash
-   streamlit run app/app.py
+   python src/predict.py --image "path/to/cxr_image.png" --generate-pdf
    ```
 
-5. **Open in Browser:** Navigate to `http://localhost:8501`.
+5. **Run the Automated Unit Test Suite:**
+   ```bash
+   python -m unittest discover -v -s ./tests -p "test_*.py"
+   ```
 
 ---
 
@@ -475,17 +479,7 @@ python src/preprocess.py
 
 ---
 
-## 14. Streamlit Cloud Deployment Notes
-
-When deploying to [Streamlit Community Cloud](https://streamlit.io/cloud):
-- **Python Version:** Select **Python 3.11** in the Advanced Settings modal.
-- **System Packages (`packages.txt`):** Contains `libgl1` to satisfy OpenCV runtime dependencies without triggering Debian Bookworm conflicts.
-- **Dynamic Glib Loader:** [`app/app.py`](app/app.py) contains a runtime fallback routine to dynamically download and load `libglib-2.0` / `libgthread-2.0` via `ctypes` on Debian containers.
-- **Matplotlib Backend:** Initialized with `matplotlib.use('Agg')` prior to plotting imports to avoid GUI server crashes.
-
----
-
-## 15. Research Team, Supervision & Affiliation
+## 14. Research Team, Supervision & Affiliation
 
 This project was conducted as a Final Year Design Project (FYDP) / Undergraduate Thesis under the **Department of Computer Science and Engineering (CSE), Daffodil International University (DIU)**, Dhaka, Bangladesh.
 
@@ -499,7 +493,7 @@ This project was conducted as a Final Year Design Project (FYDP) / Undergraduate
 
 ---
 
-## 16. Medical Disclaimer & License
+## 15. Medical Disclaimer & License
 
 > [!WARNING]
 > **Medical Disclaimer:** This software and its underlying models are designed strictly for educational, academic, and clinical research evaluation. The outputs, prediction scores, and Explainable AI overlays generated by this system **do not constitute certified clinical diagnoses**. All findings must be reviewed and verified by a licensed healthcare professional or certified thoracic radiologist before initiating patient care.

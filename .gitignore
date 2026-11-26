@@ -77,3 +77,6 @@ venv.bak/
 *.njsproj
 *.sln
 *.sw?
+
+# Generated Inference Outputs
+outputs/

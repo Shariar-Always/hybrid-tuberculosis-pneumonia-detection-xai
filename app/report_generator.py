@@ -14,7 +14,7 @@ class InMemoryImage(RLImage):
     """
     Custom ReportLab Flowable Image class that accepts a BytesIO buffer directly.
     Bypasses filename string checks (os.path.splitext) in ReportLab __init__ 
-    for maximum compatibility with Streamlit Cloud environments.
+    for maximum compatibility with headless and in-memory execution environments.
     """
     def __init__(self, image_buffer, width=None, height=None, kind='direct',
                  mask="auto", lazy=1, hAlign='CENTER', useDPI=False):

@@ -6,8 +6,6 @@ seaborn
 pandas
 numpy
 scikit-learn
-streamlit
 grad-cam
 jupyter
 reportlab
-starlette<1.0.0

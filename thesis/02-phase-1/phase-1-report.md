@@ -69,7 +69,7 @@ The main objective of this research is to design, implement, and benchmark a hyb
 2. **To compile and preprocess a unified, leakage-safe hybrid dataset** comprising 13,959 Chest X-Ray images, applying dynamic class-weighted loss functions to compensate for class imbalances across radiological categories.
 3. **To incorporate a multi-method Explainable AI (XAI) visualization engine** encompassing Grad-CAM, Grad-CAM++, Guided Backpropagation, and Saliency Mapping to provide fine-grained textural and coarse activation heatmaps for diagnostic transparency.
 4. **To develop an Out-of-Distribution (OOD) CXR input validation engine** based on template matching (SSIM edge profiles) and anatomical standard deviation thresholds to filter out non-radiological images and artifacts prior to inference.
-5. **To construct an interactive Streamlit clinical web application and automated PDF report generator** utilizing ReportLab to output print-ready diagnostic reports complete with patient metadata, BST (UTC+6) timestamps, prediction confidences, XAI overlays, and radiologist signature blocks.
+5. **To construct an automated clinical diagnostic pipeline and PDF report generator** utilizing ReportLab to output print-ready diagnostic reports complete with patient metadata, BST (UTC+6) timestamps, prediction confidences, XAI overlays, and radiologist signature blocks.
 6. **To conduct rigorous benchmarking across all three hybrid backbones**, evaluating classification accuracy, sensitivity, specificity, ROC-AUC, and GPU inference throughput (images/sec) to identify optimal deployment configurations.
 
 ---
@@ -163,7 +163,7 @@ Third, an Explainable AI (XAI) engine incorporating four distinct visual attribu
 
 Fourth, an Out-of-Distribution (OOD) input validation module was developed using structural template matching and anatomical intensity standard deviation thresholds to detect and reject non-CXR images prior to inference.
 
-Fifth, an interactive Streamlit clinical web application was deployed alongside an automated in-memory PDF report generator. The application generates print-ready diagnostic reports detailing patient metadata, BST (UTC+6) timestamps, prediction confidences, XAI overlays, and radiologist verification blocks.
+Fifth, an automated clinical diagnostic pipeline was implemented alongside an in-memory PDF report generator. The application generates print-ready diagnostic reports detailing patient metadata, BST (UTC+6) timestamps, prediction confidences, XAI overlays, and radiologist verification blocks.
 
 Finally, comprehensive benchmark evaluations were conducted across all three hybrid backbones on the hold-out test dataset, recording classification accuracy, sensitivity, specificity, ROC-AUC, and GPU throughput.
 
@@ -217,7 +217,7 @@ These empirical results validate that combining hybrid attention backbones with 
 | :---: | :--- | :---: |
 | **1** | **Completion of Baseline Model Benchmarking:** Finalize comparative evaluations between standard CNN baselines and proposed hybrid attention backbones across hold-out test sets. | Month 1 - Week 2 |
 | **2** | **Refinement of Multi-Method Explainable AI Engine:** Extend visual attribution mapping to include quantitative feature importance comparisons across radiological attention maps. | Month 1 - Week 4 |
-| **3** | **Clinical Web Application & PDF Engine Enhancement:** Optimize Streamlit interactive dashboard UI, session state performance, and PDF diagnostic report generation speed. | Month 2 - Week 2 |
+| **3** | **Clinical Diagnostic Engine & PDF Reporting Enhancement:** Optimize inference pipeline, CLI execution, and PDF diagnostic report generation speed. | Month 2 - Week 2 |
 | **4** | **Cross-Dataset Generalization & Robustness Testing:** Conduct external dataset evaluations on unseen radiological databases to verify out-of-distribution model reliability. | Month 2 - Week 4 |
 | **5** | **Radiologist Feedback & Clinical Evaluation:** Collect qualitative assessments from medical professionals to validate AI attention alignment with genuine diagnostic lesions. | Month 3 - Week 2 |
 | **6** | **Final Thesis Report Refinement & Defense Preparation:** Compile comprehensive final thesis documentation, update literature references, and prepare presentation slides for final defense. | Month 3 - Week 4 |
@@ -257,7 +257,7 @@ The updated project timeline below illustrates the planned versus actual task ex
 
 This research project utilized publicly available radiological datasets, cloud-based high-performance computing infrastructure, and open-source software libraries. Deep learning model development, training, and explainability experiments were conducted using Python and PyTorch within Google Colab Pro environments, leveraging NVIDIA Tesla T4 GPU acceleration to enable efficient gradient propagation and model convergence.
 
-Dataset preparation, metadata management, and statistical analytics were performed using Python scientific libraries, including Pandas, NumPy, OpenCV, and Scikit-Learn. Visual interpretability heatmaps were generated using PyTorch Grad-CAM utilities and Matplotlib. The clinical web dashboard was built using Streamlit, while automated PDF report generation was implemented using the ReportLab library. All code repositories and model weights were managed under Git version control to ensure complete experimental reproducibility and scalability.
+Dataset preparation, metadata management, and statistical analytics were performed using Python scientific libraries, including Pandas, NumPy, OpenCV, and Scikit-Learn. Visual interpretability heatmaps were generated using PyTorch Grad-CAM utilities and Matplotlib. The clinical diagnostic pipeline was implemented in Python, while automated PDF report generation was implemented using the ReportLab library. All code repositories and model weights were managed under Git version control to ensure complete experimental reproducibility and scalability.
 
 ---
 
