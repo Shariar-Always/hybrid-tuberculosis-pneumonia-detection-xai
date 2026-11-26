@@ -1,0 +1,1197 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Global Typography & Core Elements */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Main Background & Text */
+.stApp {
+    background: radial-gradient(circle at 50% 50%, #111622 0%, #080a0f 100%);
+    color: #e2e8f0;
+}
+
+/* Constrain maximum dashboard width to prevent excessive stretching on wide screens */
+.block-container {
+    padding-top: 4.5rem !important;
+    padding-bottom: 2rem !important;
+    max-width: 1260px !important;
+    margin: 0 auto !important;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #080a0f;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #38bdf8;
+}
+
+/* Premium Header Banner */
+.header-banner {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.65) 0%, rgba(30, 41, 59, 0.45) 100%);
+    backdrop-filter: blur(24px);
+    padding: 1.25rem 1.75rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 1.2rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.header-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.header-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -10%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.header-flex {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+    }
+    .header-banner {
+        padding: 1.5rem;
+    }
+}
+
+.header-icon-container {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.75rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.header-svg {
+    width: 26px;
+    height: 26px;
+    color: #38bdf8;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+    animation: pulse-svg 3s infinite ease-in-out;
+}
+
+@keyframes pulse-svg {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.header-text-container {
+    flex-grow: 1;
+}
+
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(56, 189, 248, 0.08);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    padding: 0.2rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+}
+
+.header-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.2rem;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.header-subtitle {
+    font-size: 0.92rem;
+    color: #94a3b8;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* Custom Sidebar Card Styling */
+section[data-testid="stSidebar"] {
+    background-color: #080a0f !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Metrics Grid & Responsive Cards */
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1.2rem;
+    width: 100%;
+}
+
+.metric-card {
+    background: rgba(22, 28, 36, 0.45);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.metric-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.12);
+}
+
+.metric-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.15rem;
+}
+
+.metric-label {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+}
+
+/* Custom Report Container */
+.report-card {
+    background: rgba(22, 28, 36, 0.45);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.result-card-positive {
+    border-left: 5px solid #ef4444 !important;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.12), 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.result-card-warning {
+    border-left: 5px solid #f97316 !important;
+    box-shadow: 0 0 25px rgba(249, 115, 22, 0.12), 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.result-card-negative {
+    border-left: 5px solid #22c55e !important;
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.12), 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Diagnosis Badges with Glow Animations */
+.badge-positive {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    display: inline-block;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.2); }
+}
+
+.badge-warning {
+    background-color: rgba(249, 115, 22, 0.15);
+    color: #fb923c;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    display: inline-block;
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+    animation: pulse-orange 2s infinite;
+}
+
+@keyframes pulse-orange {
+    0% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.2); }
+}
+
+.badge-negative {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    display: inline-block;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.2); }
+}
+
+/* Sidebar Details Card */
+.sidebar-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 10px !important;
+    padding: 1.2rem !important;
+    margin-bottom: 1.2rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-left: 4px solid #38bdf8 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Custom Streamlit Button Overrides */
+/* Green Button (Run Diagnostic Analysis - Primary / Column 1) */
+.stButton > button[data-testid="stBaseButton-primary"],
+[data-testid="column"]:nth-of-type(1) .stButton > button {
+    background: rgba(34, 197, 94, 0.16) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(34, 197, 94, 0.45) !important;
+    padding: 0.5rem 0.8rem !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    width: 100% !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.15) !important;
+    letter-spacing: 0.5px;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+}
+
+.stButton > button[data-testid="stBaseButton-primary"]:hover,
+[data-testid="column"]:nth-of-type(1) .stButton > button:hover {
+    background: rgba(34, 197, 94, 0.28) !important;
+    border-color: #22c55e !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+.stButton > button[data-testid="stBaseButton-primary"]:active,
+[data-testid="column"]:nth-of-type(1) .stButton > button:active {
+    background: rgba(34, 197, 94, 0.40) !important;
+    transform: translateY(0px) !important;
+}
+
+/* Red Button (Clear Report - Secondary / Column 2) */
+.stButton > button[data-testid="stBaseButton-secondary"],
+[data-testid="column"]:nth-of-type(2) .stButton > button {
+    background: rgba(239, 68, 68, 0.16) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(239, 68, 68, 0.45) !important;
+    padding: 0.5rem 0.8rem !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    width: 100% !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.15) !important;
+    letter-spacing: 0.5px;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+}
+
+.stButton > button[data-testid="stBaseButton-secondary"]:hover,
+[data-testid="column"]:nth-of-type(2) .stButton > button:hover {
+    background: rgba(239, 68, 68, 0.28) !important;
+    border-color: #ef4444 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+.stButton > button[data-testid="stBaseButton-secondary"]:active,
+[data-testid="column"]:nth-of-type(2) .stButton > button:active {
+    background: rgba(239, 68, 68, 0.40) !important;
+    transform: translateY(0px) !important;
+}
+
+/* Force inner child elements of buttons to be semi-bold */
+.stButton > button,
+.stButton > button * {
+    font-weight: 600 !important;
+}
+
+/* Custom Streamlit File Uploader Overrides */
+[data-testid="stFileUploader"] {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 2px dashed rgba(168, 85, 247, 0.2) !important;
+    border-radius: 12px !important;
+    padding: 1.25rem 1rem !important;
+    transition: border-color 0.3s ease !important;
+}
+[data-testid="stFileUploader"]:hover {
+    border-color: rgba(56, 189, 248, 0.6) !important;
+}
+[data-testid="stFileUploader"] section {
+    background: transparent !important;
+    padding: 0 !important;
+}
+/* Always use a clean vertical stacked layout in the uploader to prevent overlap in 1/3 columns on all viewports */
+[data-testid="stFileUploader"] section > div {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 0.65rem !important;
+    padding: 0.25rem 0 !important;
+}
+
+/* Custom Premium Loader CSS */
+.premium-loader-box {
+    background: rgba(22, 28, 36, 0.45);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+/* Futuristic Scanner Loader */
+.scanner-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.scanner-outer {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border: 2px dashed rgba(56, 189, 248, 0.25);
+    border-radius: 50%;
+    animation: spin-loader 6s linear infinite;
+}
+
+.scanner-inner {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 3px solid transparent;
+    border-top: 3px solid #38bdf8;
+    border-bottom: 3px solid #60a5fa;
+    border-radius: 50%;
+    animation: spin-loader-reverse 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+}
+
+.scanner-core {
+    position: absolute;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse-scanner 1.2s ease-in-out infinite alternate;
+    z-index: 2;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+}
+
+@keyframes pulse-scanner {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes spin-loader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-loader-reverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.loader-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.loader-text {
+    background: linear-gradient(90deg, #38bdf8, #60a5fa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.loader-emoji {
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    text-fill-color: initial !important;
+    display: inline-block;
+}
+
+.loader-desc {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-top: 0.2rem;
+    animation: pulse-text 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Sidebar and File Uploader Text Color Enforcement for Light Mode/Mobile compatibility */
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] * {
+    color: #e2e8f0 !important;
+}
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] small {
+    color: #94a3b8 !important;
+}
+[data-testid="stFileUploader"] * {
+    color: #cbd5e1 !important;
+}
+[data-testid="stFileUploader"] button {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 0.4rem 1rem !important;
+    transition: all 0.2s ease !important;
+}
+[data-testid="stFileUploader"] button:hover {
+    background: rgba(56, 189, 248, 0.1) !important;
+    border-color: #38bdf8 !important;
+    color: #38bdf8 !important;
+}
+[data-testid="stFileUploader"] button * {
+    color: inherit !important; /* Let children inherit the light color from the parent button */
+}
+/* Style the delete button specifically to turn red on hover/active (optimized & concise) */
+[data-testid="stFileUploader"] button[aria-label*="remove" i]:hover,
+[data-testid="stFileUploader"] button[aria-label*="delete" i]:hover,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDeleteBtn"]:hover {
+    background: rgba(239, 68, 68, 0.16) !important;
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.25) !important;
+}
+[data-testid="stFileUploader"] button[aria-label*="remove" i]:active,
+[data-testid="stFileUploader"] button[aria-label*="delete" i]:active,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDeleteBtn"]:active {
+    background: rgba(239, 68, 68, 0.28) !important;
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+}
+
+/* Custom Premium Footer Styling */
+.dashboard-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.25rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    color: #e2e8f0 !important; /* Premium light white/slate */
+    font-size: 0.8rem;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #cbd5e1 !important;
+}
+
+.footer-left-title {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.footer-center {
+    flex-grow: 1;
+    text-align: center;
+    max-width: 650px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: #cbd5e1 !important; /* readable bright disclaimer */
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Responsive query for medium screens and embedded iframes */
+@media (max-width: 1024px) {
+    .dashboard-footer {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 0.85rem !important;
+    }
+    .footer-left {
+        justify-content: center !important;
+    }
+    .footer-center {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+    .footer-right {
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    .footer-center {
+        max-width: 100%;
+    }
+}
+
+
+
+.footer-link,
+.dashboard-footer a.footer-link,
+[data-testid="stMarkdownContainer"] .dashboard-footer a.footer-link {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #e2e8f0 !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    padding: 0.4rem 0.9rem !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-weight: 500 !important;
+    font-size: 0.8rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.footer-link:hover,
+.dashboard-footer a.footer-link:hover,
+[data-testid="stMarkdownContainer"] .dashboard-footer a.footer-link:hover {
+    background: rgba(56, 189, 248, 0.08) !important;
+    border-color: rgba(56, 189, 248, 0.3) !important;
+    color: #38bdf8 !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    border-bottom: none !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.2) !important;
+    transform: translateY(-1px);
+}
+
+.footer-link svg,
+.dashboard-footer a.footer-link svg,
+[data-testid="stMarkdownContainer"] .dashboard-footer a.footer-link svg {
+    width: 15px !important;
+    height: 15px !important;
+    fill: currentColor !important;
+    transition: transform 0.3s ease !important;
+    display: inline-block !important;
+}
+
+.footer-link:hover svg,
+.dashboard-footer a.footer-link:hover svg,
+[data-testid="stMarkdownContainer"] .dashboard-footer a.footer-link:hover svg {
+    transform: rotate(8deg) scale(1.05);
+}
+
+
+/* Custom Sidebar Collapse & Expand Button Styling (PC & Mobile) */
+button[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarCollapseButton"] button,
+button[data-testid="collapsedControl"],
+[data-testid="collapsedControl"] button,
+div[data-testid="collapsedControl"] button {
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    color: #38bdf8 !important;
+    border-radius: 50% !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(56, 189, 248, 0.25) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 99999 !important;
+    padding: 0 !important;
+}
+
+button[data-testid="stSidebarCollapseButton"]:hover,
+[data-testid="stSidebarCollapseButton"] button:hover,
+button[data-testid="collapsedControl"]:hover,
+[data-testid="collapsedControl"] button:hover,
+div[data-testid="collapsedControl"] button:hover {
+    background: rgba(56, 189, 248, 0.15) !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.5) !important;
+    transform: scale(1.08) !important;
+}
+
+/* Force Chevron Icons inside Collapse/Expand Buttons to inherit styles */
+button[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stSidebarCollapseButton"] button svg,
+button[data-testid="collapsedControl"] svg,
+[data-testid="collapsedControl"] button svg,
+div[data-testid="collapsedControl"] button svg {
+    color: #38bdf8 !important;
+    fill: #38bdf8 !important;
+    width: 18px !important;
+    height: 18px !important;
+    transition: transform 0.3s ease !important;
+}
+
+button[data-testid="stSidebarCollapseButton"]:hover svg,
+[data-testid="stSidebarCollapseButton"] button:hover svg,
+button[data-testid="collapsedControl"]:hover svg,
+[data-testid="collapsedControl"] button:hover svg,
+div[data-testid="collapsedControl"] button:hover svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    transform: scale(1.1) !important;
+}
+
+/* Custom Streamlit Download Button Overrides */
+div[data-testid="stDownloadButton"] > button {
+    background: rgba(56, 189, 248, 0.05) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+    padding: 0.8rem 2rem !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    font-size: 1.05rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    width: 100% !important;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.1) !important;
+    letter-spacing: 0.5px;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+div[data-testid="stDownloadButton"] > button:hover {
+    background: rgba(56, 189, 248, 0.16) !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.35) !important;
+    transform: translateY(-1px) !important;
+}
+
+div[data-testid="stDownloadButton"] > button:active {
+    background: rgba(56, 189, 248, 0.26) !important;
+    transform: translateY(0px) !important;
+}
+
+div[data-testid="stDownloadButton"] > button,
+div[data-testid="stDownloadButton"] > button * {
+    font-weight: 600 !important;
+}
+
+/* Custom Input and Textarea Focus Styling to override Streamlit's red borders */
+div[data-baseweb="input"],
+div[data-baseweb="textarea"],
+div[data-baseweb="select"] > div {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    background-color: rgba(255, 255, 255, 0.01) !important;
+    transition: all 0.2s ease !important;
+}
+
+div[data-baseweb="input"]:hover,
+div[data-baseweb="textarea"]:hover,
+div[data-baseweb="select"] > div:hover {
+    border-color: rgba(56, 189, 248, 0.3) !important;
+}
+
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="textarea"]:focus-within,
+div[data-baseweb="select"]:focus-within,
+div[data-baseweb="select"] > div:focus-within {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 1px #38bdf8 !important;
+}
+
+/* Base input elements compatibility */
+input, textarea {
+    color: #e2e8f0 !important;
+}
+
+/* --- PREMIUM RECENT DIAGNOSES HISTORY TABLE STYLES --- */
+.history-table-container {
+    background: rgba(15, 23, 42, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 1.25rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 2rem !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    overflow-x: auto !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+}
+
+.history-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.88rem !important;
+    text-align: left !important;
+    color: #e2e8f0 !important;
+}
+
+.history-table th {
+    padding: 0.85rem 1rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    color: #94a3b8 !important;
+    font-size: 0.75rem !important;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    white-space: nowrap !important;
+}
+
+.history-table td {
+    padding: 0.95rem 1rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+}
+
+.history-table tbody tr {
+    transition: background-color 0.25s ease !important;
+}
+
+.history-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* History Diagnosis status badges */
+.history-badge {
+    display: inline-block !important;
+    padding: 0.25rem 0.65rem !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    font-size: 0.78rem !important;
+    text-align: center !important;
+    letter-spacing: 0.3px !important;
+}
+
+.history-badge-normal {
+    background-color: rgba(34, 197, 94, 0.15) !important;
+    color: #4ade80 !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+}
+
+.history-badge-tb {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: #f87171 !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+.history-badge-pneumonia {
+    background-color: rgba(249, 115, 22, 0.15) !important;
+    color: #fb923c !important;
+    border: 1px solid rgba(249, 115, 22, 0.3) !important;
+}
+
+/* XAI Method Tag */
+.xai-badge {
+    background-color: rgba(56, 189, 248, 0.08) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.2) !important;
+    padding: 0.2rem 0.5rem !important;
+    border-radius: 5px !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+}
+
+.history-table code {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #94a3b8 !important;
+    padding: 0.15rem 0.35rem !important;
+    border-radius: 4px !important;
+    font-family: monospace !important;
+}
+
+/* --- PREMIUM WELCOME DIAGNOSTICS PANEL STYLES --- */
+.welcome-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.welcome-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    background: rgba(15, 23, 42, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 0.6rem 1rem !important;
+    border-radius: 10px !important;
+    width: fit-content !important;
+}
+
+.welcome-status-dot {
+    width: 8px !important;
+    height: 8px !important;
+    background-color: #22c55e !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 10px #22c55e !important;
+    animation: pulse-green-dot 1.8s infinite alternate !important;
+}
+
+@keyframes pulse-green-dot {
+    0% { transform: scale(0.85); opacity: 0.6; }
+    100% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 15px rgba(34, 197, 94, 0.7); }
+}
+
+.welcome-status-text {
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+}
+
+.welcome-main-card {
+    background: rgba(22, 28, 36, 0.45) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 16px !important;
+    padding: 2.2rem 2rem !important;
+    text-align: center !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+    transition: all 0.3s ease !important;
+}
+
+.welcome-main-card:hover {
+    border-color: rgba(56, 189, 248, 0.25) !important;
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.06), 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+.welcome-icon {
+    font-size: 3rem !important;
+    margin-bottom: 1rem !important;
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.35)) !important;
+    display: inline-block !important;
+}
+
+.welcome-main-card h2 {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #f8fafc !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.75rem !important;
+    letter-spacing: -0.5px !important;
+}
+
+.welcome-main-card p {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+    color: #94a3b8 !important;
+    max-width: 580px !important;
+    margin: 0 auto !important;
+}
+
+.capabilities-title {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #e2e8f0 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.capabilities-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+}
+
+.capability-card {
+    background: rgba(22, 28, 36, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 12px !important;
+    padding: 1.1rem 1.25rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+.capability-card:hover {
+    transform: translateY(-2px) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+    background: rgba(22, 28, 36, 0.45) !important;
+}
+
+.cap-icon-box {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.capability-card h5 {
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: #e2e8f0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.4rem !important;
+}
+
+.capability-card p {
+    font-size: 0.78rem !important;
+    line-height: 1.5 !important;
+    color: #94a3b8 !important;
+    margin: 0 !important;
+}
+
+/* Custom class-specific metric colors to bypass Streamlit inline style sanitization */
+.metric-value-tb {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #f87171 !important;
+    color: #f87171 !important;
+}
+
+.metric-value-pneumonia {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #fb923c !important;
+    color: #fb923c !important;
+}
+
+.metric-value-normal {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #4ade80 !important;
+    color: #4ade80 !important;
+}
+
+/* Custom Positioning for Camera Trigger next to the File Uploader button */
+div[data-testid="element-container"]:has(div[data-testid="stFileUploader"]) + div[data-testid="element-container"] {
+    margin-top: -96px !important;
+    margin-left: 175px !important;
+    position: relative !important;
+    z-index: 99 !important;
+    height: 0px !important;
+}
+
+/* Premium styling for camera trigger button */
+div[data-testid="element-container"]:has(div[data-testid="stFileUploader"]) + div[data-testid="element-container"] button {
+    background: rgba(30, 41, 59, 0.7) !important;
+    color: #e2e8f0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 8px !important;
+    padding: 0.45rem 1rem !important;
+    height: 42px !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s ease-in-out !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+div[data-testid="element-container"]:has(div[data-testid="stFileUploader"]) + div[data-testid="element-container"] button:hover {
+    background-color: #38bdf8 !important;
+    color: #080a0f !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Back button in camera view style (follows the camera input container) */
+div[data-testid="element-container"]:has(div[data-testid="stCameraInput"]) + div[data-testid="element-container"] {
+    margin-top: 12px !important;
+}
+
+div[data-testid="element-container"]:has(div[data-testid="stCameraInput"]) + div[data-testid="element-container"] button {
+    background: rgba(22, 28, 36, 0.45) !important;
+    color: #94a3b8 !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+    padding: 0.45rem 1rem !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+div[data-testid="element-container"]:has(div[data-testid="stCameraInput"]) + div[data-testid="element-container"] button:hover {
+    color: #38bdf8 !important;
+    border-color: rgba(56, 189, 248, 0.3) !important;
+    background: rgba(56, 189, 248, 0.05) !important;
+}
+
+/* Step Card & Clean Layout Upgrades */
+.step-card {
+    background: rgba(22, 28, 36, 0.45) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 0.85rem 1.1rem !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.step-card:hover {
+    border-color: rgba(56, 189, 248, 0.25) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35) !important;
+}
+
+.step-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.65rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    padding-bottom: 0.5rem !important;
+}
+
+.step-number {
+    background: rgba(56, 189, 248, 0.08) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.25) !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    padding: 0.15rem 0.5rem !important;
+    border-radius: 6px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    display: inline-block !important;
+    box-shadow: none !important;
+}
+
+.step-title {
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: #e2e8f0 !important;
+    margin: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Scrollable History Table Container */
+.history-table-container {
+    max-height: 420px !important;
+    overflow-y: auto !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+}
+
+
+
+
