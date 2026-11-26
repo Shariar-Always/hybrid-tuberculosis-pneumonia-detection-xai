@@ -204,46 +204,50 @@ To safeguard against non-radiological images (e.g., screenshots, icons, everyday
 
 ## 6. Dataset Specification & Distribution
 
-### 6.1 Final Expanded Multi-Source Dataset (18,517 Clean CXR Scans)
-For the final thesis research and comprehensive multi-class evaluation, the dataset was scaled and consolidated from **three primary Kaggle profiles and collaborative repositories**:
+### 6.1 Final Expanded Multi-Source Dataset (22,356 Clean CXR Scans)
+For the final thesis research, journal publication, and comprehensive multi-class evaluation, the dataset was scaled and consolidated from peer-reviewed scientific cohorts and open-access collaborative repositories:
 
-1. **Chest X-Ray Pneumonia Dataset** (by Divyam Sharma):  
+1. **COVID-19 Radiography Database - Viral Pneumonia** (by Tawsifur Rahman et al.):  
+   🔗 [https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database](https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database) (1,345 viral pneumonia scans)
+2. **Dataset of Tuberculosis Chest X-rays Images** (by Saira Kiran et al.):  
+   🔗 [https://data.mendeley.com/datasets/8j2g3csprk/2](https://data.mendeley.com/datasets/8j2g3csprk/2) (2,494 active clinical TB scans)
+3. **Chest X-Ray Pneumonia Dataset** (by Divyam Sharma / Kermany et al., Cell 2018):  
    🔗 [https://www.kaggle.com/datasets/divyam6969/chest-xray-pneumonia-dataset/data](https://www.kaggle.com/datasets/divyam6969/chest-xray-pneumonia-dataset/data)
-2. **Tuberculosis Detection & Lesion Localization Pipeline** (by Abdelaziz Omar):  
+4. **Tuberculosis Detection & Lesion Localization Pipeline** (by Abdelaziz Omar):  
    🔗 [https://www.kaggle.com/code/abdelazizomarrr/tuberculosis-detection-lesion-localization](https://www.kaggle.com/code/abdelazizomarrr/tuberculosis-detection-lesion-localization)  
    *(Integrates TBX11K-Simplified, TB-4200, Montgomery County, and Shenzhen Hospital cohorts)*
-3. **Pneumonia & Tuberculosis & Normal Detection** (by Rifatul Majumder):  
+5. **Pneumonia & Tuberculosis & Normal Detection** (by Rifatul Majumder):  
    🔗 [https://www.kaggle.com/code/rifatulmajumder23/98-76-pneumonia-tuberculosis-normal-non-x-ray](https://www.kaggle.com/code/rifatulmajumder23/98-76-pneumonia-tuberculosis-normal-non-x-ray)
 
 #### Data Curation, Deduplication & Quality Filtering:
-- **Raw images collected across sources:** 43,270 scans
+- **Raw images collected across sources:** 47,109 scans
 - **Deleted non-target / unlabelled images:** **5,235 files** (COVID-19: 576, UNKNOWN: 1,357, unlabelled competition test scans: 3,302)
 - **Filtered cross-source duplicate images:** **16,016 files** (identified and removed via MD5 digital fingerprinting)
-- **Final verified unique CXR dataset:** **18,517 images** (stored organized at `D:\TB N\dataset_clean` with complete clinical metadata)
-- **Full Clinical Provenance & Institutional Ethics:** Documented in detail at [`docs/CLINICAL_DATASET_PROVENANCE.md`](docs/CLINICAL_DATASET_PROVENANCE.md).
+- **Final verified unique CXR dataset:** **22,356 images** (stored organized at `D:\TB N\dataset_clean` with complete clinical metadata)
+- **Full Clinical Provenance & Institutional Tables:** Documented in detail at [`docs/DATASET_SUMMARY_TABLES.md`](docs/DATASET_SUMMARY_TABLES.md) and [`docs/CLINICAL_DATASET_PROVENANCE.md`](docs/CLINICAL_DATASET_PROVENANCE.md).
 
-#### 🏥 Multi-Center Clinical Institutional Breakdown (18,517 Scans):
+#### 🏥 Multi-Center Clinical Institutional Breakdown (22,356 Scans):
 
 | Primary Clinical Institution | Location | NORMAL | PNEUMONIA | TUBERCULOSIS | Total Scans | Diagnostic Ground Truth |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **TB Chest Radiography Database (Qatar/Dhaka/NIAID/RSNA)** | Global / Qatar & Bangladesh | 3,500 | 0 | 3,494 | **6,994** | MGIT Culture, GeneXpert & 18 Thoracic Radiologist Audit |
 | **Guangzhou Women & Children's Medical Center** | Guangzhou, China | 1,579 | 4,245 | 0 | **5,824** | 3 Radiologist Consensus + Clinical Lab |
 | **TBX11K Multi-Center Screening Consortium** | International | 3,800 | 0 | 799 | **4,599** | Sputum Culture + Radiologist Bounding Boxes |
-| **NIH Clinical Center / RSNA Challenge** | Bethesda, USA | 3,500 | 0 | 0 | **3,500** | 18 Thoracic Radiologist Audit |
-| **NIAID TB Portals Program (NIH)** | Global (10+ Countries) | 0 | 0 | 3,493 | **3,493** | MGIT Liquid Culture & GeneXpert MTB/RIF |
+| **Mendeley Clinical Tuberculosis Cohort** | Rawalpindi/Islamabad, Pakistan | 0 | 0 | 2,494 | **2,494** | Sputum Smear, GeneXpert MTB/RIF & Pulmonologist Board |
+| **COVID-19 Radiography Database (Viral Pneumonia)** | Doha, Qatar & Dhaka, Bangladesh | 0 | 1,345 | 0 | **1,345** | Laboratory Viral Panel + RT-PCR + Radiologist Panel |
 | **Shenzhen No. 3 People's Hospital** | Shenzhen, China | 326 | 0 | 336 | **662** | Sputum Culture / Smear within 1 month |
 | **Belarus National Tuberculosis Program** | Minsk, Belarus | 0 | 0 | 300 | **300** | MGIT Culture & Line-Probe Assays |
 | **Montgomery County DHHS** | Maryland, USA | 80 | 0 | 58 | **138** | TST, QuantiFERON-TB Gold & Radiologist Board |
-| **Qatar Univ / Univ of Dhaka / Hamad Medical Corp** | Qatar & Bangladesh | 0 | 0 | 1 | **1** | RT-PCR & Certified Radiologist Review |
-| **Total Multi-Center Clinical Dataset** | **Global (8 Centers)** | **9,285** | **4,245** | **4,987** | **18,517** | **Rigorous Multi-Modal Clinical Verification** |
+| **Total Multi-Center Clinical Dataset** | **Global (8 Primary Cohorts)** | **9,285** | **5,590** | **7,481** | **22,356** | **Rigorous Multi-Modal Clinical Verification** |
 
-#### 📋 Final Stratified Splits Table (Thesis Ready):
+#### 📋 Final Stratified Splits Table (Thesis & Journal Ready):
 
 | Diagnostic Class | Train Split (85%) | Validation Split (5%) | Test Split (10%) | Total Class Count |
 | :--- | :---: | :---: | :---: | :---: |
 | **NORMAL (Healthy)** | 7,892 | 464 | 929 | **9,285** |
-| **TUBERCULOSIS** | 4,238 | 250 | 499 | **4,987** |
-| **PNEUMONIA** | 3,609 | 212 | 424 | **4,245** |
-| **Total Clean Dataset** | **15,739** | **926** | **1,852** | **18,517** |
+| **TUBERCULOSIS** | 6,358 | 375 | 748 | **7,481** |
+| **PNEUMONIA** | 4,752 | 279 | 559 | **5,590** |
+| **Total Clean Dataset** | **19,002** | **1,118** | **2,236** | **22,356** |
 
 ---
 
