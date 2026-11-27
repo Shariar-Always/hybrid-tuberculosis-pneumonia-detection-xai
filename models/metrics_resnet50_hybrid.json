@@ -1,0 +1,26 @@
+{
+  "model": "resnet50_hybrid",
+  "backbone": "resnet50",
+  "use_cbam": true,
+  "test_accuracy": 0.9941860465116279,
+  "test_sensitivity": 0.9937573517755571,
+  "test_specificity": 0.9968098342568488,
+  "test_auc": 0.9998856911491916,
+  "confusion_matrix": [
+    [
+      926,
+      0,
+      3
+    ],
+    [
+      7,
+      627,
+      0
+    ],
+    [
+      3,
+      0,
+      670
+    ]
+  ]
+}
