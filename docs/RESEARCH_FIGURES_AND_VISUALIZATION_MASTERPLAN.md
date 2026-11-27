@@ -379,13 +379,13 @@ The script architecture is partitioned into independent, decoupled plotting func
 
 | Phase | Tasks & Deliverables | Current Status | Prerequisites |
 | :--- | :--- | :---: | :--- |
-| **Phase 1: Dataset Visualizations** | Generate Figures 1.1, 1.2, 1.3, and 1.4 directly from `data/metadata.csv`. | **READY TO EXECUTE** | `data/metadata.csv` (Verified: 22,356 rows) |
+| **Phase 1: Dataset Visualizations** | Generate Figures 1.1, 1.2, 1.3, and 1.4 directly from `data/metadata.csv`. | **COMPLETED** | `data/metadata.csv` (Verified: 22,356 rows) |
 | **Phase 2: Architectural Schematics** | Generate Figures 2.1 and 2.2 vector schematics for the manuscript methodology section. | **READY TO EXECUTE** | Model architecture definitions in `src/models/` |
-| **Phase 3: Model Training Execution** | Train all 6 architectures (3 Hybrid + 3 Baseline) on the 22,356 dataset with checkpoint logging. | **IN PROGRESS** | Google Drive / Colab environment setup |
-| **Phase 4: Training Convergence Figures** | Generate Figures 3.1, 3.2, 3.3, and 3.4 from training checkpoint history files. | **PENDING PHASE 3** | Completed model training checkpoint logs |
-| **Phase 5: Diagnostic Benchmarking** | Generate Figures 4.1, 4.2A, 4.2B, 4.3, 4.4, and Tables 4.1, 4.2 on the 2,236 test cohort. | **PENDING PHASE 3** | Test set inference predictions |
-| **Phase 6: XAI & Saliency Matrix** | Run multi-method explainability suite and generate Figures 5.1, 5.2, 5.3. | **PENDING PHASE 3** | Best checkpoint weights (`best_model.pth`) |
-| **Phase 7: Ablation & Efficiency Analysis** | Measure inference latency, parameter counts, and generate Figures 6.1 and 6.2. | **PENDING PHASE 3** | Checkpoint weights and benchmark script |
+| **Phase 3: Model Training Execution** | Train all 6 architectures (3 Hybrid + 3 Baseline) on the 22,356 dataset with checkpoint logging. | **COMPLETED (ALL 6 MODELS)** | Google Drive / Colab environment setup |
+| **Phase 4: Training Convergence Figures** | Generate Figures 3.1 through 3.18 across all 6 architectures from training checkpoint history files. | **COMPLETED** | Completed model training checkpoint logs |
+| **Phase 5: Diagnostic Benchmarking** | Generate Figures 4.1, 4.2A-G, 4.2B Master, 4.3 ROC-AUC Curves on the 2,236 test cohort. | **COMPLETED** | Test set inference predictions |
+| **Phase 6: XAI & Saliency Matrix** | Run multi-method explainability suite and generate Figures 5.1, 5.2, 5.3. | **COMPLETED** | Best checkpoint weights (`best_model.pth`) |
+| **Phase 7: Ablation & Efficiency Analysis** | Measure inference latency, parameter counts, and generate Figures 6.1 and 6.2. | **COMPLETED** | Checkpoint weights and benchmark script |
 
 ---
 
