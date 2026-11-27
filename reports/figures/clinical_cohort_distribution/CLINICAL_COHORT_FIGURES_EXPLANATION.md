@@ -28,6 +28,8 @@ The figures contained in this folder provide peer-reviewed scientific proof reso
 | :--- | :--- | :--- | :--- |
 | `fig1_1_multicenter_geographic_distribution.png` | Raster PNG | $4684 \times 2287$ (300 DPI) | Figure 1.1: Multi-Center Institutional and Geographic Provenance Distribution |
 | `fig1_1_multicenter_geographic_distribution.pdf` | Vector PDF | Scale-Independent Vector | Vector format suitable for journal submission and Overleaf compilation |
+| `fig1_1b_geographic_cohort_distribution_pie.png` | Raster PNG | $5400 \times 2850$ (300 DPI) | Figure 1.1B: Multi-Center Clinical Provenance Pie/Donut Grid (8 Contributing Sites) |
+| `fig1_1b_geographic_cohort_distribution_pie.pdf` | Vector PDF | Scale-Independent Vector | Vector format matching multi-cohort lineage distribution publication styles |
 | `fig1_2_diagnostic_ground_truth_verification.png` | Raster PNG | $4691 \times 2211$ (300 DPI) | Figure 1.2: Clinical Ground-Truth Diagnostic Verification Protocols |
 | `fig1_2_diagnostic_ground_truth_verification.pdf` | Vector PDF | Scale-Independent Vector | Vector format for high-resolution manuscript printing |
 | `fig1_3_dataset_stratification_split.png` | Raster PNG | $2730 \times 1724$ (300 DPI) | Figure 1.3: Dataset Partition Stratification (85% Train, 5% Val, 10% Test) |

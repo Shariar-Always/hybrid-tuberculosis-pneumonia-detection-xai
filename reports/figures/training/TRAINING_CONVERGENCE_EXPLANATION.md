@@ -163,19 +163,40 @@ In computational medical imaging manuscripts, learning curve figures serve as pr
 
 ---
 
-## 10. Technical Verification & Reproducibility Instructions
+## 10. Figure 3.19: Multi-Architecture 3x2 Loss Convergence Grid
+
+| Filename | Format | Dimensions / DPI | Description & Purpose |
+| :--- | :--- | :--- | :--- |
+| `fig3_19_all_models_loss_grid.png` | Raster PNG | $4500 \times 4200$ (300 DPI) | Figure 3.19: 3x2 Master Grid of Training vs. Validation Loss across All 6 Architectures |
+| `fig3_19_all_models_loss_grid.pdf` | Vector PDF | Scale-Independent Vector | High-resolution publication vector graphic |
+
+### Overview & Visual Layout:
+Figure 3.19 consolidates the empirical cross-entropy loss trajectories across all 6 architectures into a standardized $3 \times 2$ comparative grid matching medical machine learning literature formats (e.g., InceptionV3 vs VGG19 vs CheXNet comparisons):
+- **Row 1:** DenseNet-121 Architecture: Panel (A) Hybrid + CBAM vs. Panel (B) Baseline.
+- **Row 2:** ResNet-50 Architecture: Panel (C) Hybrid + CBAM Champion vs. Panel (D) Baseline.
+- **Row 3:** EfficientNet-B0 Architecture: Panel (E) Hybrid + CBAM Edge vs. Panel (F) Baseline.
+
+Each subplot displays:
+1. **Training Loss Trajectory (Solid Line, Circles):** Tracking batch-aggregated empirical risk minimization.
+2. **Validation Loss Trajectory (Dashed Line, Squares):** Tracking generalizability on unseen validation partitions.
+3. **Green Star Highlight:** Indicating the exact global minimum validation loss and epoch number where optimal model weights were checkpointed.
+
+---
+
+## 11. Technical Verification & Reproducibility Instructions
 
 To regenerate all training convergence figures:
 ```bash
 # Navigate to repository root
 cd "E:\Git All Repo\hybrid-tuberculosis-pneumonia-detection-xai"
 
-# Generate figures for all six architectures
+# Generate figures for all six architectures and master 3x2 loss grid
 python src/generate_training_figures.py
 python src/generate_resnet50_figures.py
 python src/generate_efficientnet_figures.py
 python src/generate_densenet_baseline_figures.py
 python src/generate_resnet50_baseline_figures.py
 python src/generate_efficientnet_baseline_figures.py
+python src/generate_supplementary_user_figures.py
 ```
 All figures are exported at 300+ DPI in both raster PNG and vector PDF formats.
