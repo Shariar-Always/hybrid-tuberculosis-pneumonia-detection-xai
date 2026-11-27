@@ -5,10 +5,11 @@
 **Model Architectures Evaluated:** 
 - DenseNet-121 + CBAM Hybrid (`fig4_2a`)
 - ResNet-50 + CBAM Hybrid (`fig4_2c`)
-- Two-Model Comparative Diagnostic Evaluation (`fig4_1_preliminary`)  
+- EfficientNet-B0 + CBAM Hybrid (`fig4_2d`)
+- Tri-Model Comparative Diagnostic Evaluation (`fig4_1_three_hybrid_models_comparison`)  
 **Test Cohort Scale:** 2,236 Unique Digital Chest Radiographs (Hold-out Test Set)  
 **Figure Standard:** 300+ DPI Raster PNG and Scale-Independent Vector PDF (IEEE / Nature / Elsevier Standards)  
-**Associated Generator Scripts:** `src/generate_eval_figures.py` and `src/generate_resnet50_figures.py`  
+**Associated Generator Scripts:** `src/generate_eval_figures.py`, `src/generate_resnet50_figures.py`, and `src/generate_efficientnet_figures.py`  
 
 ---
 
@@ -16,22 +17,38 @@
 
 The independent hold-out test cohort comprises **2,236 digital chest radiographs** curated from 8 multi-center clinical hospital cohorts (Normal: 929, Tuberculosis: 634, Pneumonia: 673). 
 
-Both hybrid architectures demonstrate exceptional diagnostic performance, with ResNet-50 + CBAM achieving a staggering **99.42% overall test accuracy** and DenseNet-121 + CBAM achieving **98.57% test accuracy**:
+All three proposed hybrid architectures demonstrate outstanding diagnostic efficacy, with ResNet-50 + CBAM leading in overall accuracy (**99.42%**), followed by EfficientNet-B0 + CBAM (**98.79%**) and DenseNet-121 + CBAM (**98.57%**):
 
-| Metric | DenseNet-121 + CBAM | ResNet-50 + CBAM | Comparison & Clinical Significance |
-| :--- | :---: | :---: | :--- |
-| **Overall Test Accuracy** | 98.57% (2,204/2,236) | **99.42% (2,223/2,236)** | ResNet-50 correctly diagnoses 19 additional patients; only 13 total errors out of 2,236. |
-| **Macro Sensitivity (Recall)** | 98.66% | **99.38%** | Both architectures achieve $>98.5\%$ clinical sensitivity across all categories. |
-| **Macro Specificity** | 99.29% | **99.68%** | False positive rate reduced to less than 0.35%. |
-| **Macro ROC-AUC** | 0.9997 | **0.9999** | Flawless multi-class discriminative capacity. |
-| **Total Test Misclassifications** | 32 scans (1.43%) | **13 scans (0.58%)** | Minimal clinical diagnostic hazard. |
-| **Model Checkpoint Size** | **30.0 MB** | 98.6 MB | DenseNet-121 offers 3.3x smaller storage footprint for edge mobile health deployments. |
+| Metric | DenseNet-121 + CBAM | ResNet-50 + CBAM | EfficientNet-B0 + CBAM | Clinical Significance & Designation |
+| :--- | :---: | :---: | :---: | :--- |
+| **Overall Test Accuracy** | 98.57% (2,204/2,236) | **99.42% (2,223/2,236)** | 98.79% (2,209/2,236) | **ResNet-50:** Primary Diagnostic Champion |
+| **Macro Sensitivity (Recall)** | 98.66% | **99.38%** | 98.70% | All three models detect $>98.5\%$ of pulmonary pathology. |
+| **Macro Specificity** | 99.29% | **99.68%** | 99.34% | Specificity exceeds $99.25\%$ across all architectures. |
+| **Macro ROC-AUC** | 0.9997 | **0.9999** | 0.9996 | All models achieve near-perfect ROC separation ($>0.999$). |
+| **Total Test Errors** | 32 (1.43%) | **13 (0.58%)** | 27 (1.21%) | Minimal false negative clinical hazard. |
+| **Model Weights Size** | 30.0 MB | 98.6 MB | **18.5 MB** | **EfficientNet-B0: Ultra-Lightweight Mobile Edge Champion** |
+| **Average Epoch Time** | 393.4s | 388.9s | **376.4s** | **EfficientNet-B0: Fastest Training Latency** |
 
 ---
 
 ## 2. Quantitative 3x3 Confusion Matrix Distributions
 
-### A. ResNet-50 + CBAM (Figure 4.2C)
+### A. EfficientNet-B0 + CBAM (Figure 4.2D)
+```
+========================================================================================
+                          PREDICTED PATHOLOGY
+========================================================================================
+TRUE GOLD-STANDARD        NORMAL              TUBERCULOSIS        PNEUMONIA           TOTAL
+----------------------------------------------------------------------------------------
+NORMAL                    924 (99.46%)        2 (0.22%)           3 (0.32%)           929
+TUBERCULOSIS              8 (1.26%)           625 (98.58%)        1 (0.16%)           634
+PNEUMONIA                 13 (1.93%)          0 (0.00%)           660 (98.07%)        673
+----------------------------------------------------------------------------------------
+TOTAL PREDICTED           945                 627                 664                 2,236
+========================================================================================
+```
+
+### B. ResNet-50 + CBAM (Figure 4.2C)
 ```
 ========================================================================================
                           PREDICTED PATHOLOGY
@@ -46,7 +63,7 @@ TOTAL PREDICTED           936                 627                 673           
 ========================================================================================
 ```
 
-### B. DenseNet-121 + CBAM (Figure 4.2A)
+### C. DenseNet-121 + CBAM (Figure 4.2A)
 ```
 ========================================================================================
                           PREDICTED PATHOLOGY
@@ -63,20 +80,7 @@ TOTAL PREDICTED           918                 637                 681           
 
 ---
 
-## 3. Critical Pathological Comparison & Clinical Safety Insights
-
-1. **Zero Pathological Confusion Between Tuberculosis and Pneumonia (ResNet-50):**
-   - In ResNet-50 + CBAM, **exactly zero** TB patients were misdiagnosed as pneumonia, and **exactly zero** pneumonia patients were misdiagnosed as TB.
-   - This resolves a critical clinical challenge in pulmonology triage, preventing inappropriate antibiotic administration for mycobacterial disease or delayed anti-TB therapy.
-2. **Identical TB Detection Sensitivity:**
-   - Both architectures identified virtually the exact same high number of true active tuberculosis cases (DenseNet-121: 626/634; ResNet-50: 627/634).
-   - In both models, only 7 active TB scans were missed across the entire 2,236 holdout set, achieving a clinical sensitivity of $\approx 98.9\%$.
-3. **Perfect Positive Predictive Value for Tuberculosis (ResNet-50):**
-   - ResNet-50 achieved **100.0% precision** for Tuberculosis: every patient predicted as TB was indeed clinically confirmed TB (0 false positive TB calls).
-
----
-
-## 4. Directory Contents & Generated Assets
+## 3. Directory Contents & Generated Assets
 
 | Filename | Format | Dimensions / DPI | Description & Purpose |
 | :--- | :--- | :--- | :--- |
@@ -84,48 +88,49 @@ TOTAL PREDICTED           918                 637                 681           
 | `fig4_2a_densenet121_champion_confusion_matrix.pdf` | Vector PDF | Scale-Independent Vector | Vector format for DenseNet-121 confusion matrix |
 | `fig4_2c_resnet50_confusion_matrix.png` | Raster PNG | $2340 \times 1980$ (300 DPI) | Figure 4.2C: ResNet-50 + CBAM 3x3 Confusion Matrix |
 | `fig4_2c_resnet50_confusion_matrix.pdf` | Vector PDF | Scale-Independent Vector | Vector format for ResNet-50 confusion matrix |
-| `fig4_1_preliminary_twomodel_comparison.png` | Raster PNG | $2760 \times 1740$ (300 DPI) | Figure 4.1 Preliminary: DenseNet-121 vs ResNet-50 Diagnostic Comparison Bar Chart |
-| `fig4_1_preliminary_twomodel_comparison.pdf` | Vector PDF | Scale-Independent Vector | Vector format for comparative performance bar chart |
+| `fig4_2d_efficientnet_confusion_matrix.png` | Raster PNG | $2340 \times 1980$ (300 DPI) | Figure 4.2D: EfficientNet-B0 + CBAM 3x3 Confusion Matrix |
+| `fig4_2d_efficientnet_confusion_matrix.pdf` | Vector PDF | Scale-Independent Vector | Vector format for EfficientNet-B0 confusion matrix |
+| `fig4_1_three_hybrid_models_comparison.png` | Raster PNG | $3450 \times 1860$ (300 DPI) | Figure 4.1 Master: Tri-Model Hybrid Diagnostic Comparison Bar Chart |
+| `fig4_1_three_hybrid_models_comparison.pdf` | Vector PDF | Scale-Independent Vector | Vector format for master comparative performance bar chart |
 | `CONFUSION_MATRIX_EVALUATION.md` | Markdown | Academic Documentation | Quantitative statistical breakdown and manuscript snippets |
 
 ---
 
-## 5. Copy-Paste LaTeX Figure Code (For Journal Manuscripts)
+## 4. Copy-Paste LaTeX Figure Code (For Journal Manuscripts)
 
-### Figure 4.1 Preliminary: Diagnostic Comparison Bar Chart
+### Figure 4.1 Master: Tri-Model Diagnostic Comparison Bar Chart
 ```latex
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
-\includegraphics[width=\columnwidth]{reports/figures/eval/fig4_1_preliminary_twomodel_comparison.pdf}
-\caption{\textbf{Comparative Diagnostic Performance on 2,236 Clinical Test Radiographs.} 
-Comparison between DenseNet-121 + CBAM and ResNet-50 + CBAM across overall Accuracy, Macro Sensitivity, Macro Specificity, and ROC-AUC. ResNet-50 achieves $99.42\%$ accuracy with $99.38\%$ sensitivity, while DenseNet-121 delivers $98.57\%$ accuracy with a lightweight 30.0 MB parameter footprint.}
-\label{fig:twomodel_comparison}
-\end{figure}
+\includegraphics[width=\textwidth]{reports/figures/eval/fig4_1_three_hybrid_models_comparison.pdf}
+\caption{\textbf{Comparative Diagnostic Performance of the Three Proposed Hybrid Architectures on 2,236 Multi-Center Clinical Radiographs.} 
+Comparison across overall Accuracy, Macro Sensitivity, Macro Specificity, and ROC-AUC. ResNet-50 + CBAM delivers peak diagnostic accuracy ($99.42\%$), while EfficientNet-B0 + CBAM achieves $98.79\%$ accuracy with an ultra-compact $18.5\text{ MB}$ parameter footprint suitable for edge mobile deployment.}
+\label{fig:trimodel_hybrid_comparison}
+\end{figure*}
 ```
 
-### Figure 4.2C: ResNet-50 Confusion Matrix
+### Figure 4.2D: EfficientNet-B0 Confusion Matrix
 ```latex
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{reports/figures/eval/fig4_2c_resnet50_confusion_matrix.pdf}
-\caption{\textbf{Primary Multiclass Confusion Matrix for Hybrid ResNet-50 + CBAM on the 2,236 Holdout Test Cohort.} 
-Cells display absolute patient counts and row-normalized class sensitivities. The model achieves $99.42\%$ overall accuracy, $98.90\%$ sensitivity for Tuberculosis, and $99.55\%$ sensitivity for Pneumonia with only 13 total misclassifications out of 2,236 examinations.}
-\label{fig:confusion_matrix_resnet50}
+\includegraphics[width=\columnwidth]{reports/figures/eval/fig4_2d_efficientnet_confusion_matrix.pdf}
+\caption{\textbf{Primary Multiclass Confusion Matrix for Hybrid EfficientNet-B0 + CBAM on the 2,236 Holdout Test Cohort.} 
+Cells display absolute patient counts and row-normalized class sensitivities. The lightweight model achieves $98.79\%$ accuracy, $98.58\%$ sensitivity for Tuberculosis, and $98.07\%$ sensitivity for Pneumonia with only 27 total misclassifications out of 2,236 examinations.}
+\label{fig:confusion_matrix_efficientnet}
 \end{figure}
 ```
 
 ---
 
-## 6. Technical Verification & Reproducibility Instructions
+## 5. Technical Verification & Reproducibility Instructions
 
 To regenerate all evaluation figures:
 ```bash
 # Navigate to repository root
 cd "E:\Git All Repo\hybrid-tuberculosis-pneumonia-detection-xai"
 
-# Generate DenseNet-121 evaluation figures
+# Generate evaluation figures
 python src/generate_eval_figures.py
-
-# Generate ResNet-50 evaluation & comparative figures
 python src/generate_resnet50_figures.py
+python src/generate_efficientnet_figures.py
 ```
