@@ -1,0 +1,26 @@
+{
+  "model": "densenet121_hybrid",
+  "backbone": "densenet121",
+  "use_cbam": true,
+  "test_accuracy": 0.9856887298747764,
+  "test_sensitivity": 0.9866365458940548,
+  "test_specificity": 0.9928566797835353,
+  "test_auc": 0.9996976814692884,
+  "confusion_matrix": [
+    [
+      909,
+      9,
+      11
+    ],
+    [
+      7,
+      626,
+      1
+    ],
+    [
+      2,
+      2,
+      669
+    ]
+  ]
+}
