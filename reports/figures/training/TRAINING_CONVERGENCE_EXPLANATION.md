@@ -6,6 +6,7 @@
 - Hybrid DenseNet-121 + CBAM (`fig3_1`, `fig3_2`, `fig3_3`)
 - Hybrid ResNet-50 + CBAM (`fig3_4`, `fig3_5`, `fig3_6`)  
 - Hybrid EfficientNet-B0 + CBAM (`fig3_7`, `fig3_8`, `fig3_9`)  
+- DenseNet-121 Baseline (No Attention) (`fig3_10`, `fig3_11`, `fig3_12`)  
 **Dataset Scale:** 22,356 Digital Chest Radiographs (Training: 19,002 | Validation: 1,118 | Test: 2,236)  
 **Training Hardware:** NVIDIA Tesla T4 GPU (Google Compute Engine)  
 **Graphics Standards:** 300+ DPI Raster PNG and Vector PDF (IEEE / Elsevier / Nature Publication Grade)  
@@ -46,6 +47,12 @@ In computational medical imaging manuscripts, learning curve figures serve as pr
 | `fig3_8_efficientnet_accuracy_progression.pdf` | Vector PDF | Scale-Independent Vector | Vector format for EfficientNet-B0 accuracy progression |
 | `fig3_9_efficientnet_composite_training_dashboard.png` | Raster PNG | $4650 \times 1860$ (300 DPI) | Figure 3.9: Two-Panel Composite Dashboard (EfficientNet-B0 + CBAM) |
 | `fig3_9_efficientnet_composite_training_dashboard.pdf` | Vector PDF | Scale-Independent Vector | Dual-panel vector composite for journal publication |
+| `fig3_10_densenet121_baseline_loss_convergence.png` | Raster PNG | $2550 \times 1650$ (300 DPI) | Figure 3.10: Epoch vs Cross-Entropy Loss Convergence (DenseNet-121 Baseline) |
+| `fig3_10_densenet121_baseline_loss_convergence.pdf` | Vector PDF | Scale-Independent Vector | Vector format for DenseNet-121 baseline loss trajectory |
+| `fig3_11_densenet121_baseline_accuracy_progression.png` | Raster PNG | $2550 \times 1650$ (300 DPI) | Figure 3.11: Epoch vs Validation Accuracy & Sensitivity (DenseNet-121 Baseline) |
+| `fig3_11_densenet121_baseline_accuracy_progression.pdf` | Vector PDF | Scale-Independent Vector | Vector format for DenseNet-121 baseline accuracy progression |
+| `fig3_12_densenet121_baseline_composite_dashboard.png` | Raster PNG | $4650 \times 1860$ (300 DPI) | Figure 3.12: Two-Panel Composite Dashboard (DenseNet-121 Baseline) |
+| `fig3_12_densenet121_baseline_composite_dashboard.pdf` | Vector PDF | Scale-Independent Vector | Dual-panel vector composite for journal publication |
 | `TRAINING_CONVERGENCE_EXPLANATION.md` | Markdown | Academic Documentation | Comprehensive methodology, analytical breakdown, and LaTeX snippets |
 
 ---
@@ -89,29 +96,43 @@ In computational medical imaging manuscripts, learning curve figures serve as pr
 
 ---
 
-## 6. Comprehensive Tri-Model Convergence Comparison
+## 6. DenseNet-121 Baseline Convergence Trajectory (Figures 3.10, 3.11, 3.12)
 
-| Metric | DenseNet-121 + CBAM | ResNet-50 + CBAM | EfficientNet-B0 + CBAM | Analytical Observation |
-| :--- | :---: | :---: | :---: | :--- |
-| **Initial Epoch 1 Val Accuracy** | 96.06% | 96.60% | **96.78%** | All 3 models achieve immediate $>96\%$ accuracy. |
-| **Minimum Validation Loss** | 0.0386 (Epoch 15) | **0.0334 (Epoch 12)** | 0.0420 (Epoch 12) | ResNet-50 attains lowest loss minimum. |
-| **Peak Validation Accuracy** | 98.84% (Epoch 8) | **98.93% (Epoch 13)** | **98.93% (Epoch 10/12)** | Both ResNet and EfficientNet attain 98.93%. |
-| **Peak Validation ROC-AUC** | 0.9994 | **0.9995** | 0.9991 | All architectures exceed 0.999 AUC. |
-| **Final Training Loss** | 0.0277 | 0.0192 | **0.0167** | EfficientNet achieves lowest training error. |
-| **Average Epoch Time (T4 GPU)** | 393.4s | 388.9s | **376.4s** | **EfficientNet-B0 is the fastest model (6.2 min/epoch).** |
+### Visual Breakdown:
+- **Figure 3.10 (Loss Convergence):** 
+  - Training loss decreased from $0.2721$ in Epoch 1 to $0.0157$ in Epoch 15 (a 17.3-fold reduction).
+  - Validation loss reached its global minimum of **$0.0350$ at Epoch 14**, triggering preservation of optimal weights `best_tb_model_densenet121_baseline.pth`.
+- **Figure 3.11 (Accuracy & Recall Progression):**
+  - Validation accuracy reached **$98.84\%$ in Epoch 14** and peaked at **$98.93\%$ in Epoch 15** with macro recall of **$99.01\%$**.
+- **Figure 3.12 (Composite Dashboard):**
+  - Two-panel journal composite illustrating continuous loss minimization alongside accuracy and ROC-AUC ($0.9994$) stability.
 
 ---
 
-## 7. Technical Verification & Reproducibility Instructions
+## 7. Comprehensive Model Convergence Comparison
+
+| Metric | DenseNet-121 + CBAM | ResNet-50 + CBAM | EfficientNet-B0 + CBAM | DenseNet-121 Baseline | Analytical Observation |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Initial Epoch 1 Val Accuracy** | 96.06% | 96.60% | **96.78%** | 93.29% | EfficientNet-B0 converges fastest initially. |
+| **Minimum Validation Loss** | 0.0386 (Epoch 15) | **0.0334 (Epoch 12)** | 0.0420 (Epoch 12) | 0.0350 (Epoch 14) | ResNet-50 attains lowest loss minimum. |
+| **Peak Validation Accuracy** | 98.84% (Epoch 8) | **98.93% (Epoch 13)** | **98.93% (Epoch 10/12)** | **98.93% (Epoch 15)** | Three architectures reach 98.93% val accuracy. |
+| **Peak Validation ROC-AUC** | 0.9994 | **0.9995** | 0.9991 | 0.9994 | All architectures exceed 0.999 AUC. |
+| **Final Training Loss** | 0.0277 | 0.0192 | 0.0167 | **0.0157** | DenseNet-121 baseline achieves lowest training loss. |
+| **Average Epoch Time (T4 GPU)** | 393.4s | 388.9s | **376.4s** | 397.1s | **EfficientNet-B0 is the fastest model (6.2 min/epoch).** |
+
+---
+
+## 8. Technical Verification & Reproducibility Instructions
 
 To regenerate all training convergence figures:
 ```bash
 # Navigate to repository root
 cd "E:\Git All Repo\hybrid-tuberculosis-pneumonia-detection-xai"
 
-# Generate figures for all three architectures
+# Generate figures for all architectures
 python src/generate_training_figures.py
 python src/generate_resnet50_figures.py
 python src/generate_efficientnet_figures.py
+python src/generate_densenet_baseline_figures.py
 ```
 All figures are exported at 300+ DPI in both raster PNG and vector PDF formats.
