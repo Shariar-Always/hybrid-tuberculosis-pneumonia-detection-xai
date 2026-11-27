@@ -1,0 +1,26 @@
+{
+  "model": "efficientnet_b0_baseline",
+  "backbone": "efficientnet_b0",
+  "use_cbam": false,
+  "test_accuracy": 0.983005366726297,
+  "test_sensitivity": 0.9841047031865556,
+  "test_specificity": 0.9913368415959677,
+  "test_auc": 0.9995239314776759,
+  "confusion_matrix": [
+    [
+      906,
+      13,
+      10
+    ],
+    [
+      7,
+      627,
+      0
+    ],
+    [
+      8,
+      0,
+      665
+    ]
+  ]
+}
